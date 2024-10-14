@@ -1,0 +1,48 @@
+@import '../../../../assets/scss//helpers/mixin.scss';
+
+$app-header-bg: #001529;
+$app-header-height: 4.8rem;
+$app-header-title-color: #ffffff;
+$app-header-link-color: #ffffff;
+$app-header-link-hover-color: #61dafb;
+
+.header {
+  @include flex-center();
+  padding: 1rem;
+  background-color: $app-header-bg;
+  height: $app-header-height;
+  padding: 0.8rem 1.6rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+
+  &__title {
+    @include flex-center(row, normal, center);
+  }
+
+  &__logo {
+    margin-right: 1.2rem;
+  }
+
+  &__text {
+    font-size: 1.8rem;
+    color: $app-header-title-color;
+    font-weight: bold;
+  }
+
+  &__toolbar {
+    @include flex-center(row, normal, center);
+  }
+
+  &__user {
+    @include flex-center(row, normal, center);
+    margin: 0;
+
+    &-icon {
+      margin-right: 1.2rem;
+    }
+  }
+
+  &__user-name {
+    font-size: 1.4rem;
+    color: $app-header-title-color;
+  }
+}
