@@ -1,0 +1,50 @@
+@import '../../../../assets/scss/helpers/mixins.scss';
+@import '../../../../assets/scss/helpers/variables.scss';
+@import '../../../../assets/scss/helpers/placeholders.scss';
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: $header-height;
+  width: $sidebar-width;
+  height: 100%;
+  background-color: $sidebar-bg-color;
+  box-shadow: 0.2rem 0 0.8rem rgba(0, 0, 0, 0.15);
+
+  &__nav {
+    @include flex-center(column, normal, start);
+    padding: 1.6rem;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    @include flex-center(row, normal, center);
+    height: 4rem;
+    padding: 0.9rem 0;
+  }
+
+  &__icon {
+    margin-right: 0.5rem;
+  }
+
+  &__link {
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    text-decoration: none;
+    color: $font-color;
+    @extend %transition;
+
+    &:hover {
+      color: $sidebar-link-hover;
+    }
+
+    &.active {
+      color: $sidebar-link-hover;
+    }
+  }
+}

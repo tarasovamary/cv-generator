@@ -1,16 +1,11 @@
-@import '../../../../assets/scss//helpers/mixin.scss';
-
-$app-header-bg: #001529;
-$app-header-height: 4.8rem;
-$app-header-title-color: #ffffff;
-$app-header-link-color: #ffffff;
-$app-header-link-hover-color: #61dafb;
+@import '../../../../assets/scss//helpers/mixins.scss';
+@import '../../../../assets/scss/helpers/variables.scss';
 
 .header {
   @include flex-center();
   padding: 1rem;
-  background-color: $app-header-bg;
-  height: $app-header-height;
+  background-color: $header-bg;
+  height: $header-height;
   padding: 0.8rem 1.6rem;
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
 
@@ -24,7 +19,7 @@ $app-header-link-hover-color: #61dafb;
 
   &__text {
     font-size: 1.8rem;
-    color: $app-header-title-color;
+    color: $header-title-color;
     font-weight: bold;
   }
 
@@ -43,6 +38,6 @@ $app-header-link-hover-color: #61dafb;
 
   &__user-name {
     font-size: 1.4rem;
-    color: $app-header-title-color;
+    color: $header-title-color;
   }
 }
