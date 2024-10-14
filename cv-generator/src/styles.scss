@@ -1,25 +1,33 @@
 @import './assets/scss/normalize.scss';
 
 html {
-    font-size: 10px;
-    box-sizing: border-box;
-  }
-  
-  *, *::after, *::before {
-    box-sizing: inherit;
-  }
-  
-  body {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    background-color: #efefef;
-  }
-  
-  .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 30px;
-  }
-  html, body { height: 100%; }
-  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  background-color: #efefef;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
