@@ -1,0 +1,85 @@
+@import '../../../assets/scss/helpers/variables.scss';
+@import '../../../assets/scss/helpers/mixins.scss';
+@import '../../../assets/scss/helpers/placeholders.scss';
+
+.auth {
+  height: 100%;
+  @include flex-center(row, center, center);
+  background-color: $auth-bg-color;
+
+  &__content {
+    width: $auth-form-width;
+    margin: 0 auto;
+    background-color: $auth-bg-color;
+  }
+
+  &__title {
+    @include flex-center(row, center, center);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &__logo {
+    margin-right: 1.7rem;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    color: $auth-subtitle-color;
+    text-align: start;
+  }
+
+  &__form {
+    @include flex-center(column, normal, center);
+  }
+
+  &__field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  &__label {
+    display: block;
+    font-size: $input-label-font-size;
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    @extend %input-styles;
+
+    &::placeholder {
+      color: $input-placeholder-color;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__input.ng-invalid.ng-touched {
+    border-color: $error-color;
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+  }
+
+  &__error-visible {
+    opacity: 1;
+  }
+
+  &__button {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 1rem;
+    margin-top: 2.2rem;
+    @include button-styles();
+  }
+}

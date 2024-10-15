@@ -4,3 +4,16 @@
   justify-content: $justify;
   align-items: $align;
 }
+
+@mixin button-styles($bg-color: #1890ff, $bg-color-hover: #167bd4) {
+  background-color: $bg-color;
+  color: white;
+  border: none;
+  border-radius: $btn-border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $bg-color-hover;
+  }
+}

@@ -1,3 +1,14 @@
+@import './variables.scss';
+
 %transition {
   transition: all 0.3s ease;
+}
+
+%input-styles {
+  width: 100%;
+  padding: $input-padding;
+  font-size: $input-font-size;
+  border: 1px solid #ccc;
+  border-radius: $input-border-radius;
+  box-sizing: border-box;
 }

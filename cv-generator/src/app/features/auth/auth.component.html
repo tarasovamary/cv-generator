@@ -1,1 +1,70 @@
-<p>auth works!</p>
+<div class="auth">
+  <div class="auth__content">
+    <div class="auth__title">
+      <img
+        src="../../../../assets/icons/logo.svg"
+        alt="Logo"
+        width="46"
+        height="46"
+        class="auth__logo" />
+      <h2>Welcome back</h2>
+    </div>
+    <p class="auth__subtitle">Enter your email and password to continue</p>
+    <form
+      class="auth__form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()">
+      <div class="auth__field">
+        <label
+          for="email"
+          class="auth__label"
+          >Email</label
+        >
+        <input
+          id="email"
+          type="text"
+          placeholder="Enter your email address"
+          pInputText
+          formControlName="email"
+          class="auth__input" />
+
+        <div
+          class="auth__error"
+          [ngClass]="{
+            'auth__error-visible': loginForm.get('email')?.invalid && loginForm.get('email')?.touched,
+          }">
+          Please, specify the field
+        </div>
+      </div>
+
+      <div class="auth__field">
+        <label
+          for="password"
+          class="auth__label"
+          >Password</label
+        >
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          pInputText
+          formControlName="password"
+          class="auth__input" />
+
+        <div
+          class="auth__error"
+          [ngClass]="{
+            'auth__error-visible': loginForm.get('password')?.invalid && loginForm.get('password')?.touched,
+          }">
+          Please, specify the field
+        </div>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        label="Login"
+        class="auth__button"></button>
+    </form>
+  </div>
+</div>
