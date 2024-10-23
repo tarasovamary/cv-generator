@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   isSignup: boolean = false;
   loginForm!: FormGroup;
 
-  private destroy$ = new Subject<void>(); 
+  private destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,

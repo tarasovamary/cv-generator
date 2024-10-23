@@ -1,4 +1,5 @@
 <header class="header">
+  <!--Application Title-->
   <div class="header__title">
     <img
       src="../../../../assets/icons/logo.svg"
@@ -9,15 +10,25 @@
     <span class="header__text">CV Generator</span>
   </div>
 
+  <!--User-->
   <div class="header__toolbar">
     <p class="header__user">
+      <!--User Logo-->
       <img
         src="../../../../assets/icons/header/user-icon.png"
         width="24"
         height="24"
         alt="User"
-        class="header__user-icon" />
+        class="header__user-icon"
+        (click)="menu.toggle($event)" />
+      <!--User Name-->
       <span class="header__user-name">Serati Ma</span>
     </p>
+
+    <!--User Menu-->
+    <p-menu
+      #menu
+      [model]="menuItems"
+      [popup]="true"></p-menu>
   </div>
 </header>

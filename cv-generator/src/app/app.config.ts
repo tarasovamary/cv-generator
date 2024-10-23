@@ -8,12 +8,14 @@ import { devToolStoreConfig } from './configs/devToolsStore.config';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthStoreModule } from './core/store/auth/auth.module';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideStore(),
+    provideAnimations(),
 
     // Store
     importProvidersFrom(StoreModule.forRoot(), EffectsModule.forRoot(), AuthStoreModule),
