@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api/menuitem';
 import { MenuModule } from 'primeng/menu';
+import * as AuthActions from '../../../core/store/auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import { MenuModule } from 'primeng/menu';
 export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.menuItems = [
@@ -27,7 +28,6 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     // Remove user tokens and id from storage and redirect to login page
-    localStorage.clear();
-    this.router.navigate(['/login']);
+    this.store.dispatch(AuthActions.logout());
   }
 }

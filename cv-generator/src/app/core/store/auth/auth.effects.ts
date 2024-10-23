@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { mergeMap, map, catchError, of } from 'rxjs';
+import { mergeMap, map, catchError, of, tap } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import * as AuthActions from './auth.actions';
 
@@ -46,6 +46,21 @@ export class AuthEffects {
     );
   });
 
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logout),
+      tap(() => this.handleLogout()),
+      map(() => {
+        return AuthActions.logoutSuccess();
+      }),
+      catchError((error) => of(AuthActions.loginFailure({ error }))),
+    );
+  });
+
+  /**
+   * Related to Login/Signup
+   */
+
   private setSession(userId: string, accessToken: string, refreshToken: string): void {
     localStorage.setItem('user-id', userId);
     localStorage.setItem('access-token', accessToken);
@@ -63,5 +78,20 @@ export class AuthEffects {
     const accessToken = response.headers.get('x-access-token') || '';
     const refreshToken = response.headers.get('x-refresh-token') || '';
     return this.handleAuthSuccess(user, accessToken, refreshToken);
+  }
+
+  /**
+   * Related to Logout
+   */
+
+  private removeSession(): void {
+    localStorage.removeItem('user-id');
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('refresh-token');
+  }
+
+  private handleLogout() {
+    this.removeSession();
+    this.router.navigate(['/login']);
   }
 }
