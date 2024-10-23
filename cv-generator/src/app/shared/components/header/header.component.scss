@@ -1,5 +1,6 @@
 @import '../../../../assets/scss//helpers/mixins.scss';
 @import '../../../../assets/scss/helpers/variables.scss';
+@import '../../../../assets/scss/helpers/placeholders.scss';
 
 .header {
   @include flex-center();
@@ -30,9 +31,15 @@
   &__user {
     @include flex-center(row, normal, center);
     margin: 0;
+    cursor: pointer;
 
     &-icon {
       margin-right: 1.2rem;
+      @extend %transition;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 
