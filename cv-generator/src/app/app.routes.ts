@@ -9,5 +9,6 @@ export const routes: Routes = [
     loadChildren: () => import('./features/home/home.routes').then((r) => r.homeRoutes),
     canActivate: [authGuard],
   },
-  { path: 'auth', component: AuthComponent },
+  { path: 'signup', component: AuthComponent, data: { isSignup: true } },
+  { path: 'login', component: AuthComponent, data: { isSignup: false } },
 ];

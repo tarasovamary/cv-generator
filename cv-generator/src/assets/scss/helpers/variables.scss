@@ -1,5 +1,6 @@
 //Global
-$font-color: #000000;
+$font-primary-color: #000000;
+$font-additional-color: #4a5568;
 $bg-color: #f4f4f4;
 $error-color: #ff4d4f;
 
@@ -13,10 +14,14 @@ $input-placeholder-color: #d9d9d9;
 //Button
 $btn-border-radius: 0.2rem;
 
+//Link
+$link-color: #3182ce;
+$link-hover-color: #2b6cb0;
+
 //Auth
 $auth-form-width: 36rem;
 $auth-bg-color: #f0f2f5;
-$auth-subtitle-color: rgb(99, 99, 99);
+$auth-subtitle-color: #636363;
 
 //Header
 $header-bg: #001529;
