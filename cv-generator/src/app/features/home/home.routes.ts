@@ -10,6 +10,11 @@ export const homeRoutes: Route[] = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'employees',
+        pathMatch: 'full',
+      },
+      {
         path: 'employees',
         component: EmployeesComponent,
       },

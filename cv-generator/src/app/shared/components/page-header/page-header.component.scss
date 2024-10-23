@@ -1,0 +1,49 @@
+@import '../../../../assets/scss/helpers/variables.scss';
+@import '../../../../assets/scss/helpers/mixins.scss';
+
+.page-header {
+  @include flex-center(column, space-between, start);
+  gap: 2rem;
+  padding: 1.6rem;
+  background-color: $page-header-bg-color;
+
+  &__breadcrumbs {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: $font-primary-color;
+
+    a {
+      text-decoration: none;
+      color: $font-primary-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  //   &__subtitle {
+  //     margin: 0;
+  //     font-size: 1.4rem;
+  //     font-weight: 400;
+  //   }
+}
+
+:host ::ng-deep .p-breadcrumb {
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+
+  .p-element {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: $font-primary-color;
+  }
+}
