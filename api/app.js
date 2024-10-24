@@ -161,6 +161,22 @@ app.get('/employees', authenticate, async (req, res) => {
 });
 
 /**
+ * GET /employees/:id
+ * Get employee by ID
+ */
+app.get('/employees/:id', authenticate, async (req, res) => {
+    try {
+        const employee = await Employee.findById(req.params.id);
+        if (!employee) {
+            return handleError(res, 404, { error: "Employee not found" });
+        }
+        res.send({ message: 'Employee find successfully', employee});
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
+
+/**
  * PATCH /employees
  * Update employee information
  */
