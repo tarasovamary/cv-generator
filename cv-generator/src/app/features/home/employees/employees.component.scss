@@ -1,0 +1,14 @@
+@import '../../../../assets/scss/helpers/variables.scss';
+@import '../../../../assets/scss/helpers/mixins.scss';
+
+.employees {
+  &__content {
+    padding: 4.8rem;
+    background: $header-title-color;
+  }
+
+  &__button {
+    margin-bottom: 2.4rem;
+    @include flex-center(row, end, normal);
+  }
+}
