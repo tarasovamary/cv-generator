@@ -3,6 +3,7 @@ const app = express();
 const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 const { User } = require('./db/models/user.model');
+const { Employee } = require('./db/models/employee.model');
 const jwt = require('jsonwebtoken');
 
 /* MIDDLEWARE */
@@ -27,7 +28,7 @@ const handleError = (res, status, error) => {
 // Check whether the request has a valid JWT access token
 const authenticate = (req, res, next) => {
     const token = req.header('x-access-token');
-    jwt.verify(token, User.getJWTSecret(), (err, decoded) => {
+    jwt.verify(token, User.getJWTSecret(), (error, decoded) => {
         if (error) {
             return handleError(res, 401, error);
         }
@@ -127,3 +128,69 @@ app.get('/users/me/access-token', verifySession, async (req, res) => {
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
 });
+
+/* EMPLOYEE ROUTES */
+
+/**
+ * POST /employees
+ * Create a new employee
+ */
+app.post('/employees', authenticate, async (req, res) => {
+    const { firstName, lastName, email, department, specialization } = req.body;
+    
+    try {
+        const newEmployee = new Employee({ firstName, lastName, email, department, specialization });
+        await newEmployee.save();
+        res.status(201).send({ message: 'Employee created successfully', newEmployee });
+    } catch (error) {
+        handleError(res, 400, error);
+    }
+});
+
+/**
+ * GET /employees
+ * Get all employees
+ */
+app.get('/employees', authenticate, async (req, res) => {
+    try {
+        const employees = await Employee.find();
+        res.send(employees);
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
+
+/**
+ * PATCH /employees
+ * Update employee information
+ */
+app.patch('/employees/:id', authenticate, async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    try {
+        const employee = await Employee.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        if (!employee) {
+            return handleError(res, 404, { error: "Employee not found" });
+        }
+        res.send({ message: 'Employee updated successfully', employee });
+    } catch (error) {
+        handleError(res, 400, error);
+    }
+});
+
+/**
+ * DELETE /employees/:id
+ * Delete an existing employee
+ */
+app.delete('/employees/:id', authenticate, async (req, res) => {
+    try {
+        const employee = await Employee.findByIdAndDelete(req.params.id);
+        if (!employee) {
+            return handleError(res, 404, { error: "Employee not found" });
+        }
+        res.status(200).send({ message: 'Employee deleted successfully' });
+    } catch (error) {
+        handleError(res, 400, error);
+    }
+})
