@@ -7,4 +7,4 @@ import { employeesReducer } from './employees.reducer';
 @NgModule({
   imports: [StoreModule.forFeature('EMPLOYEES', employeesReducer), EffectsModule.forFeature([EmployeesEffects])],
 })
-export class AuthStoreModule {}
+export class EffectsStoreModule {}

@@ -5,30 +5,32 @@
   </div>
 
   <!--Employee list-->
-  <p-table
-    [value]="employees"
-    [paginator]="true"
-    [rows]="10"
-    [responsiveLayout]="'scroll'">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Department</th>
-        <th>Specialization</th>
-      </tr>
-    </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-employee>
-      <tr>
-        <td>{{ employee.firstName }}</td>
-        <td>{{ employee.lastName }}</td>
-        <td>{{ employee.email }}</td>
-        <td>{{ employee.department }}</td>
-        <td>{{ employee.specialization }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <ng-container *ngIf="employees$ | async as employees">
+    <p-table
+      [value]="employees"
+      [paginator]="true"
+      [rows]="10"
+      [responsiveLayout]="'scroll'">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Specialization</th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-employee>
+        <tr>
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.specialization }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-container>
 </div>
