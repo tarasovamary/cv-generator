@@ -1,18 +1,18 @@
-import { NgClass, NgIf } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { Subject, takeUntil } from 'rxjs';
 import * as AuthActions from '../../core/store/auth/auth.actions';
-import { Actions } from '@ngrx/effects';
-import { Subject, filter, takeUntil } from 'rxjs';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, NgClass, NgIf, RouterLink],
+  imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, NgClass, NgIf, RouterLink, AsyncPipe],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
@@ -26,7 +26,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store,
     private actions$: Actions,
-    private router: Router,
     private route: ActivatedRoute,
   ) {}
 
@@ -38,6 +37,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     // Redirect between login and signup
     this.route.data.pipe(takeUntil(this.destroy$)).subscribe((data) => (this.isSignup = data['isSignup']));
+
+    // Handle login failure
+    this.onLoginFailure();
   }
 
   onSubmit() {
@@ -54,5 +56,11 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private onLoginFailure(): void {
+    this.actions$.pipe(ofType(AuthActions.loginFailure), takeUntil(this.destroy$)).subscribe(({ error }) => {
+      alert(error);
+    });
   }
 }

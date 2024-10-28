@@ -101,6 +101,11 @@ app.post('/users/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findByCredentials(email, password);
+        
+        if (!user) {
+            return res.status(401).send({ message: 'Invalid email or password' });
+        }
+
         const refreshToken = await user.createSession();
         const accessToken = await user.generateAccessAuthToken();
 
