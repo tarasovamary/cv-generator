@@ -1,9 +1,11 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
+import { Store, select } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { filter, tap } from 'rxjs';
+import { filter, take, tap } from 'rxjs';
+import { selectEmployee, selectEmployeeById } from '../../../core/store/employees/employees.selectors';
 
 @Component({
   selector: 'app-page-header',
@@ -16,13 +18,13 @@ export class PageHeaderComponent implements OnInit {
   items: MenuItem[] = [];
   lastBreadcrumbLabel: string | undefined = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+  ) {}
 
   ngOnInit() {
-    // Initialize breadcrumbs on first load
     this.createBreadcrumbs();
-
-    // Update breadcrumbs on navigation
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.createBreadcrumbs();
     });
@@ -31,8 +33,6 @@ export class PageHeaderComponent implements OnInit {
   private createBreadcrumbs() {
     const root = this.router.routerState.snapshot.root;
     this.items = this.createBreadcrumbsFromRoute(root);
-
-    // Update the last breadcrumb label based on the last item
     this.lastBreadcrumbLabel = this.items.length ? this.items[this.items.length - 1].label : '';
   }
 
@@ -42,20 +42,30 @@ export class PageHeaderComponent implements OnInit {
     breadcrumbs: MenuItem[] = [],
   ): MenuItem[] {
     const children: ActivatedRouteSnapshot[] = route.children;
-
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
+    if (children.length === 0) return breadcrumbs;
 
     for (const child of children) {
       const routeURL: string = child.url.map((segment) => segment.path).join('/');
       if (routeURL !== '') {
         url += `/${routeURL}`;
-        breadcrumbs.push({ label: routeURL.charAt(0).toUpperCase() + routeURL.slice(1), routerLink: url });
+
+        let label = routeURL.charAt(0).toUpperCase() + routeURL.slice(1);
+
+        if (this.isEmployeeId(routeURL)) {
+          this.store.pipe(select(selectEmployeeById(routeURL)), take(1)).subscribe((employee) => {
+            if (employee) label = employee.firstName + ' ' + employee.lastName;
+          });
+        }
+
+        breadcrumbs.push({ label, routerLink: url });
       }
 
       this.createBreadcrumbsFromRoute(child, url, breadcrumbs);
     }
     return breadcrumbs;
+  }
+
+  private isEmployeeId(routeURL: string): boolean {
+    return /^[0-9a-fA-F]{24}$/.test(routeURL);
   }
 }
