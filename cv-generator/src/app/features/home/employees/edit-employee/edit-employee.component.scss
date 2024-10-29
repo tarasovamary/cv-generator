@@ -7,6 +7,24 @@
   padding: 3.5rem;
   min-height: $page-container-height;
 
+  &__tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+
+      &.active {
+        border-color: $active-tab-color;
+        font-weight: bold;
+      }
+    }
+  }
+
   &__title {
     font-size: 2.4rem;
     margin-bottom: 2rem;

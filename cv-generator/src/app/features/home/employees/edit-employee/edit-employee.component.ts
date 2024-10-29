@@ -1,30 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, Subject, filter, map, takeUntil, tap } from 'rxjs';
 import { Employee } from '../../../../core/models/employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as EmployeesActions from '../../../../core/store/employees/employees.actions';
 import { selectEmployee } from '../../../../core/store/employees/employees.selectors';
-import { NgClass } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-edit-employee',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, NgForOf],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.scss',
 })
 export class EditEmployeeComponent implements OnInit {
+  activeTab: string = 'info';
   employeeForm!: UntypedFormGroup;
   employeeId!: string;
   employee$!: Observable<Employee | null>;
@@ -68,6 +61,10 @@ export class EditEmployeeComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(['../']);
+  }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
   }
 
   private loadEmployeeData() {
