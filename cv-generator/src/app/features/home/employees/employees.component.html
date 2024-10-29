@@ -1,7 +1,9 @@
 <div class="employees__content">
   <!--Add Employee button-->
   <div class="employees__button">
-    <p-button label="Add employee" />
+    <button [routerLink]="['./create']">Add employee</button>
+
+    <router-outlet></router-outlet>
   </div>
 
   <!--Employee list-->

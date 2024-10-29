@@ -5,10 +5,16 @@
   &__content {
     padding: 4.8rem;
     background: $header-title-color;
+    min-height: $page-container-height;
   }
 
   &__button {
     margin-bottom: 2.4rem;
     @include flex-center(row, end, normal);
+    button {
+      font-size: 1.4rem;
+      padding: 1rem 1.5rem;
+      @include button-styles();
+    }
   }
 }

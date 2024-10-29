@@ -2,6 +2,7 @@
 $font-primary-color: #000000;
 $font-additional-color: #4a5568;
 $bg-color: #f4f4f4;
+$bg-additional-color: #ffffff;
 $error-color: #ff4d4f;
 
 //Input
@@ -35,3 +36,6 @@ $sidebar-link-hover: #1890ff;
 
 //Page header
 $page-header-bg-color: #ffffff;
+
+//Page container
+$page-container-height: calc(100vh - $header-height - 89px - 20px);

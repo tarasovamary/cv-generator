@@ -7,11 +7,13 @@ import { Store } from '@ngrx/store';
 import { selectAllEmployees } from '../../../core/store/employees/employees.selectors';
 import { getAllEmployees } from '../../../core/store/employees/employees.actions';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [TableModule, ButtonModule, AsyncPipe, NgIf],
+  imports: [TableModule, ButtonModule, AsyncPipe, NgIf, CreateEmployeeComponent, RouterOutlet, RouterLink],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss',
 })

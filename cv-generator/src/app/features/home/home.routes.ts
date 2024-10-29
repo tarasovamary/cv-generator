@@ -16,7 +16,7 @@ export const homeRoutes: Route[] = [
       },
       {
         path: 'employees',
-        component: EmployeesComponent,
+        loadChildren: () => import('../home/employees/employees.routes').then((r) => r.employeesRoutes),
       },
       {
         path: 'projects',
