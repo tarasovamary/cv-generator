@@ -1,11 +1,11 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { filter, take, tap } from 'rxjs';
-import { selectEmployee, selectEmployeeById } from '../../../core/store/employees/employees.selectors';
+import { filter, take } from 'rxjs';
+import { selectEmployeeById } from '../../../core/store/employees/employees.selectors';
 
 @Component({
   selector: 'app-page-header',

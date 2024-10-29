@@ -5,7 +5,7 @@ export const getEmployeesState = createFeatureSelector<EmployeesState>('EMPLOYEE
 
 export const selectAllEmployees = createSelector(getEmployeesState, (state) => state.employees);
 
-export const selectEmployee = createSelector(getEmployeesState, (state) => state.currentEmployee);
+export const selectCurrentEmployee = createSelector(getEmployeesState, (state) => state.currentEmployee);
 
 export const selectEmployeeById = (id: string) =>
   createSelector(getEmployeesState, (state) => state.employees.find((employee) => employee._id === id));

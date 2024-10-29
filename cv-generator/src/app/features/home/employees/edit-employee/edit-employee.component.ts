@@ -1,13 +1,13 @@
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, filter, map, takeUntil, tap } from 'rxjs';
-import { Employee } from '../../../../core/models/employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import * as EmployeesActions from '../../../../core/store/employees/employees.actions';
-import { selectEmployee } from '../../../../core/store/employees/employees.selectors';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Actions, ofType } from '@ngrx/effects';
+import { Store, select } from '@ngrx/store';
+import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
+import { Employee } from '../../../../core/models/employee.model';
+import * as EmployeesActions from '../../../../core/store/employees/employees.actions';
+import { selectCurrentEmployee } from '../../../../core/store/employees/employees.selectors';
 
 @Component({
   selector: 'app-edit-employee',
@@ -68,7 +68,7 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   private loadEmployeeData() {
-    this.employee$ = this.store.pipe(select(selectEmployee));
+    this.employee$ = this.store.pipe(select(selectCurrentEmployee));
 
     this.employee$
       .pipe(
