@@ -8,7 +8,7 @@ import { selectAllEmployees } from '../../../core/store/employees/employees.sele
 import { getAllEmployees } from '../../../core/store/employees/employees.actions';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
@@ -20,9 +20,17 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class EmployeesComponent implements OnInit {
   employees$: Observable<Employee[]> = this.store.select(selectAllEmployees);
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(getAllEmployees());
+  }
+
+  onEmployeeSelect(id: string) {
+    this.router.navigate([id], { relativeTo: this.route });
   }
 }

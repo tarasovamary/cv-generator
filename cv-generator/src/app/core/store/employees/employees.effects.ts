@@ -31,7 +31,8 @@ export class EmployeesEffects {
       mergeMap((action) =>
         this.employeesService.getEmployeeById(action.id).pipe(
           map((response) => {
-            return EmployeesActions.getEmployeeByIdSuccess({ employee: response });
+            //@ts-ignore
+            return EmployeesActions.getEmployeeByIdSuccess({ employee: response.employee });
           }),
           catchError((error) => of(EmployeesActions.getEmployeeByIdFailure({ error }))),
         ),

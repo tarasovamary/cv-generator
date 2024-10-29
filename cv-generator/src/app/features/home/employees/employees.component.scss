@@ -1,5 +1,6 @@
 @import '../../../../assets/scss/helpers/variables.scss';
 @import '../../../../assets/scss/helpers/mixins.scss';
+@import '../../../../assets/scss/helpers/placeholders.scss';
 
 .employees {
   &__content {
@@ -11,10 +12,20 @@
   &__button {
     margin-bottom: 2.4rem;
     @include flex-center(row, end, normal);
+
     button {
       font-size: 1.4rem;
       padding: 1rem 1.5rem;
       @include button-styles();
     }
+  }
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  cursor: pointer;
+  @extend %transition;
+
+  &:hover {
+    background-color: $hover-bg-color;
   }
 }

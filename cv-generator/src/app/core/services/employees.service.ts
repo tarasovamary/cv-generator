@@ -23,7 +23,7 @@ export class EmployeesService {
   }
 
   updateEmployee(id: string, payload: Partial<Employee>) {
-    return this.http.patch<Employee>(this.apiUrl, payload);
+    return this.http.patch<Employee>(`${this.apiUrl}/${id}`, payload);
   }
 
   deleteEmployee(id: string) {

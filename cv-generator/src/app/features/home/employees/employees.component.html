@@ -25,7 +25,7 @@
       <ng-template
         pTemplate="body"
         let-employee>
-        <tr>
+        <tr (click)="onEmployeeSelect(employee._id)">
           <td>{{ employee.firstName }}</td>
           <td>{{ employee.lastName }}</td>
           <td>{{ employee.email }}</td>
