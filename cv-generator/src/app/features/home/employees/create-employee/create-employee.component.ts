@@ -1,16 +1,11 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import * as EmployeesActions from '../../../../core/store/employees/employees.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-create-employee',
@@ -25,6 +20,7 @@ export class CreateEmployeeComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
+    private store: Store,
   ) {}
 
   ngOnInit() {
@@ -39,7 +35,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   onSubmit() {
     if (this.employeeForm.valid) {
-      console.log(this.employeeForm.value);
+      this.store.dispatch(EmployeesActions.createEmployee({ employee: this.employeeForm.value }));
     }
   }
 

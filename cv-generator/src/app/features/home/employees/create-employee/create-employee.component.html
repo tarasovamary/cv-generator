@@ -3,7 +3,6 @@
 
   <form
     [formGroup]="employeeForm"
-    (ngSubmit)="onSubmit()"
     class="create-employee__form">
     <div class="create-employee__field">
       <label
@@ -113,6 +112,7 @@
     <button
       class="create-employee__buttons_submit"
       type="submit"
+      (click)="onSubmit()"
       [disabled]="employeeForm.invalid">
       Save
     </button>
