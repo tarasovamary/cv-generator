@@ -4,6 +4,7 @@ const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 const { User } = require('./db/models/user.model');
 const { Employee } = require('./db/models/employee.model');
+const { CV } = require('./db/models/cv.model');
 const jwt = require('jsonwebtoken');
 
 /* MIDDLEWARE */
@@ -16,7 +17,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token,  _id");
-    res.header('Access-Control-Expose-Headers', 'x-access-token, x-refresh-token, _id');
+    res.header("Access-Control-Expose-Headers", "x-access-token, x-refresh-token, _id");
     
     next();
 });
@@ -216,3 +217,78 @@ app.delete('/employees/:id', authenticate, async (req, res) => {
         handleError(res, 400, error);
     }
 })
+
+/* CV ROUTES */
+
+/**
+ * POST /employees/:id/cv
+ * Create new CV for the employee
+ */
+app.post('/employees/:id/cv', authenticate, async (req, res) => {
+    try {
+        const { name, description } = req.body;
+
+        const employee = await Employee.findById(req.params.id);
+        if (!employee) {
+            return res.status(404).send({ message: 'Employee not found.' });
+        }
+
+        const cv = new CV({
+            name,
+            description,
+            employeeId: req.params.id,
+        });
+
+        await cv.save();
+        res.status(201).send(cv);
+    } catch (error) {
+        console.error("Error creating CV:", error);
+        res.status(500).send({ message: 'Internal Server Error', error: error.message });
+    }
+});
+
+
+/**
+ * GET /employees/:id/cv
+ * Get all CVs for the employee
+ */
+app.get('/employees/:id/cv', authenticate, async (req, res) => {
+    try {
+        const cvs = await CV.find({ employeeId: req.params.id });
+        res.send(cvs);
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
+
+/**
+ * GET /cv/:id
+ * Get CV by ID
+ */
+app.get('/cv/:id', authenticate, async (req, res) => {
+    try {
+        const cv = await CV.findById(req.params.id);
+        if (!cv) {
+            return res.status(404).send({ message: 'CV not found' });
+        }
+        res.send(cv);
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
+
+/**
+ * DELETE /cv/:id
+ * Delete CV by ID
+ */
+app.delete('/cv/:id', authenticate, async (req, res) => {
+    try {
+        const deletedCV = await CV.findByIdAndDelete(req.params.id);
+        if (!deletedCV) {
+            return res.status(404).send({ message: 'CV not found' });
+        }
+        res.send({ message: 'CV deleted successfully', deletedCV });
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
