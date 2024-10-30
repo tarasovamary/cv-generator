@@ -3,4 +3,6 @@ export interface CV {
   employeeId: string;
   name: string;
   description?: string;
+  createdAt: string;
+  updatedAt: string;
 }

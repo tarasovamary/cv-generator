@@ -11,6 +11,6 @@ export class CvService {
   constructor(private http: HttpClient) {}
 
   getAllCv(employeeId: string) {
-    return this.http.get<CV[]>(`${this.apiUrl}/${employeeId}`);
+    return this.http.get<CV[]>(`${this.apiUrl}/${employeeId}/cv`);
   }
 }
