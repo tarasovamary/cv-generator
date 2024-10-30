@@ -1,0 +1,45 @@
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CV } from '../../../../core/models/cv.model';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-employee-cv',
+  standalone: true,
+  imports: [NgIf, NgFor, NgClass, FormsModule, ReactiveFormsModule],
+  templateUrl: './employee-cv.component.html',
+  styleUrl: './employee-cv.component.scss',
+})
+export class EmployeeCvComponent {
+  cvList: CV[] = [];
+  cvForm!: UntypedFormGroup;
+
+  constructor(private fb: UntypedFormBuilder) {}
+
+  ngOnInit(): void {
+    this.cvList = [
+      { id: '1', name: 'CV 1' },
+      { id: '2', name: 'CV 2' },
+      { id: '3', name: 'CV 3' },
+      { id: '4', name: 'CV 4' },
+    ];
+
+    this.cvForm = this.fb.group({
+      cvName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      specialization: ['', Validators.required],
+      department: ['', Validators.required],
+      skills: ['', Validators.required],
+      description: [''],
+    });
+  }
+
+  onDeleteCv(id: string) {}
+
+  onSubmit() {}
+
+  onCancel() {}
+}

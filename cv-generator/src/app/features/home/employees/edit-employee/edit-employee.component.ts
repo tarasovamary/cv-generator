@@ -8,11 +8,12 @@ import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
 import { Employee } from '../../../../core/models/employee.model';
 import * as EmployeesActions from '../../../../core/store/employees/employees.actions';
 import { selectCurrentEmployee } from '../../../../core/store/employees/employees.selectors';
+import { EmployeeCvComponent } from '../employee-cv/employee-cv.component';
 
 @Component({
   selector: 'app-edit-employee',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, NgForOf],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, NgForOf, EmployeeCvComponent],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.scss',
 })
