@@ -6,7 +6,6 @@ import {
   getAllEmployeesSuccess,
   getEmployeeByIdSuccess,
 } from './employees.actions';
-import { state } from '@angular/animations';
 
 export const employeesReducer = createReducer<EmployeesState>(
   initialState,

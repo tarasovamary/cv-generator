@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CV } from '../../../../core/models/cv.model';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import * as CvActions from '../../../../core/store/cv/cv.actions';
 
 @Component({
   selector: 'app-employee-cv',
@@ -15,9 +16,14 @@ export class EmployeeCvComponent {
   cvList: CV[] = [];
   cvForm!: UntypedFormGroup;
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private store: Store,
+  ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(CvActions.getAllCv({ employeeId: '671b63914aa1dd9c9655a858' }));
+
     this.cvList = [];
 
     this.cvForm = this.fb.group({

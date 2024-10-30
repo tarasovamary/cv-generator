@@ -9,7 +9,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthStoreModule } from './core/store/auth/auth.module';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { EffectsStoreModule } from './core/store/employees/employees.module';
+import { EmployeesStoreModule } from './core/store/employees/employees.module';
+import { CvStoreModule } from './core/store/cv/cv.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
 
     // Store
-    importProvidersFrom(StoreModule.forRoot(), EffectsModule.forRoot(), AuthStoreModule, EffectsStoreModule),
+    importProvidersFrom(
+      StoreModule.forRoot(),
+      EffectsModule.forRoot(),
+      AuthStoreModule,
+      EmployeesStoreModule,
+      CvStoreModule,
+    ),
     provideStoreDevtools(devToolStoreConfig),
     provideEffects(),
   ],
