@@ -1,4 +1,6 @@
 export interface CV {
-  id: string;
+  _id: string;
+  employeeId: string;
   name: string;
+  description?: string;
 }

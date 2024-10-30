@@ -18,12 +18,7 @@ export class EmployeeCvComponent {
   constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
-    this.cvList = [
-      { id: '1', name: 'CV 1' },
-      { id: '2', name: 'CV 2' },
-      { id: '3', name: 'CV 3' },
-      { id: '4', name: 'CV 4' },
-    ];
+    this.cvList = [];
 
     this.cvForm = this.fb.group({
       cvName: ['', Validators.required],
