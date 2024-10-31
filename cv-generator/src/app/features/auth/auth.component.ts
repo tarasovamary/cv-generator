@@ -8,11 +8,22 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subject, takeUntil } from 'rxjs';
 import * as AuthActions from '../../core/store/auth/auth.actions';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, NgClass, NgIf, RouterLink, AsyncPipe],
+  imports: [
+    ButtonModule,
+    InputTextModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    PasswordModule,
+  ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })

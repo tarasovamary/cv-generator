@@ -43,13 +43,14 @@
           class="auth__label"
           >Password</label
         >
-        <input
+        <p-password
           id="password"
           type="password"
           placeholder="Enter your password"
-          pInputText
           formControlName="password"
-          class="auth__input" />
+          [toggleMask]="true"
+          [feedback]="false"
+          class="auth__password" />
 
         <div
           class="auth__error"
