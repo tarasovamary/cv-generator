@@ -1,18 +1,20 @@
 <div class="employee-cv">
   <!-- CV list-->
-  <div class="employee-cv__list">
-    <ul>
-      <li
-        *ngFor="let cv of cvList"
-        class="employee-cv__item">
-        <span>{{ cv.name }}</span>
-        <i
-          class="pi pi-trash"
-          (click)="onDeleteCv(cv._id)"
-          title="Delete CV"></i>
-      </li>
-    </ul>
-  </div>
+  <ng-container *ngIf="cvs$ | async as cvList">
+    <div class="employee-cv__list">
+      <ul>
+        <li
+          *ngFor="let cv of cvList"
+          class="employee-cv__item">
+          <span>{{ cv.name }}</span>
+          <i
+            class="pi pi-trash"
+            (click)="onDeleteCv(cv._id)"
+            title="Delete CV"></i>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
 
   <!-- CV form -->
   <form
