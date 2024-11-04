@@ -73,7 +73,7 @@ export class EmployeesEffects {
   redirectToBack$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(EmployeesActions.updateEmployeeSuccess),
+        ofType(EmployeesActions.updateEmployeeSuccess, EmployeesActions.createEmployeeSuccess),
         tap(() => {
           this.router.navigate(['../']);
         }),
