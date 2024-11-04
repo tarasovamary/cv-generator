@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { Observable } from 'rxjs';
-import { Employee } from '../../../core/models/employee.model';
-import { Store } from '@ngrx/store';
-import { selectAllEmployees } from '../../../core/store/employees/employees.selectors';
-import { getAllEmployees } from '../../../core/store/employees/employees.actions';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { Observable } from 'rxjs';
+import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import { Employee } from './models/employee.model';
+import { getAllEmployees } from './store/employees.actions';
+import { selectAllEmployees } from './store/employees.selectors';
 
 @Component({
   selector: 'app-employees',

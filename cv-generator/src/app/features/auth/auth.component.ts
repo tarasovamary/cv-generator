@@ -6,9 +6,9 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { Subject, takeUntil } from 'rxjs';
-import * as AuthActions from '../../core/store/auth/auth.actions';
 import { PasswordModule } from 'primeng/password';
+import { Subject, takeUntil } from 'rxjs';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',

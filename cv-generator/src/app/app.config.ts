@@ -1,16 +1,16 @@
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { StoreModule, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
-import { StoreModule, provideStore } from '@ngrx/store';
-import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { devToolStoreConfig } from './configs/devToolsStore.config';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { AuthStoreModule } from './core/store/auth/auth.module';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { EmployeesStoreModule } from './core/store/employees/employees.module';
-import { CvStoreModule } from './core/store/cv/cv.module';
+import { AuthStoreModule } from './features/auth/store/auth.module';
+import { CvStoreModule } from './features/home/cv/store/cv.module';
+import { EmployeesStoreModule } from './features/home/employees/store/employees.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [

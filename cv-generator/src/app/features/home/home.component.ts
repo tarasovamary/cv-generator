@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
+import { HeaderComponent } from '../header/header.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
 
 @Component({
   selector: 'app-home',

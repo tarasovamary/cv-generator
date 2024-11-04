@@ -1,0 +1,98 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { EmployeesService } from '../services/employees.service';
+import * as EmployeesActions from './employees.actions';
+
+@Injectable()
+export class EmployeesEffects {
+  constructor(
+    private actions$: Actions,
+    private employeesService: EmployeesService,
+    private router: Router,
+  ) {}
+
+  getAllEmployees$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EmployeesActions.getAllEmployees),
+      mergeMap((action) =>
+        this.employeesService.getAllEmployees().pipe(
+          map((response) => {
+            return EmployeesActions.getAllEmployeesSuccess({ employees: response });
+          }),
+          catchError((error) => of(EmployeesActions.getAllEmployeesFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  getEmployeeById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EmployeesActions.getEmployeeById),
+      mergeMap((action) =>
+        this.employeesService.getEmployeeById(action.id).pipe(
+          map((response) => {
+            //@ts-ignore
+            return EmployeesActions.getEmployeeByIdSuccess({ employee: response.employee });
+          }),
+          catchError((error) => of(EmployeesActions.getEmployeeByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  createEmployee$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EmployeesActions.createEmployee),
+      mergeMap((action) =>
+        this.employeesService.createEmployee(action.employee).pipe(
+          map((response) => {
+            return EmployeesActions.createEmployeeSuccess({ employee: response });
+          }),
+          catchError((error) => of(EmployeesActions.createEmployeeFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  updateEmployee$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EmployeesActions.updateEmployee),
+      mergeMap(({ id, payload }) =>
+        this.employeesService.updateEmployee(id, payload).pipe(
+          map((response) => {
+            return EmployeesActions.updateEmployeeSuccess({ employee: response });
+          }),
+          catchError((error) => of(EmployeesActions.updateEmployeeFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  redirectToBack$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(EmployeesActions.updateEmployeeSuccess),
+        tap(() => {
+          this.router.navigate(['../']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  deleteEmployee$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(EmployeesActions.deleteEmployee),
+      mergeMap((action) =>
+        this.employeesService.deleteEmployee(action.id).pipe(
+          map(() => {
+            return EmployeesActions.deleteEmployeeSuccess({ id: action.id });
+          }),
+          catchError((error) => of(EmployeesActions.deleteEmployeeFailure({ error }))),
+        ),
+      ),
+    );
+  });
+}

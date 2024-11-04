@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
-import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { EmployeesComponent } from './employees.component';
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 
 export const employeesRoutes: Route[] = [
   {
