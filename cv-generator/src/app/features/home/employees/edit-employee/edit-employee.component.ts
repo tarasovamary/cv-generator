@@ -2,7 +2,6 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
 import { Employee } from '../../../../core/models/employee.model';
@@ -30,7 +29,6 @@ export class EditEmployeeComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store,
     private router: Router,
-    private actions$: Actions,
   ) {}
 
   ngOnInit() {
@@ -56,7 +54,6 @@ export class EditEmployeeComponent implements OnInit {
           payload: this.employeeForm.value, //TODO: only changed fields
         }),
       );
-      this.onUpdateSuccess();
     }
   }
 
@@ -82,12 +79,6 @@ export class EditEmployeeComponent implements OnInit {
         }),
       )
       .subscribe();
-  }
-
-  private onUpdateSuccess(): void {
-    this.actions$
-      .pipe(ofType(EmployeesActions.updateEmployeeSuccess), takeUntil(this.destroy$))
-      .subscribe(() => this.router.navigate(['../']));
   }
 
   ngOnDestroy(): void {

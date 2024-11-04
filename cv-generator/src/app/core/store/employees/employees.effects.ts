@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { mergeMap, map, catchError, of } from 'rxjs';
+import { mergeMap, map, catchError, of, tap } from 'rxjs';
 import * as EmployeesActions from './employees.actions';
 import { EmployeesService } from '../../services/employees.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class EmployeesEffects {
   constructor(
     private actions$: Actions,
     private employeesService: EmployeesService,
+    private router: Router,
   ) {}
 
   getAllEmployees$ = createEffect(() => {
@@ -67,6 +69,18 @@ export class EmployeesEffects {
       ),
     );
   });
+
+  redirectToBack$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(EmployeesActions.updateEmployeeSuccess),
+        tap(() => {
+          this.router.navigate(['../']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 
   deleteEmployee$ = createEffect(() => {
     return this.actions$.pipe(
