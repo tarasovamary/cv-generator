@@ -1,0 +1,116 @@
+<div class="employee-form">
+  <form
+    [formGroup]="employeeForm"
+    class="employee-form__form">
+    <!-- First Name Field -->
+    <div class="employee-form__field">
+      <label
+        for="firstName"
+        class="employee-form__label"
+        >First Name</label
+      >
+      <input
+        id="firstName"
+        formControlName="firstName"
+        pInputText
+        class="employee-form__input" />
+      <div
+        class="employee-form__error"
+        *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched">
+        Please, specify the field
+      </div>
+    </div>
+
+    <!-- Last Name Field -->
+    <div class="employee-form__field">
+      <label
+        for="lastName"
+        class="employee-form__label"
+        >Last Name</label
+      >
+      <input
+        id="lastName"
+        formControlName="lastName"
+        pInputText
+        class="employee-form__input" />
+      <div
+        class="employee-form__error"
+        *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched">
+        Please, specify the field
+      </div>
+    </div>
+
+    <!-- Email Field -->
+    <div class="employee-form__field">
+      <label
+        for="email"
+        class="employee-form__label"
+        >Email</label
+      >
+      <input
+        id="email"
+        formControlName="email"
+        pInputText
+        class="employee-form__input" />
+      <div
+        class="employee-form__error"
+        *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+        Please, specify the field
+      </div>
+    </div>
+
+    <!-- Specialization Field -->
+    <div class="employee-form__field">
+      <label
+        for="specialization"
+        class="employee-form__label"
+        >Specialization</label
+      >
+      <input
+        id="specialization"
+        formControlName="specialization"
+        pInputText
+        class="employee-form__input" />
+      <div
+        class="employee-form__error"
+        *ngIf="employeeForm.get('specialization')?.invalid && employeeForm.get('specialization')?.touched">
+        Please, specify the field
+      </div>
+    </div>
+
+    <!-- Department Field -->
+    <div class="employee-form__field">
+      <label
+        for="department"
+        class="employee-form__label"
+        >Department</label
+      >
+      <input
+        id="department"
+        formControlName="department"
+        pInputText
+        class="employee-form__input" />
+      <div
+        class="employee-form__error"
+        *ngIf="employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched">
+        Please, specify the field
+      </div>
+    </div>
+  </form>
+  <!-- Buttons -->
+  <div class="employee-form__buttons">
+    <button
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="employeeForm.invalid"
+      class="employee-form__buttons_submit">
+      Save
+    </button>
+    <button
+      type="button"
+      (click)="onCancel()"
+      class="employee-form__buttons_cancel">
+      Cancel
+    </button>
+  </div>
+</div>
