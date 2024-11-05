@@ -7,7 +7,7 @@ import { TableModule } from 'primeng/table';
 import { Observable } from 'rxjs';
 import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
 import { Employee } from './models/employee.model';
-import { getAllEmployees } from './store/employees.actions';
+import { deleteEmployee, getAllEmployees } from './store/employees.actions';
 import { selectAllEmployees } from './store/employees.selectors';
 
 @Component({
@@ -32,5 +32,11 @@ export class EmployeesComponent implements OnInit {
 
   onEmployeeSelect(id: string) {
     this.router.navigate([id], { relativeTo: this.route });
+  }
+
+  onDeleteEmployee(id: string, event: MouseEvent) {
+    event.stopPropagation(); // Stops the click event that triggering the onEmployeeSelect
+
+    this.store.dispatch(deleteEmployee({ id }));
   }
 }

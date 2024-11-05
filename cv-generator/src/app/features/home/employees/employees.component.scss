@@ -19,6 +19,24 @@
       @include button-styles();
     }
   }
+
+  &__button_delete {
+    border: none;
+    border-radius: 5px;
+    @include flex-center();
+    padding: 7px;
+    @extend %transition;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(254, 60, 60);
+      color: white;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr {
@@ -28,6 +46,10 @@
   &:hover {
     background-color: $hover-bg-color;
   }
+}
+
+::ng-deep .p-datatable-tbody > tr > td:last-child {
+  @include flex-center(row, center, center);
 }
 
 ::ng-deep .p-component {
