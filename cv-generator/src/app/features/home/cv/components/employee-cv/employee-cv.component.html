@@ -1,209 +1,229 @@
 <div class="employee-cv">
   <!-- CV list-->
   <ng-container *ngIf="cvs$ | async as cvList">
-    <div class="employee-cv__list">
-      <ul>
-        <li
-          *ngFor="let cv of cvList"
-          class="employee-cv__item">
-          <span>{{ cv.name }}</span>
-          <i
-            class="pi pi-trash"
-            (click)="onDeleteCv(cv._id)"
-            title="Delete CV"></i>
-        </li>
-      </ul>
-    </div>
+    <ng-container *ngIf="cvList.length > 0; else noCvs">
+      <div class="employee-cv__content">
+        <!--CV lists-->
+        <div class="employee-cv__list">
+          <ul>
+            <li
+              *ngFor="let cv of cvList"
+              class="employee-cv__item"
+              [ngClass]="{ active: cv._id === activeCvId }"
+              (click)="setActiveCv(cv)">
+              <span>{{ cv.name }}</span>
+              <i
+                class="pi pi-trash"
+                (click)="onDeleteCv(cv._id)"
+                title="Delete CV"></i>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CV form -->
+        <form
+          [formGroup]="cvForm"
+          class="employee-cv__form">
+          <!--CV Name-->
+          <div class="employee-cv__field">
+            <label
+              for="name"
+              class="employee-cv__label"
+              >CV Name</label
+            >
+            <input
+              id="name"
+              formControlName="name"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('name')?.invalid && cvForm.get('name')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee First Name-->
+          <div class="employee-cv__field">
+            <label
+              for="firstName"
+              class="employee-cv__label"
+              >First Name</label
+            >
+            <input
+              id="firstName"
+              formControlName="firstName"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('firstName')?.invalid && cvForm.get('firstName')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Last Name-->
+          <div class="employee-cv__field">
+            <label
+              for="lastName"
+              class="employee-cv__label"
+              >Last Name</label
+            >
+            <input
+              id="lastName"
+              formControlName="lastName"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('lastName')?.invalid && cvForm.get('lastName')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Email-->
+          <div class="employee-cv__field">
+            <label
+              for="email"
+              class="employee-cv__label"
+              >Email</label
+            >
+            <input
+              id="email"
+              formControlName="email"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('email')?.invalid && cvForm.get('email')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Specialization-->
+          <div class="employee-cv__field">
+            <label
+              for="specialization"
+              class="employee-cv__label"
+              >Specialization</label
+            >
+            <input
+              id="specialization"
+              formControlName="specialization"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible':
+                  cvForm.get('specialization')?.invalid && cvForm.get('specialization')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Department-->
+          <div class="employee-cv__field">
+            <label
+              for="department"
+              class="employee-cv__label"
+              >Department</label
+            >
+            <input
+              id="department"
+              formControlName="department"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('department')?.invalid && cvForm.get('department')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Skills-->
+          <div class="employee-cv__field">
+            <label
+              for="skills"
+              class="employee-cv__label"
+              >Skills</label
+            >
+            <input
+              id="skills"
+              formControlName="skills"
+              pInputText
+              class="employee-cv__input" />
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+
+          <!--Employee Description-->
+          <div class="employee-cv__field">
+            <label
+              for="description"
+              class="employee-cv__label"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              formControlName="description"
+              pInputTextarea
+              class="employee-cv__input"
+              rows="4"></textarea>
+            <div
+              class="employee-cv__error"
+              [ngClass]="{
+                'employee-cv__error-visible': cvForm.get('description')?.invalid && cvForm.get('description')?.touched,
+              }">
+              Please, specify the field
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--CV buttons-->
+      <div class="employee-cv__buttons">
+        <button
+          class="employee-cv__buttons_submit"
+          type="submit"
+          (click)="onSubmit()"
+          [disabled]="cvForm.invalid">
+          Save
+        </button>
+        <button
+          class="employee-cv__buttons_cancel"
+          type="button"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </ng-container>
+
+    <!--No CVs-->
+    <ng-template #noCvs>
+      <p>
+        There are no CVs available.
+        <a
+          routerLink="/home/cv"
+          class="employee-cv__link"
+          >Create a CV</a
+        >
+      </p>
+    </ng-template>
   </ng-container>
-
-  <!-- CV form -->
-  <form
-    [formGroup]="cvForm"
-    class="employee-cv__form">
-    <!--CV Name-->
-    <div class="employee-cv__field">
-      <label
-        for="cvName"
-        class="employee-cv__label"
-        >CV Name</label
-      >
-      <input
-        id="cvName"
-        formControlName="cvName"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('cvName')?.invalid && cvForm.get('cvName')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee First Name-->
-    <div class="employee-cv__field">
-      <label
-        for="firstName"
-        class="employee-cv__label"
-        >First Name</label
-      >
-      <input
-        id="firstName"
-        formControlName="firstName"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('firstName')?.invalid && cvForm.get('firstName')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Last Name-->
-    <div class="employee-cv__field">
-      <label
-        for="lastName"
-        class="employee-cv__label"
-        >Last Name</label
-      >
-      <input
-        id="lastName"
-        formControlName="lastName"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('lastName')?.invalid && cvForm.get('lastName')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Email-->
-    <div class="employee-cv__field">
-      <label
-        for="email"
-        class="employee-cv__label"
-        >Email</label
-      >
-      <input
-        id="email"
-        formControlName="email"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('email')?.invalid && cvForm.get('email')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Specialization-->
-    <div class="employee-cv__field">
-      <label
-        for="specialization"
-        class="employee-cv__label"
-        >Specialization</label
-      >
-      <input
-        id="specialization"
-        formControlName="specialization"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('specialization')?.invalid && cvForm.get('specialization')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Department-->
-    <div class="employee-cv__field">
-      <label
-        for="department"
-        class="employee-cv__label"
-        >Department</label
-      >
-      <input
-        id="department"
-        formControlName="department"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('department')?.invalid && cvForm.get('department')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Skills-->
-    <div class="employee-cv__field">
-      <label
-        for="skills"
-        class="employee-cv__label"
-        >Skills</label
-      >
-      <input
-        id="skills"
-        formControlName="skills"
-        pInputText
-        class="employee-cv__input" />
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-
-    <!--Employee Description-->
-    <div class="employee-cv__field">
-      <label
-        for="description"
-        class="employee-cv__label"
-        >Description</label
-      >
-      <textarea
-        id="description"
-        formControlName="description"
-        pInputTextarea
-        class="employee-cv__input"
-        rows="4"></textarea>
-      <div
-        class="employee-cv__error"
-        [ngClass]="{
-          'employee-cv__error-visible': cvForm.get('description')?.invalid && cvForm.get('description')?.touched,
-        }">
-        Please, specify the field
-      </div>
-    </div>
-  </form>
-</div>
-
-<!--CV buttons-->
-<div class="employee-cv__buttons">
-  <button
-    class="employee-cv__buttons_submit"
-    type="submit"
-    (click)="onSubmit()"
-    [disabled]="cvForm.invalid">
-    Save
-  </button>
-  <button
-    class="employee-cv__buttons_cancel"
-    type="button"
-    (click)="onCancel()">
-    Cancel
-  </button>
 </div>

@@ -3,8 +3,10 @@
 @import '../../../../../../assets/scss/helpers/mixins.scss';
 
 .employee-cv {
-  @include flex-center(row, normal, start);
-  gap: 2.4rem;
+  &__content {
+    @include flex-center(row, normal, start);
+    gap: 2.4rem;
+  }
 
   &__list {
     min-width: 20rem;
@@ -20,6 +22,11 @@
     border-bottom: 1.5px solid #e0e0e0;
     cursor: pointer;
     @extend %transition;
+
+    &.active {
+      color: $link-hover-color;
+      border-bottom: 2px solid $link-hover-color;
+    }
 
     i {
       padding-left: 1.2rem;
@@ -106,6 +113,15 @@
       &:hover {
         background-color: rgb(236, 236, 236);
       }
+    }
+  }
+
+  &__link {
+    color: $link-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $link-hover-color;
     }
   }
 }
