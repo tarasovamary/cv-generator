@@ -1,15 +1,15 @@
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
+import { Employee } from '../../../employees/models/employee.model';
+import * as EmployeeActions from '../../../employees/store/employees.actions';
+import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
 import { CV } from '../../models/cv.model';
 import * as CvActions from '../../store/cv.actions';
-import * as EmployeeActions from '../../../employees/store/employees.actions';
 import { selectAllCv } from '../../store/cv.selectors';
-import { RouterLink } from '@angular/router';
-import { Employee } from '../../../employees/models/employee.model';
-import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
 
 @Component({
   selector: 'app-employee-cv',
@@ -23,6 +23,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
 
   activeCvId!: string;
   cvForm!: UntypedFormGroup;
+  isReadOnly = true;
 
   cvs$!: Observable<CV[]>;
   employee$!: Observable<Employee | null>;
@@ -32,6 +33,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   constructor(
     private fb: UntypedFormBuilder,
     private store: Store,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -85,9 +87,13 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     this.store.dispatch(CvActions.deleteCvById({ id }));
   }
 
-  onSubmit() {}
+  onEditCv() {
+    this.router.navigate(['/home/cv']);
+  }
 
-  onCancel() {}
+  onCancel() {
+    this.router.navigate(['../']);
+  }
 
   setActiveCv(cv: CV) {
     this.activeCvId = cv._id;

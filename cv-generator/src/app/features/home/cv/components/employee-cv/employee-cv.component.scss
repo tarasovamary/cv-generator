@@ -85,12 +85,23 @@
     opacity: 1;
   }
 
+  &__input-readonly {
+    background-color: #f0f0f0;
+    border-color: #ddd;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+
   &__buttons {
     @include flex-center(row, flex-end, normal);
     gap: 10px;
     button {
       font-size: 1.4rem;
       padding: 1rem 1.5rem;
+    }
+
+    &_edit {
+      @include button-styles();
     }
 
     &_submit {
