@@ -24,4 +24,18 @@ export class CvEffects {
       ),
     );
   });
+
+  deleteCvById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.deleteCvById),
+      mergeMap((action) =>
+        this.cvService.deleteCvById(action.id).pipe(
+          map(() => {
+            return CvActions.deleteCvByIdSuccess({ id: action.id });
+          }),
+          catchError((error) => of(CvActions.deleteCvByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
 }

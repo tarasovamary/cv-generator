@@ -81,7 +81,9 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onDeleteCv(id: string) {}
+  onDeleteCv(id: string) {
+    this.store.dispatch(CvActions.deleteCvById({ id }));
+  }
 
   onSubmit() {}
 
