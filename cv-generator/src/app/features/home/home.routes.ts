@@ -23,7 +23,7 @@ export const homeRoutes: Route[] = [
       },
       {
         path: 'cv',
-        component: CvComponent,
+        loadChildren: () => import('../home/cv/cv.routes').then((r) => r.cvRoutes),
       },
     ],
   },
