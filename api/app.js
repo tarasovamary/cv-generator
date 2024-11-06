@@ -249,6 +249,24 @@ app.post('/employees/:id/cv', authenticate, async (req, res) => {
     }
 });
 
+/**
+ * PATCH /cv/:id
+ * Update CV by ID
+ */
+app.patch('/cv/:id', authenticate, async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    try {
+        const cv = await CV.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        if (!cv) {
+            return handleError(res, 404, { error: "Cv not found" });
+        }
+        res.send({ message: 'Cv updated successfully', cv });
+    } catch (error) {
+        handleError(res, 400, error);
+    }
+});
 
 /**
  * GET /employees/:id/cv
