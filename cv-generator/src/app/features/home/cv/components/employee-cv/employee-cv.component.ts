@@ -20,8 +20,10 @@ import { selectCurrentEmployee } from '../../../employees/store/employees.select
 })
 export class EmployeeCvComponent implements OnInit, OnDestroy {
   @Input({ required: true }) employeeId!: string;
+
   activeCvId!: string;
   cvForm!: UntypedFormGroup;
+
   cvs$!: Observable<CV[]>;
   employee$!: Observable<Employee | null>;
 
@@ -51,12 +53,19 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     });
 
     // Set the first CV as active
-    this.cvs$.subscribe((cvs) => {
-      if (cvs.length > 0) {
-        this.setActiveCv(cvs[0]);
-      }
-    });
+    this.cvs$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(Boolean),
+        tap((cvs) => {
+          if (cvs.length > 0) {
+            this.setActiveCv(cvs[0]);
+          }
+        }),
+      )
+      .subscribe();
 
+    // Update CV form with employee info
     this.employee$
       .pipe(
         takeUntil(this.destroy$),
