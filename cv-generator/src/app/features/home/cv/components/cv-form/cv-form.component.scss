@@ -1,0 +1,51 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+
+.cv {
+  &__form {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  &__field {
+    @include flex-center(column, normal, normal);
+
+    &:nth-child(1),
+    &:last-child {
+      grid-column: span 2;
+    }
+  }
+
+  &__label {
+    margin-bottom: 0.5rem;
+    font-size: $input-label-font-size;
+  }
+
+  &__input {
+    @extend %input-styles;
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    @extend %transition;
+  }
+
+  &__error-visible {
+    opacity: 1;
+  }
+
+  &__input-readonly {
+    background-color: #f0f0f0;
+    border-color: #ddd;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+}

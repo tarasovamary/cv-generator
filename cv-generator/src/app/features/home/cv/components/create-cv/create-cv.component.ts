@@ -8,16 +8,17 @@ import { Observable } from 'rxjs';
 import { Employee } from '../../../employees/models/employee.model';
 import { getAllEmployees } from '../../../employees/store/employees.actions';
 import { selectAllEmployees } from '../../../employees/store/employees.selectors';
+import { CvFormComponent } from '../cv-form/cv-form.component';
 
 @Component({
   selector: 'app-create-cv',
   standalone: true,
-  imports: [RouterLink, DropdownModule, NgIf, AsyncPipe, FormsModule],
+  imports: [RouterLink, DropdownModule, NgIf, AsyncPipe, FormsModule, CvFormComponent],
   templateUrl: './create-cv.component.html',
   styleUrl: './create-cv.component.scss',
 })
 export class CreateCvComponent implements OnInit {
-  selectedEmployee: Employee | null = null;
+  selectedEmployee!: Employee;
   employees$: Observable<Employee[]> = this.store.select(selectAllEmployees);
 
   constructor(private store: Store) {}
