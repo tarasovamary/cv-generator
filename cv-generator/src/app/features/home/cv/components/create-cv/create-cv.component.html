@@ -1,6 +1,7 @@
 <div class="create-cv__content">
   <!-- Dropdown for selecting an employee -->
   <ng-container *ngIf="employees$ | async as employees">
+    <p class="create-cv__message">Please select an employee to create a CV:</p>
     <div class="create-cv__dropdown">
       <p-dropdown
         [options]="employees"
