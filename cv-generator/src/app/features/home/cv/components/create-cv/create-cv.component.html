@@ -1,1 +1,33 @@
-<p>create-cv works!</p>
+<div class="create-cv__content">
+  <!-- Dropdown for selecting an employee -->
+  <ng-container *ngIf="employees$ | async as employees">
+    <div class="create-cv__dropdown">
+      <p-dropdown
+        [options]="employees"
+        [(ngModel)]="selectedEmployee"
+        placeholder="Select an employee">
+        <!-- Template for displaying an item in a list -->
+        <ng-template
+          let-employee
+          pTemplate="item">
+          {{ employee.firstName }} {{ employee.lastName }}
+        </ng-template>
+        <!-- Template for displaying the selected item -->
+        <ng-template
+          let-employee
+          pTemplate="selectedItem">
+          {{ employee.firstName }} {{ employee.lastName }}
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </ng-container>
+
+  <!--Create CV button-->
+  <div class="create-cv__button">
+    <button
+      [routerLink]="['./create']"
+      [disabled]="!selectedEmployee">
+      Create Cv
+    </button>
+  </div>
+</div>

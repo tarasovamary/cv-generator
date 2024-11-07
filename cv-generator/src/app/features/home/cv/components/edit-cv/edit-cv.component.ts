@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './edit-cv.component.html',
-  styleUrl: './edit-cv.component.scss'
+  styleUrl: './edit-cv.component.scss',
 })
-export class EditCvComponent {
-
-}
+export class EditCvComponent {}
