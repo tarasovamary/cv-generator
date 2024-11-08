@@ -8,11 +8,12 @@ import * as EmployeeActions from '../../../employees/store/employees.actions';
 import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
 import { CV } from '../../models/cv.model';
 import { RouterLink } from '@angular/router';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
   selector: 'app-cv-form',
   standalone: true,
-  imports: [NgClass, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [NgClass, FormsModule, ReactiveFormsModule, RouterLink, ChipsModule],
   templateUrl: './cv-form.component.html',
   styleUrl: './cv-form.component.scss',
 })
@@ -42,7 +43,7 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       specialization: ['', Validators.required],
       department: ['', Validators.required],
-      skills: ['', Validators.required],
+      skills: [[], Validators.required],
       description: [''],
     });
 
@@ -109,6 +110,7 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
       description: this.cvForm.get('description')?.value,
       department: this.cvForm.get('department')?.value,
       specialization: this.cvForm.get('specialization')?.value,
+      skills: this.cvForm.get('skills')?.value,
     };
   }
 

@@ -20,11 +20,15 @@ const cvSchema = new mongoose.Schema({
   department: {
     type: String,
     required: true
-},
+  },
   specialization: {
     type: String,
     required: true
-}
+  },
+  skills: {
+    type: [String],
+    required: true
+  }
 }, {
   timestamps: true,
 });

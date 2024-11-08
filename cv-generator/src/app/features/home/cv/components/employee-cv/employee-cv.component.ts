@@ -50,7 +50,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       specialization: ['', Validators.required],
       department: ['', Validators.required],
-      skills: ['', Validators.required],
+      skills: [[], Validators.required],
       description: [''],
     });
 
@@ -97,7 +97,6 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
 
   setActiveCv(cv: CV) {
     this.activeCvId = cv._id;
-
     this.cvForm.patchValue(cv);
   }
 

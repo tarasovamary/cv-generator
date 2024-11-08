@@ -147,19 +147,14 @@
       class="cv__label"
       >Skills</label
     >
-    <input
-      id="skills"
+    <p-chips
       formControlName="skills"
-      pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
-      class="cv__input" />
+      class="cv__input_tags">
+    </p-chips>
     <div
       class="cv__error"
-      [ngClass]="{
-        'cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched,
-      }">
-      Please, specify the field
+      [ngClass]="{ 'cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched }">
+      Please, specify at least one skill
     </div>
   </div>
 

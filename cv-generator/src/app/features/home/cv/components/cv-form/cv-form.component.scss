@@ -18,6 +18,27 @@
     &:last-child {
       grid-column: span 2;
     }
+
+    ::ng-deep .p-chips {
+      display: inline;
+    }
+
+    ::ng-deep .p-chips-multiple-container {
+      padding: 0.8rem;
+    }
+
+    ::ng-deep .p-inputtext {
+      font-size: 1.4rem;
+    }
+
+    ::ng-deep .p-chips-input-token input {
+      font-size: 1.4rem;
+    }
+
+    ::ng-deep .p-chips-token-icon {
+      width: 12px;
+      height: 12px;
+    }
   }
 
   &__label {
