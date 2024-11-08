@@ -48,4 +48,21 @@
     color: #6c757d;
     cursor: not-allowed;
   }
+
+  &__button {
+    margin-bottom: 2.4rem;
+    @include flex-center(row, end, normal);
+
+    button {
+      font-size: 1.4rem;
+      padding: 1rem 1.5rem;
+      @include button-styles();
+
+      &:disabled {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.5);
+        cursor: not-allowed;
+      }
+    }
+  }
 }

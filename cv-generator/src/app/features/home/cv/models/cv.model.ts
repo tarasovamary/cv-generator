@@ -5,6 +5,6 @@ export interface CV {
   description?: string;
   department: string;
   specialization: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

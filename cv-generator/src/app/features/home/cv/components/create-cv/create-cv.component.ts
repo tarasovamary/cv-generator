@@ -9,6 +9,8 @@ import { Employee } from '../../../employees/models/employee.model';
 import { getAllEmployees } from '../../../employees/store/employees.actions';
 import { selectAllEmployees } from '../../../employees/store/employees.selectors';
 import { CvFormComponent } from '../cv-form/cv-form.component';
+import * as CvActions from '../../store/cv.actions';
+import { CV } from '../../models/cv.model';
 
 @Component({
   selector: 'app-create-cv',
@@ -25,5 +27,9 @@ export class CreateCvComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(getAllEmployees());
+  }
+
+  onCreateCv(cv: CV) {
+    this.store.dispatch(CvActions.createCv({ cv }));
   }
 }

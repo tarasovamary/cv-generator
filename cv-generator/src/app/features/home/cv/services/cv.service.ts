@@ -18,4 +18,8 @@ export class CvService {
   deleteCvById(id: string) {
     return this.http.delete<CV>(`${this.apiCvUrl}/${id}`);
   }
+
+  createCv(cv: CV) {
+    return this.http.post<CV>(`${this.apiUrl}/${cv.employeeId}/cv`, cv);
+  }
 }

@@ -187,3 +187,12 @@
     </div>
   </div>
 </form>
+
+<!--Create CV button-->
+<div class="cv__button">
+  <button
+    [disabled]="cvForm.invalid"
+    (click)="onCreateCv()">
+    Create Cv
+  </button>
+</div>

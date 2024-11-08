@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { CvService } from '../services/cv.service';
 import * as CvActions from '../store/cv.actions';
 
@@ -34,6 +34,20 @@ export class CvEffects {
             return CvActions.deleteCvByIdSuccess({ id: action.id });
           }),
           catchError((error) => of(CvActions.deleteCvByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  createCv$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.createCv),
+      mergeMap((action) =>
+        this.cvService.createCv(action.cv).pipe(
+          map((response) => {
+            return CvActions.createCvSuccess({ cv: response });
+          }),
+          catchError((error) => of(CvActions.createCvFailure({ error }))),
         ),
       ),
     );
