@@ -28,11 +28,11 @@
     }
 
     ::ng-deep .p-inputtext {
-      font-size: 1.4rem;
+      font-size: $input-font-size;
     }
 
     ::ng-deep .p-chips-input-token input {
-      font-size: 1.4rem;
+      font-size: $input-font-size;
     }
 
     ::ng-deep .p-chips-token-icon {
@@ -75,7 +75,7 @@
     @include flex-center(row, end, normal);
 
     button {
-      font-size: 1.4rem;
+      font-size: $btn-font-size;
       padding: 1rem 1.5rem;
       @include button-styles();
 
