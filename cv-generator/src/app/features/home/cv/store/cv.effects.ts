@@ -52,4 +52,30 @@ export class CvEffects {
       ),
     );
   });
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Notifications
+  // -----------------------------------------------------------------------------------------------------
+
+  createCvSuccessAlert$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.createCvSuccess),
+        tap(() => {
+          alert('CV was successfully created!');
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteCvByIdSuccessAlert$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.deleteCvByIdSuccess),
+        tap(() => {
+          alert('CV was successfully deleted!');
+        }),
+      ),
+    { dispatch: false },
+  );
 }
