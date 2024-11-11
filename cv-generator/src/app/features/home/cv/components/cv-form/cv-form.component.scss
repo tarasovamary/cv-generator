@@ -6,17 +6,41 @@
   &__form {
     flex: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    padding: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
   }
 
   &__field {
     @include flex-center(column, normal, normal);
 
-    &:nth-child(1),
-    &:last-child {
-      grid-column: span 2;
+    &:nth-child(1) {
+      grid-column: 1 / -1;
+    }
+
+    // Second line:
+    &:nth-child(2) {
+      grid-column: 1 / 2;
+    }
+    &:nth-child(3) {
+      grid-column: 2 / 3;
+    }
+    &:nth-child(4) {
+      grid-column: 3 / 4;
+    }
+
+    // Third line:
+    &:nth-child(5) {
+      grid-column: 1 / 3;
+    }
+    &:nth-child(6) {
+      grid-column: 3 / -1;
+    }
+
+    // Fourth and fifth lines:
+    &:nth-child(7),
+    &:nth-child(8) {
+      grid-column: 1 / -1;
     }
 
     ::ng-deep .p-chips {
