@@ -3,13 +3,11 @@
 @import '../../../assets/scss/helpers/placeholders.scss';
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: $header-height;
   width: $sidebar-width;
   height: 100%;
   background-color: $sidebar-bg-color;
   box-shadow: 0.2rem 0 0.8rem rgba(0, 0, 0, 0.15);
+  border-right: 1.2px solid rgb(128, 128, 128, 0.15);
 
   &__nav {
     @include flex-center(column, normal, start);

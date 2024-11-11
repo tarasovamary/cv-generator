@@ -5,9 +5,7 @@
   min-height: calc(100vh - $header-height);
 
   .page-content {
-    margin-left: $sidebar-width;
     flex: 1;
-    background-color: $bg-color;
   }
 
   .page-container {
