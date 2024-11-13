@@ -174,6 +174,9 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
 
     if (this.cvForm) {
       this.enableForm();
+       
+      this.cvForm.reset(); // Reset the form to clear any existing values
+      
       this.cvForm.patchValue(value);
     }
   }

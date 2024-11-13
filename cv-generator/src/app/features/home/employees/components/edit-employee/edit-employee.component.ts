@@ -12,7 +12,7 @@ import { EmployeeFormComponent } from '../employee-form/employee-form.component'
 @Component({
   selector: 'app-edit-employee',
   standalone: true,
-  imports: [NgClass, NgIf, EmployeeCvComponent, EmployeeFormComponent, AsyncPipe],
+  imports: [NgIf, EmployeeCvComponent, EmployeeFormComponent, AsyncPipe],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.scss',
 })
