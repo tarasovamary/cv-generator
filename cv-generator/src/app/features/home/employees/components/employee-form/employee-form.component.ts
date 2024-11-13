@@ -27,8 +27,6 @@ export class EmployeeFormComponent implements OnInit, OnChanges {
       specialization: [this.initialData?.specialization || '', Validators.required],
       department: [this.initialData?.department || '', Validators.required],
     });
-
-    console.log(this.employeeForm.value);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
