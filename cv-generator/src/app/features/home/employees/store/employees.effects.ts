@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { EmployeesService } from '../services/employees.service';
 import * as EmployeesActions from './employees.actions';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class EmployeesEffects {
@@ -11,6 +12,7 @@ export class EmployeesEffects {
     private actions$: Actions,
     private employeesService: EmployeesService,
     private router: Router,
+    private messageService: MessageService,
   ) {}
 
   getAllEmployees$ = createEffect(() => {
@@ -95,4 +97,74 @@ export class EmployeesEffects {
       ),
     );
   });
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Notifications
+  // -----------------------------------------------------------------------------------------------------
+
+  createEmployeeSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.createEmployeeSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Employee created successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  createEmployeeFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.createEmployeeFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error creating employee' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateEmployeeSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.updateEmployeeSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Employee updated successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateEmployeeFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.updateEmployeeFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error updating employee' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteEmployeeSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.deleteEmployeeSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Employee deleted successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteEmployeeFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EmployeesActions.deleteEmployeeFailure),
+        map(({ error }) => {
+          this.messageService.add({ severity: 'error', summary: 'Error deleting employee', detail: error });
+        }),
+      ),
+    { dispatch: false },
+  );
 }

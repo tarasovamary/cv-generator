@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { CvService } from '../services/cv.service';
 import * as CvActions from '../store/cv.actions';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class CvEffects {
   constructor(
     private actions$: Actions,
     private cvService: CvService,
+    private messageService: MessageService,
   ) {}
 
   getAllCv$ = createEffect(() => {
@@ -85,23 +87,67 @@ export class CvEffects {
   // @ Notifications
   // -----------------------------------------------------------------------------------------------------
 
-  createCvSuccessAlert$ = createEffect(
+  createCvSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(CvActions.createCvSuccess),
-        tap(() => {
-          alert('CV was successfully created!');
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Cv created successfully' });
         }),
       ),
     { dispatch: false },
   );
 
-  updateCvSuccessAlert$ = createEffect(
+  createCvFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.createCvFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error creating cv' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateCvSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(CvActions.updateCvSuccess),
-        tap(() => {
-          alert('CV was successfully updated!');
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Cv updated successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateCvFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.updateCvFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error updating cv' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteCvSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.deleteCvByIdSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Cv deleted successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteCvFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.deleteCvByIdFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error deleting cv' });
         }),
       ),
     { dispatch: false },

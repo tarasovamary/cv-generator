@@ -107,16 +107,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       accept: () => {
         // Dispatch delete CV action
         this.store.dispatch(CvActions.deleteCvById({ id }));
-
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Deleted',
-          detail: 'Cv deleted successfully',
-        });
       },
       reject: () => {
         this.messageService.add({
-          severity: 'warn',
+          severity: 'info',
           summary: 'Cancelled',
           detail: 'Cv deletion cancelled',
         });

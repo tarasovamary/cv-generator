@@ -48,15 +48,10 @@ export class EmployeesComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.store.dispatch(deleteEmployee({ id }));
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Deleted',
-          detail: 'Employee deleted successfully',
-        });
       },
       reject: () => {
         this.messageService.add({
-          severity: 'warn',
+          severity: 'info',
           summary: 'Cancelled',
           detail: 'Employee deletion cancelled',
         });

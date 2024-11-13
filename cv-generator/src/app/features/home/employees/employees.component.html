@@ -7,7 +7,6 @@
   <!--Employee list-->
   <ng-container *ngIf="employees$ | async as employees">
     <!--Confirmation dialog-->
-    <p-toast />
     <p-confirmDialog />
 
     <!--Table-->
@@ -50,4 +49,5 @@
     </p-table>
   </ng-container>
 </div>
+<p-toast />
 <router-outlet></router-outlet>
