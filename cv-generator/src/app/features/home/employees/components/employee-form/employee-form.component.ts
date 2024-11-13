@@ -6,7 +6,7 @@ import { Employee } from '../../models/employee.model';
 @Component({
   selector: 'app-employee-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, NgForOf],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.scss',
 })
@@ -27,6 +27,8 @@ export class EmployeeFormComponent implements OnInit, OnChanges {
       specialization: [this.initialData?.specialization || '', Validators.required],
       department: [this.initialData?.department || '', Validators.required],
     });
+
+    console.log(this.employeeForm.value);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

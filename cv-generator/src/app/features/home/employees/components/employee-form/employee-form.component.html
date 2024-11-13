@@ -16,7 +16,10 @@
         class="employee-form__input" />
       <div
         class="employee-form__error"
-        *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched">
+        [ngClass]="{
+          'employee-form__error-visible':
+            employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched,
+        }">
         Please, specify the field
       </div>
     </div>
@@ -35,7 +38,10 @@
         class="employee-form__input" />
       <div
         class="employee-form__error"
-        *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched">
+        [ngClass]="{
+          'employee-form__error-visible':
+            employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched,
+        }">
         Please, specify the field
       </div>
     </div>
@@ -54,8 +60,11 @@
         class="employee-form__input" />
       <div
         class="employee-form__error"
-        *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
-        Please, specify the field
+        [ngClass]="{
+          'employee-form__error-visible': employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched,
+        }">
+        <div *ngIf="employeeForm.get('email')?.hasError('required')">Please, specify the field</div>
+        <div *ngIf="employeeForm.get('email')?.hasError('email')">Please, enter a valid email address</div>
       </div>
     </div>
 
@@ -73,7 +82,10 @@
         class="employee-form__input" />
       <div
         class="employee-form__error"
-        *ngIf="employeeForm.get('specialization')?.invalid && employeeForm.get('specialization')?.touched">
+        [ngClass]="{
+          'employee-form__error-visible':
+            employeeForm.get('specialization')?.invalid && employeeForm.get('specialization')?.touched,
+        }">
         Please, specify the field
       </div>
     </div>
@@ -92,7 +104,10 @@
         class="employee-form__input" />
       <div
         class="employee-form__error"
-        *ngIf="employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched">
+        [ngClass]="{
+          'employee-form__error-visible':
+            employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched,
+        }">
         Please, specify the field
       </div>
     </div>
