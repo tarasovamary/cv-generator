@@ -96,17 +96,6 @@ export class CvEffects {
     { dispatch: false },
   );
 
-  deleteCvByIdSuccessAlert$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(CvActions.deleteCvByIdSuccess),
-        tap(() => {
-          alert('CV was successfully deleted!');
-        }),
-      ),
-    { dispatch: false },
-  );
-
   updateCvSuccessAlert$ = createEffect(
     () =>
       this.actions$.pipe(

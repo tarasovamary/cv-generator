@@ -10,13 +10,27 @@ import { selectCurrentEmployee } from '../../../employees/store/employees.select
 import { CV } from '../../models/cv.model';
 import * as CvActions from '../../store/cv.actions';
 import { selectAllCv } from '../../store/cv.selectors';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-employee-cv',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, FormsModule, ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    FormsModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+    RouterLink,
+    ConfirmDialogModule,
+    ToastModule,
+  ],
   templateUrl: './employee-cv.component.html',
   styleUrl: './employee-cv.component.scss',
+  providers: [ConfirmationService, MessageService],
 })
 export class EmployeeCvComponent implements OnInit, OnDestroy {
   @Input({ required: true }) employeeId!: string;
@@ -34,6 +48,8 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     private fb: UntypedFormBuilder,
     private store: Store,
     private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -84,7 +100,28 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   }
 
   onDeleteCv(id: string) {
-    this.store.dispatch(CvActions.deleteCvById({ id }));
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this cv?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        // Dispatch delete CV action
+        this.store.dispatch(CvActions.deleteCvById({ id }));
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Deleted',
+          detail: 'Cv deleted successfully',
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Cancelled',
+          detail: 'Cv deletion cancelled',
+        });
+      },
+    });
   }
 
   onEditCv() {
