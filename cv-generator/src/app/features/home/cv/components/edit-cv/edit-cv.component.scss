@@ -1,0 +1,11 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+
+.edit-cv {
+  &__content {
+    padding: 3.5rem;
+    background-color: $bg-additional-color;
+    min-height: $page-container-height;
+  }
+}

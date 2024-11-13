@@ -88,7 +88,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   }
 
   onEditCv() {
-    this.router.navigate(['/home/cv']);
+    this.router.navigate(['/home/cv/', this.activeCvId]);
   }
 
   onCancel() {

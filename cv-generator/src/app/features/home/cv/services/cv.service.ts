@@ -15,11 +15,19 @@ export class CvService {
     return this.http.get<CV[]>(`${this.apiUrl}/${employeeId}/cv`);
   }
 
+  getCvById(id: string) {
+    return this.http.get<CV>(`${this.apiCvUrl}/${id}`);
+  }
+
   deleteCvById(id: string) {
     return this.http.delete<CV>(`${this.apiCvUrl}/${id}`);
   }
 
   createCv(cv: CV) {
     return this.http.post<CV>(`${this.apiUrl}/${cv.employeeId}/cv`, cv);
+  }
+
+  updateCv(id: string, payload: Partial<CV>) {
+    return this.http.patch<CV>(`${this.apiCvUrl}/${id}`, payload);
   }
 }

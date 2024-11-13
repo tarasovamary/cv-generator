@@ -9,3 +9,5 @@ export const selectCurrentEmployee = createSelector(getEmployeesState, (state) =
 
 export const selectEmployeeById = (id: string) =>
   createSelector(getEmployeesState, (state) => state.employees.find((employee) => employee._id === id));
+
+export const selectEmployeeId = createSelector(getEmployeesState, (state) => state.currentEmployee?._id);

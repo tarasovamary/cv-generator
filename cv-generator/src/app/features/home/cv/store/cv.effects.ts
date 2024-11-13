@@ -25,6 +25,20 @@ export class CvEffects {
     );
   });
 
+  getCvById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.getCvById),
+      mergeMap((action) =>
+        this.cvService.getCvById(action.id).pipe(
+          map((response) => {
+            return CvActions.getCvByIdSuccess({ cv: response });
+          }),
+          catchError((error) => of(CvActions.getCvByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   deleteCvById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.deleteCvById),
@@ -53,6 +67,20 @@ export class CvEffects {
     );
   });
 
+  updateCv$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.updateCv),
+      mergeMap(({ id, payload }) =>
+        this.cvService.updateCv(id, payload).pipe(
+          map((response) => {
+            return CvActions.updateCvSuccess({ cv: response });
+          }),
+          catchError((error) => of(CvActions.updateCvFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   // -----------------------------------------------------------------------------------------------------
   // @ Notifications
   // -----------------------------------------------------------------------------------------------------
@@ -74,6 +102,17 @@ export class CvEffects {
         ofType(CvActions.deleteCvByIdSuccess),
         tap(() => {
           alert('CV was successfully deleted!');
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateCvSuccessAlert$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CvActions.updateCvSuccess),
+        tap(() => {
+          alert('CV was successfully updated!');
         }),
       ),
     { dispatch: false },
