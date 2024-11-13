@@ -168,15 +168,14 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     if (!this.cvId) {
+      this.cvForm.reset(); // Reset form when we select another employee
+
       value.specialization = employee.specialization;
       value.department = employee.department;
     }
 
     if (this.cvForm) {
       this.enableForm();
-       
-      this.cvForm.reset(); // Reset the form to clear any existing values
-      
       this.cvForm.patchValue(value);
     }
   }
