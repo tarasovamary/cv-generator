@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { createCvSuccess, deleteCvByIdSuccess, getAllCvSuccess, getCvByIdSuccess } from './cv.actions';
+import { createCvSuccess, deleteCvByIdSuccess, getAllCvSuccess, getCvByIdSuccess, resetCurrentCv } from './cv.actions';
 import { CvState, initialState } from './cv.state';
 
 export const cvReducer = createReducer<CvState>(
@@ -36,4 +36,9 @@ export const cvReducer = createReducer<CvState>(
       cvs: [...state.cvs, cv],
     }),
   ),
+
+  on(resetCurrentCv, (state): CvState  => ({
+    ...state,
+    currentCv: null,
+  })),
 );

@@ -20,3 +20,5 @@ export const createCvFailure = createAction('[CV] Create Cv (Failure)', props<{ 
 export const updateCv = createAction('[CV] Update Cv', props<{ id: string; payload: Partial<CV> }>());
 export const updateCvSuccess = createAction('[CV] Update Cv (Success)', props<{ cv: CV }>());
 export const updateCvFailure = createAction('[CV] Update Cv (Failure)', props<{ error: any }>());
+
+export const resetCurrentCv = createAction('[CV] Reset Current CV');
