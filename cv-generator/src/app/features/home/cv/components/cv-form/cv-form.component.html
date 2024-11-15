@@ -186,7 +186,7 @@
 <!--Create CV button-->
 <div class="cv__button">
   <button
-    [disabled]="cvForm.invalid"
+    [disabled]="cvForm.disabled || cvForm.invalid"
     (click)="onSubmit()">
     Submit
   </button>

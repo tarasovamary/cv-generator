@@ -17,7 +17,6 @@ import { CV } from '../../models/cv.model';
 import { ChipsModule } from 'primeng/chips';
 import * as CvActions from '../../../cv/store/cv.actions';
 import { selectCurrentCv, selectCvId } from '../../store/cv.selectors';
-import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cv-form',
