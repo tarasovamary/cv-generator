@@ -4,6 +4,7 @@ import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { CvService } from '../services/cv.service';
 import * as CvActions from '../store/cv.actions';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CvEffects {
@@ -11,6 +12,7 @@ export class CvEffects {
     private actions$: Actions,
     private cvService: CvService,
     private messageService: MessageService,
+    private router: Router,
   ) {}
 
   getAllCv$ = createEffect(() => {
@@ -96,6 +98,20 @@ export class CvEffects {
       ),
     );
   });
+
+  redirectToCv$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(CvActions.createCvSuccess, CvActions.updateCvSuccess),
+        map((action) => {
+          if (action.cv.employeeId) {
+            this.router.navigate([`/home/employees/${action.cv.employeeId}/cv`]);
+          }
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 
   // -----------------------------------------------------------------------------------------------------
   // @ Notifications
