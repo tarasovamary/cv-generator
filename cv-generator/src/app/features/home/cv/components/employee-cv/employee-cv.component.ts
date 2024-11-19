@@ -1,18 +1,17 @@
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
-import { Employee } from '../../../employees/models/employee.model';
-import * as EmployeeActions from '../../../employees/store/employees.actions';
-import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
-import { CV } from '../../models/cv.model';
-import * as CvActions from '../../store/cv.actions';
-import { selectAllCv } from '../../store/cv.selectors';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
+import { CV } from '../../../cv/models/cv.model';
+import * as CvActions from '../../../cv/store/cv.actions';
+import { selectAllCv } from '../../../cv/store/cv.selectors';
+import { Employee } from '../../../employees/models/employee.model';
+import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
 
 @Component({
   selector: 'app-employee-cv',
@@ -33,7 +32,7 @@ import { ToastModule } from 'primeng/toast';
   providers: [ConfirmationService, MessageService],
 })
 export class EmployeeCvComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) employeeId!: string;
+  employeeId!: string;
 
   activeCvId!: string;
   cvForm!: UntypedFormGroup;
@@ -48,13 +47,14 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     private fb: UntypedFormBuilder,
     private store: Store,
     private router: Router,
+    private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
+    this.employeeId = this.route.parent.snapshot.paramMap.get('id')!;
     this.store.dispatch(CvActions.getAllCv({ employeeId: this.employeeId }));
-    this.store.dispatch(EmployeeActions.getEmployeeById({ id: this.employeeId }));
 
     this.cvs$ = this.store.select(selectAllCv);
     this.employee$ = this.store.select(selectCurrentEmployee);

@@ -1,7 +1,19 @@
-import { NgClass, NgIf, NgForOf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { NgClass, NgIf } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Employee } from '../../models/employee.model';
+import { Observable, ReplaySubject, Subject, defer, filter, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { selectCurrentEmployee, selectEmployeeId } from '../../store/employees.selectors';
+import { Router } from '@angular/router';
+import * as EmployeesActions from '../../store/employees.actions';
 
 @Component({
   selector: 'app-employee-form',
@@ -10,52 +22,75 @@ import { Employee } from '../../models/employee.model';
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.scss',
 })
-export class EmployeeFormComponent implements OnInit, OnChanges {
-  @Input() initialData!: Employee;
-  @Output() formSubmit = new EventEmitter<Employee>();
-  @Output() formCancel = new EventEmitter<void>();
-
+export class EmployeeFormComponent implements OnInit, OnDestroy {
+  // Form
   employeeForm!: UntypedFormGroup;
 
-  constructor(private fb: UntypedFormBuilder) {}
+  // Observables
+  employee$!: Observable<Employee | null>;
+  employeeId$: Observable<string>;
+
+  // Subjects
+  private destroy$ = new Subject<void>();
+  private submitEmployeeForm = new ReplaySubject<FormGroup>(1);
+
+  constructor(
+    private fb: UntypedFormBuilder,
+    private store: Store,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.employeeForm = this.fb.group({
-      firstName: [this.initialData?.firstName || '', Validators.required],
-      lastName: [this.initialData?.lastName || '', Validators.required],
-      email: [this.initialData?.email || '', [Validators.required, Validators.email]],
-      specialization: [this.initialData?.specialization || '', Validators.required],
-      department: [this.initialData?.department || '', Validators.required],
-    });
-  }
+    this.employeeId$ = this.store.select(selectEmployeeId);
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['initialData'] && !changes['initialData'].firstChange) {
-      // Update the form with new initial data
-      this.updateEmployeeForm();
-    }
+    this.employeeForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      specialization: ['', Validators.required],
+      department: ['', Validators.required],
+    });
+
+    this.employee$ = this.store.pipe(select(selectCurrentEmployee));
+    this.employee$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(Boolean),
+        tap((employee) => this.employeeForm.patchValue(employee)),
+      )
+      .subscribe();
+
+    this.submitEmployeeForm
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((form) => form.valid),
+        map((form) => form.value),
+        switchMap((employee) =>
+          this.employeeId$.pipe(
+            take(1),
+            switchMap((id) =>
+              defer(() =>
+                id
+                  ? of(this.store.dispatch(EmployeesActions.updateEmployee({ id, payload: employee })))
+                  : of(this.store.dispatch(EmployeesActions.createEmployee({ employee }))),
+              ),
+            ),
+          ),
+        ),
+      )
+      .subscribe();
   }
 
   onSubmit() {
-    if (this.employeeForm.valid) {
-      this.formSubmit.emit(this.employeeForm.value);
-    }
+    this.submitEmployeeForm.next(this.employeeForm);
   }
 
   onCancel() {
-    this.formCancel.emit();
+    this.router.navigate(['../']);
   }
 
-  updateEmployeeForm() {
-    if (this.employeeForm) {
-      // Patch the form with new data
-      this.employeeForm.patchValue({
-        firstName: this.initialData?.firstName || '',
-        lastName: this.initialData?.lastName || '',
-        email: this.initialData?.email || '',
-        specialization: this.initialData?.specialization || '',
-        department: this.initialData?.department || '',
-      });
-    }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

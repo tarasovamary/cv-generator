@@ -12,21 +12,14 @@ import { Employee } from '../../models/employee.model';
 @Component({
   selector: 'app-create-employee',
   standalone: true,
-  imports: [NgIf, NgClass, ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, EmployeeFormComponent],
+  imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, EmployeeFormComponent],
   templateUrl: './create-employee.component.html',
   styleUrl: './create-employee.component.scss',
 })
-export class CreateEmployeeComponent {
-  constructor(
-    private router: Router,
-    private store: Store,
-  ) {}
+export class CreateEmployeeComponent implements OnInit {
+  constructor(private store: Store) {}
 
-  onSubmit(employeeData: Employee) {
-    this.store.dispatch(EmployeesActions.createEmployee({ employee: employeeData }));
-  }
-
-  onCancel() {
-    this.router.navigate(['../']);
+  ngOnInit() {
+    this.store.dispatch(EmployeesActions.resetCurrentEmployee());
   }
 }

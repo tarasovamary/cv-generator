@@ -1,32 +1,24 @@
 <div class="edit-employee">
-  <!-- Tab navigation -->
+  <!-- Navigation -->
   <ul class="edit-employee__tabs">
-    <li
-      [class.active]="activeTab === 'info'"
-      (click)="setActiveTab('info')">
-      Info
+    <li>
+      <a
+        [routerLink]="'info'"
+        routerLinkActive="active"
+        >Info</a
+      >
     </li>
-    <li
-      [class.active]="activeTab === 'cv'"
-      (click)="setActiveTab('cv')">
-      CV
+    <li>
+      <a
+        [routerLink]="'cv'"
+        routerLinkActive="active"
+        >CV</a
+      >
     </li>
   </ul>
 
-  <!-- Tab content -->
+  <!-- Content -->
   <div class="edit-employee__content">
-    <ng-container *ngIf="activeTab === 'info'">
-      <!-- Employee form -->
-      <app-employee-form
-        *ngIf="employee$ | async as employee"
-        [initialData]="employee"
-        (formSubmit)="onSubmit($event)"
-        (formCancel)="onCancel()" />
-    </ng-container>
-
-    <ng-container *ngIf="activeTab === 'cv'">
-      <!-- CV content -->
-      <app-employee-cv [employeeId]="employeeId" />
-    </ng-container>
+    <router-outlet></router-outlet>
   </div>
 </div>

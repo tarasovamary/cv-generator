@@ -5,6 +5,7 @@ import {
   deleteEmployeeSuccess,
   getAllEmployeesSuccess,
   getEmployeeByIdSuccess,
+  resetCurrentEmployee,
 } from './employees.actions';
 
 export const employeesReducer = createReducer<EmployeesState>(
@@ -39,6 +40,14 @@ export const employeesReducer = createReducer<EmployeesState>(
     (state, { id }): EmployeesState => ({
       ...state,
       employees: state.employees.filter((employee) => employee._id !== id),
+    }),
+  ),
+
+  on(
+    resetCurrentEmployee,
+    (state): EmployeesState => ({
+      ...state,
+      currentEmployee: null,
     }),
   ),
 );

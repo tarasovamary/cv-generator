@@ -11,6 +11,7 @@ import { selectAllEmployees } from './store/employees.selectors';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import * as EmployeeActions from './store/employees.actions';
 
 @Component({
   selector: 'app-employees',
