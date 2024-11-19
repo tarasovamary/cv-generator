@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CV } from '../models/cv.model';
 import { Employee } from '../../employees/models/employee.model';
+import { CV } from '../models/cv.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,11 @@ export class CvService {
   private apiCvUrl = 'http://localhost:3000/cv';
 
   constructor(private http: HttpClient) {}
+  getAllCvs() {
+    return this.http.get<CV[]>(`${this.apiCvUrl}`);
+  }
 
-  getAllCv(employeeId: string) {
+  getAllCvForEmployee(employeeId: string) {
     return this.http.get<CV[]>(`${this.apiUrl}/${employeeId}/cv`);
   }
 

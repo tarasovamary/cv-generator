@@ -1,10 +1,19 @@
 import { createAction, props } from '@ngrx/store';
-import { CV } from '../models/cv.model';
 import { Employee } from '../../employees/models/employee.model';
+import { CV } from '../models/cv.model';
+export const getAllCvs = createAction('[CV] Get All Cvs');
+export const getAllCvsSuccess = createAction('[CV] Get All Cvs (Success)', props<{ cvs: CV[] }>());
+export const getAllCvsFailure = createAction('[CV] Get All Cvs (Failure)', props<{ error: any }>());
 
-export const getAllCv = createAction('[CV] Get All Cv', props<{ employeeId: string }>());
-export const getAllCvSuccess = createAction('[CV] Get All Cv (Success)', props<{ cvs: CV[] }>());
-export const getAllCvFailure = createAction('[CV] Get All Cv (Failure)', props<{ error: any }>());
+export const getAllCvForEmployee = createAction('[CV] Get All Cv for Employee', props<{ employeeId: string }>());
+export const getAllCvForEmployeeSuccess = createAction(
+  '[CV] Get All Cv for Employee (Success)',
+  props<{ cvs: CV[] }>(),
+);
+export const getAllCvForEmployeeFailure = createAction(
+  '[CV] Get All Cv for Employee (Failure)',
+  props<{ error: any }>(),
+);
 
 export const getCvById = createAction('[CV] Get Cv by ID', props<{ id: string }>());
 export const getCvByIdSuccess = createAction('[CV] Get Cv by ID (Success)', props<{ cv: CV }>());

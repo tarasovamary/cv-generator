@@ -3,7 +3,8 @@ import {
   createCvSuccess,
   deleteCvByIdSuccess,
   getAllCvEmployeesSuccess,
-  getAllCvSuccess,
+  getAllCvForEmployeeSuccess,
+  getAllCvsSuccess,
   getCvByIdSuccess,
   resetCurrentCv,
   setSelectedEmployee,
@@ -14,7 +15,15 @@ export const cvReducer = createReducer<CvState>(
   initialState,
 
   on(
-    getAllCvSuccess,
+    getAllCvsSuccess,
+    (state, { cvs }): CvState => ({
+      ...state,
+      cvs,
+    }),
+  ),
+
+  on(
+    getAllCvForEmployeeSuccess,
     (state, { cvs }): CvState => ({
       ...state,
       cvs,

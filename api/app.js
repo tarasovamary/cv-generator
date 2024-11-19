@@ -268,6 +268,18 @@ app.patch('/cv/:id', authenticate, async (req, res) => {
         handleError(res, 400, error);
     }
 });
+/**
+ * GET /cv
+ * Get all CVs
+ */
+app.get('/cv', authenticate, async (req, res) => {
+    try {
+        const cvs = await CV.find();
+        res.send(cvs);
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
 
 /**
  * GET /employees/:id/cv

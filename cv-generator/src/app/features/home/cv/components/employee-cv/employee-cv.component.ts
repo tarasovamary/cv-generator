@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -54,7 +54,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.employeeId = this.route.parent.snapshot.paramMap.get('id')!;
-    this.store.dispatch(CvActions.getAllCv({ employeeId: this.employeeId }));
+    this.store.dispatch(CvActions.getAllCvForEmployee({ employeeId: this.employeeId }));
 
     this.cvs$ = this.store.select(selectAllCv);
     this.employee$ = this.store.select(selectCurrentEmployee);

@@ -1,13 +1,17 @@
 import { Route } from '@angular/router';
-import { CvComponent } from './cv.component';
 import { CreateCvComponent } from './components/create-cv/create-cv.component';
 import { EditCvComponent } from './components/edit-cv/edit-cv.component';
+import { CvListComponent } from './components/cv-list/cv-list.component';
 
 export const cvRoutes: Route[] = [
   {
     path: '',
-    redirectTo: 'create',
+    redirectTo: 'list',
     pathMatch: 'full',
+  },
+  {
+    path: 'list',
+    component: CvListComponent,
   },
   {
     path: 'create',

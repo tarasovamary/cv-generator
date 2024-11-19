@@ -1,0 +1,57 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+
+.cvs {
+  &__content {
+    padding: 3.5rem;
+    background: $header-title-color;
+    min-height: $page-container-height;
+  }
+
+  &__button {
+    margin-bottom: 2.4rem;
+    @include flex-center(row, end, normal);
+
+    button {
+      font-size: 1.4rem;
+      padding: 1rem 1.5rem;
+      @include button-styles();
+    }
+  }
+
+  &__button_delete {
+    border: none;
+    border-radius: 5px;
+    @include flex-center();
+    padding: 7px;
+    @extend %transition;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(254, 60, 60);
+      color: white;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  cursor: pointer;
+  @extend %transition;
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+}
+
+::ng-deep .p-datatable-tbody > tr > td:last-child {
+  @include flex-center(row, center, center);
+}
+
+::ng-deep .p-component {
+  font-size: 1.4rem;
+}

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { CvService } from '../services/cv.service';
 import * as CvActions from '../store/cv.actions';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class CvEffects {
@@ -15,15 +15,29 @@ export class CvEffects {
     private router: Router,
   ) {}
 
-  getAllCv$ = createEffect(() => {
+  getAllCvs$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CvActions.getAllCv),
-      mergeMap((action) =>
-        this.cvService.getAllCv(action.employeeId).pipe(
+      ofType(CvActions.getAllCvs),
+      mergeMap(() =>
+        this.cvService.getAllCvs().pipe(
           map((response) => {
-            return CvActions.getAllCvSuccess({ cvs: response });
+            return CvActions.getAllCvsSuccess({ cvs: response });
           }),
-          catchError((error) => of(CvActions.getAllCvFailure({ error }))),
+          catchError((error) => of(CvActions.getAllCvsFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  getAllCvForEmployee$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.getAllCvForEmployee),
+      mergeMap((action) =>
+        this.cvService.getAllCvForEmployee(action.employeeId).pipe(
+          map((response) => {
+            return CvActions.getAllCvForEmployeeSuccess({ cvs: response });
+          }),
+          catchError((error) => of(CvActions.getAllCvForEmployeeFailure({ error }))),
         ),
       ),
     );
