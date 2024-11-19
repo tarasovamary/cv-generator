@@ -46,8 +46,6 @@ export class CvFormComponent implements OnInit, OnDestroy {
     this._state$.next(value);
   }
 
-  @Input() isReadOnly = false;
-
   private _state$ = new BehaviorSubject<InitialCvFormState | null>(null);
 
   // Form

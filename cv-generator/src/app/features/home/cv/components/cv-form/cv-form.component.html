@@ -13,8 +13,6 @@
       id="firstName"
       formControlName="firstName"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
       class="cv__input" />
   </div>
 
@@ -29,8 +27,6 @@
       id="lastName"
       formControlName="lastName"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input" />
   </div>
 
@@ -45,8 +41,6 @@
       id="email"
       formControlName="email"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input" />
   </div>
 </form>
@@ -65,8 +59,6 @@
       id="name"
       formControlName="name"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input" />
     <div
       class="cv__error"
@@ -88,8 +80,6 @@
       id="specialization"
       formControlName="specialization"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input" />
     <div
       class="cv__error"
@@ -111,8 +101,6 @@
       id="department"
       formControlName="department"
       pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input" />
     <div
       class="cv__error"
@@ -152,8 +140,6 @@
       id="description"
       formControlName="description"
       pInputTextarea
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
       class="cv__input"
       rows="4"></textarea>
     <div
