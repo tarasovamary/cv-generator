@@ -1,5 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { createCvSuccess, deleteCvByIdSuccess, getAllCvSuccess, getCvByIdSuccess, resetCurrentCv } from './cv.actions';
+import {
+  createCvSuccess,
+  deleteCvByIdSuccess,
+  getAllCvEmployeesSuccess,
+  getAllCvSuccess,
+  getCvByIdSuccess,
+  resetCurrentCv,
+  setSelectedEmployee,
+} from './cv.actions';
 import { CvState, initialState } from './cv.state';
 
 export const cvReducer = createReducer<CvState>(
@@ -37,8 +45,27 @@ export const cvReducer = createReducer<CvState>(
     }),
   ),
 
-  on(resetCurrentCv, (state): CvState  => ({
-    ...state,
-    currentCv: null,
-  })),
+  on(
+    resetCurrentCv,
+    (state): CvState => ({
+      ...state,
+      currentCv: null,
+    }),
+  ),
+
+  on(
+    getAllCvEmployeesSuccess,
+    (state, { employees }): CvState => ({
+      ...state,
+      employees,
+    }),
+  ),
+
+  on(
+    setSelectedEmployee,
+    (state, { id }): CvState => ({
+      ...state,
+      selectedEmployee: state.employees.find((employee) => employee._id == id),
+    }),
+  ),
 );

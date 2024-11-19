@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CV } from '../models/cv.model';
+import { Employee } from '../../employees/models/employee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,9 @@ export class CvService {
 
   updateCv(id: string, payload: Partial<CV>) {
     return this.http.patch<CV>(`${this.apiCvUrl}/${id}`, payload);
+  }
+
+  getAllEmployees() {
+    return this.http.get<Employee[]>(this.apiUrl);
   }
 }

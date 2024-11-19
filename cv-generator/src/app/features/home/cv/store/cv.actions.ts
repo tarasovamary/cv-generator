@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CV } from '../models/cv.model';
+import { Employee } from '../../employees/models/employee.model';
 
 export const getAllCv = createAction('[CV] Get All Cv', props<{ employeeId: string }>());
 export const getAllCvSuccess = createAction('[CV] Get All Cv (Success)', props<{ cvs: CV[] }>());
@@ -22,3 +23,12 @@ export const updateCvSuccess = createAction('[CV] Update Cv (Success)', props<{ 
 export const updateCvFailure = createAction('[CV] Update Cv (Failure)', props<{ error: any }>());
 
 export const resetCurrentCv = createAction('[CV] Reset Current CV');
+
+export const getAllCvEmployees = createAction('[CV] Get All Employees');
+export const getAllCvEmployeesSuccess = createAction(
+  '[CV] Get All Employees (Success)',
+  props<{ employees: Employee[] }>(),
+);
+export const getAllCvEmployeesFailure = createAction('[CV] Get All Employees (Failure)', props<{ error: any }>());
+
+export const setSelectedEmployee = createAction('[CV] Set Selected Employee', props<{ id: string }>());

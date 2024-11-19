@@ -1,5 +1,5 @@
-import { NgClass } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -9,14 +9,30 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, ReplaySubject, Subject, defer, filter, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
-import { Employee } from '../../../employees/models/employee.model';
-import * as EmployeeActions from '../../../employees/store/employees.actions';
-import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
-import { CV } from '../../models/cv.model';
 import { ChipsModule } from 'primeng/chips';
+import {
+  BehaviorSubject,
+  Observable,
+  ReplaySubject,
+  Subject,
+  defer,
+  filter,
+  map,
+  of,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import * as CvActions from '../../../cv/store/cv.actions';
-import { selectCurrentCv, selectCvId } from '../../store/cv.selectors';
+import { Employee } from '../../../employees/models/employee.model';
+import { CV } from '../../models/cv.model';
+import { selectCurrentCv, selectCvId, selectSelectedEmployee } from '../../store/cv.selectors';
+
+export interface InitialCvFormState {
+  entityId?: string;
+  entityType: 'cv' | 'employee';
+}
 
 @Component({
   selector: 'app-cv-form',
@@ -25,14 +41,18 @@ import { selectCurrentCv, selectCvId } from '../../store/cv.selectors';
   templateUrl: './cv-form.component.html',
   styleUrl: './cv-form.component.scss',
 })
-export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
-  // Input/Output
-  @Input() cvId: string;
-  @Input() employeeId: string;
+export class CvFormComponent implements OnInit, OnDestroy {
+  @Input() set state(value: InitialCvFormState) {
+    this._state$.next(value);
+  }
+
   @Input() isReadOnly = false;
+
+  private _state$ = new BehaviorSubject<InitialCvFormState | null>(null);
 
   // Form
   cvForm!: UntypedFormGroup;
+  employeeForm!: UntypedFormGroup;
 
   // Observables
   employee$: Observable<Employee>;
@@ -51,18 +71,29 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.cvId$ = this.store.select(selectCvId);
 
+    this.employeeForm = this.fb.group({
+      firstName: [{ value: null, disabled: true }, Validators.required],
+      lastName: [{ value: null, disabled: true }, Validators.required],
+      email: [{ value: null, disabled: true }, [Validators.required, Validators.email]],
+    });
+
     this.cvForm = this.fb.group({
       _id: [null],
       employeeId: [null],
       name: ['', Validators.required],
-      firstName: [null, Validators.required],
-      lastName: [{ value: null, disabled: true }, Validators.required],
-      email: [{ value: null, disabled: true }, [Validators.required, Validators.email]],
       specialization: [null, Validators.required],
       department: [null, Validators.required],
       skills: [[], Validators.required],
       description: [''],
     });
+
+    this._state$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((state) => !!state),
+        tap((state) => this.loadEntityData(state)),
+      )
+      .subscribe();
 
     // Disable form until form gets data
     this.cvForm.disable();
@@ -89,95 +120,56 @@ export class CvFormComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cvId'] && changes['cvId'].currentValue) {
-      // If CV data changes, load CV and employee details
-      this.loadCvData(changes['cvId'].currentValue);
-    }
-
-    if (changes['employeeId'] && !changes['employeeId'].firstChange) {
-      // If employee data changes, enable the form and load employee details
-      this.loadEmployeeData(changes['employeeId'].currentValue);
-    }
-  }
-
   onSubmit() {
     this.submitCvForm.next(this.cvForm);
   }
 
+  private loadEntityData(state: InitialCvFormState): void {
+    if (state.entityType === 'cv') {
+      this.loadCvData(state.entityId);
+    } else if (state.entityType === 'employee') {
+      this.loadEmployeeData(state.entityId);
+    }
+  }
+
   private loadCvData(cvId: string): void {
     this.store.dispatch(CvActions.getCvById({ id: cvId }));
-    this.cv$ = this.store.select(selectCurrentCv);
 
+    this.cv$ = this.store.select(selectCurrentCv);
     this.cv$
       .pipe(
         takeUntil(this.destroy$),
         filter(Boolean),
-        tap((cv) => this.patchCvForm(cv)),
+        tap((cv) => this.cvForm.patchValue(cv)),
+        tap((cv) => this.loadEmployeeData(cv.employeeId)), //* Loading employee data by employeeId
       )
       .subscribe();
-  }
 
-  private patchCvForm(cv: CV): void {
-    if (cv.employeeId) {
-      this.loadEmployeeData(cv.employeeId); // Load employee data based on employeeId from CV
-    }
-
-    if (this.cvForm) {
-      this.enableForm();
-
-      this.cvForm.patchValue({
-        _id: cv._id,
-        name: cv.name,
-        employeeId: cv.employeeId,
-        specialization: cv.specialization,
-        department: cv.department,
-        skills: cv.skills,
-        description: cv.description,
-      });
-    }
-  }
-
-  private enableForm() {
+    // Enable form
     this.cvForm.enable();
-
-    this.cvForm.get('firstName')?.disable();
-    this.cvForm.get('lastName')?.disable();
-    this.cvForm.get('email')?.disable();
   }
 
   private loadEmployeeData(employeeId: string): void {
-    this.store.dispatch(EmployeeActions.getEmployeeById({ id: employeeId }));
-    this.employee$ = this.store.select(selectCurrentEmployee);
+    this.store.dispatch(CvActions.setSelectedEmployee({ id: employeeId }));
 
+    this.employee$ = this.store.select(selectSelectedEmployee);
     this.employee$
       .pipe(
         takeUntil(this.destroy$),
         filter(Boolean),
-        tap((employee) => this.patchEmployeeForm(employee)),
+        tap((employee) => {
+          this.employeeForm.patchValue(employee);
+          this.cvForm.patchValue({
+            employeeId: employee._id,
+            specialization: employee.specialization,
+            department: employee.department,
+          });
+        }),
       )
       .subscribe();
-  }
 
-  private patchEmployeeForm(employee: Employee): void {
-    const value: any = {
-      employeeId: employee._id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-    };
-
-    if (!this.cvId) {
-      this.cvForm.reset(); // Reset form when we select another employee
-
-      value.specialization = employee.specialization;
-      value.department = employee.department;
-    }
-
-    if (this.cvForm) {
-      this.enableForm();
-      this.cvForm.patchValue(value);
-    }
+    // Enable form
+    this.cvForm.enable();
   }
 
   ngOnDestroy(): void {

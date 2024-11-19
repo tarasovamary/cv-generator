@@ -26,5 +26,8 @@
   <!--CV form-->
   <app-cv-form
     [isReadOnly]="false"
-    [employeeId]="selectedEmployee?._id"></app-cv-form>
+    [state]="{
+      entityId: selectedEmployee?._id,
+      entityType: 'employee',
+    }"></app-cv-form>
 </div>

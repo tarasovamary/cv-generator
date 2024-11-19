@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { CvFormComponent } from '../cv-form/cv-form.component';
-import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CvFormComponent, InitialCvFormState } from '../cv-form/cv-form.component';
 
 @Component({
   selector: 'app-edit-cv',
@@ -12,10 +12,16 @@ import { NgIf } from '@angular/common';
 })
 export class EditCvComponent {
   cvId!: string;
+  initialCvFormState: InitialCvFormState;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.cvId = this.route.snapshot.paramMap.get('id')!;
+    this.cvId = this.route.snapshot.paramMap.get('id');
+
+    this.initialCvFormState = {
+      entityId: this.cvId,
+      entityType: 'cv',
+    };
   }
 }

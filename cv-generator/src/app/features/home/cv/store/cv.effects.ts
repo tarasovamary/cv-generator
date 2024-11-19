@@ -83,6 +83,20 @@ export class CvEffects {
     );
   });
 
+  getAllCvEmployees$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.getAllCvEmployees),
+      mergeMap((action) =>
+        this.cvService.getAllEmployees().pipe(
+          map((response) => {
+            return CvActions.getAllCvEmployeesSuccess({ employees: response });
+          }),
+          catchError((error) => of(CvActions.getAllCvEmployeesFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   // -----------------------------------------------------------------------------------------------------
   // @ Notifications
   // -----------------------------------------------------------------------------------------------------

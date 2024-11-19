@@ -1,3 +1,55 @@
+<!-- Employee form -->
+<form
+  [formGroup]="employeeForm"
+  class="employee__form">
+  <!--Employee First Name-->
+  <div class="cv__field">
+    <label
+      for="firstName"
+      class="cv__label"
+      >First Name</label
+    >
+    <input
+      id="firstName"
+      formControlName="firstName"
+      pInputText
+      [readOnly]="isReadOnly"
+      [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+      class="cv__input" />
+  </div>
+
+  <!--Employee Last Name-->
+  <div class="cv__field">
+    <label
+      for="lastName"
+      class="cv__label"
+      >Last Name</label
+    >
+    <input
+      id="lastName"
+      formControlName="lastName"
+      pInputText
+      [readOnly]="isReadOnly"
+      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
+      class="cv__input" />
+  </div>
+
+  <!--Employee Email-->
+  <div class="cv__field">
+    <label
+      for="email"
+      class="cv__label"
+      >Email</label
+    >
+    <input
+      id="email"
+      formControlName="email"
+      pInputText
+      [readOnly]="isReadOnly"
+      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
+      class="cv__input" />
+  </div>
+</form>
 <!-- CV form -->
 <form
   [formGroup]="cvForm"
@@ -20,75 +72,6 @@
       class="cv__error"
       [ngClass]="{
         'cv__error-visible': cvForm.get('name')?.invalid && cvForm.get('name')?.touched,
-      }">
-      Please, specify the field
-    </div>
-  </div>
-
-  <!--Employee First Name-->
-  <div class="cv__field">
-    <label
-      for="firstName"
-      class="cv__label"
-      >First Name</label
-    >
-    <input
-      id="firstName"
-      formControlName="firstName"
-      pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-      class="cv__input" />
-    <div
-      class="cv__error"
-      [ngClass]="{
-        'cv__error-visible': cvForm.get('firstName')?.invalid && cvForm.get('firstName')?.touched,
-      }">
-      Please, specify the field
-    </div>
-  </div>
-
-  <!--Employee Last Name-->
-  <div class="cv__field">
-    <label
-      for="lastName"
-      class="cv__label"
-      >Last Name</label
-    >
-    <input
-      id="lastName"
-      formControlName="lastName"
-      pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
-      class="cv__input" />
-    <div
-      class="cv__error"
-      [ngClass]="{
-        'cv__error-visible': cvForm.get('lastName')?.invalid && cvForm.get('lastName')?.touched,
-      }">
-      Please, specify the field
-    </div>
-  </div>
-
-  <!--Employee Email-->
-  <div class="cv__field">
-    <label
-      for="email"
-      class="cv__label"
-      >Email</label
-    >
-    <input
-      id="email"
-      formControlName="email"
-      pInputText
-      [readOnly]="isReadOnly"
-      [ngClass]="{ 'cv__input-readonly': isReadOnly }"
-      class="cv__input" />
-    <div
-      class="cv__error"
-      [ngClass]="{
-        'cv__error-visible': cvForm.get('email')?.invalid && cvForm.get('email')?.touched,
       }">
       Please, specify the field
     </div>
