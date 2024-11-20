@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { CV } from '../../models/cv.model';
-import { selectAllCv } from '../../store/cv.selectors';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import * as CvActions from '../../store/cv.actions';
-import * as EmployeesActions from '../../../employees/store/employees.actions';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { GetEmployeeByIdPipe } from '../../../../../shared/pipes/get-employee-by-id.pipe';
+import { Observable } from 'rxjs';
+import { CV } from '../../models/cv.model';
+import { GetEmployeeByIdPipe } from '../../pipes/get-employee-by-id.pipe';
+import * as CvActions from '../../store/cv.actions';
+import { selectAllCv } from '../../store/cv.selectors';
 
 @Component({
   selector: 'app-cv-list',
@@ -42,7 +41,7 @@ export class CvListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(EmployeesActions.getAllEmployees());
+    this.store.dispatch(CvActions.getAllCvEmployees());
     this.store.dispatch(CvActions.getAllCvs());
   }
 

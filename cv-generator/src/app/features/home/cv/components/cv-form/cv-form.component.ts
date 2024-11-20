@@ -138,8 +138,10 @@ export class CvFormComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         filter(Boolean),
-        tap((cv) => this.cvForm.patchValue(cv)),
-        tap((cv) => this.loadEmployeeData(cv.employeeId)), //* Loading employee data by employeeId
+        tap((cv) => {
+          this.cvForm.patchValue(cv);
+          this.loadEmployeeData(cv.employeeId); //* Loading employee data by employeeId
+        }),
       )
       .subscribe();
 
@@ -157,6 +159,7 @@ export class CvFormComponent implements OnInit, OnDestroy {
         filter(Boolean),
         tap((employee) => {
           this.employeeForm.patchValue(employee);
+
           this.cvForm.patchValue({
             employeeId: employee._id,
             specialization: employee.specialization,

@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Employee } from '../../features/home/employees/models/employee.model';
 import { Store } from '@ngrx/store';
-import { selectEmployeeById } from '../../features/home/employees/store/employees.selectors';
+import { Observable } from 'rxjs';
+import { Employee } from '../../employees/models/employee.model';
+import { selectEmployeeById } from '../store/cv.selectors';
 
 @Pipe({
   name: 'getEmployeeById$',
