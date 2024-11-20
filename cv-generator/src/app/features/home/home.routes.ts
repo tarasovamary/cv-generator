@@ -19,7 +19,7 @@ export const homeRoutes: Route[] = [
       },
       {
         path: 'projects',
-        component: ProjectsComponent,
+        loadChildren: () => import('../home/projects/projects.routes').then((r) => r.projectsRoutes),
       },
       {
         path: 'cv',
