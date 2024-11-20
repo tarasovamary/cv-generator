@@ -4,6 +4,7 @@ const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 const { User } = require('./db/models/user.model');
 const { Employee } = require('./db/models/employee.model');
+const { Project } = require('./db/models/project.model');
 const { CV } = require('./db/models/cv.model');
 const jwt = require('jsonwebtoken');
 
@@ -325,3 +326,113 @@ app.delete('/cv/:id', authenticate, async (req, res) => {
         handleError(res, 500, error);
     }
 });
+
+/* PROJECTS ROUTES */
+
+/**
+ * GET /projects
+ * Get all projects
+ */
+app.get('/projects', authenticate, async (req, res) => {
+    try {
+      const projects = await Project.find();
+  
+      res.status(200).send({ message: 'Projects fetched successfully', projects });
+    } catch (error) {
+      handleError(res, 500, error);
+    }
+  });
+  
+/**
+ * POST /projects
+ * Create a new project
+ */
+app.post('/projects', authenticate, async (req, res) => {
+    const { name, startDate, endDate, teamSize, techStack, roles, description, responsibilities } = req.body;
+  
+    try {
+      const newProject = new Project({
+        name,
+        startDate,
+        endDate,
+        teamSize,
+        techStack,
+        roles,
+        description,
+        responsibilities,
+      });
+  
+      await newProject.save();
+  
+      res.status(201).send({ message: 'Project created successfully', newProject });
+    } catch (error) {
+        console.error('Error creating project:', error); 
+      handleError(res, 400, error);
+    }
+  });
+
+  /**
+ * GET /projects/:id
+ * Get project by ID
+ */
+app.get('/projects/:id', authenticate, async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+        if (!project) {
+            return handleError(res, 404, { error: "Project not found" });
+        }
+        res.send({ message: 'Project find successfully', project});
+    } catch (error) {
+        handleError(res, 500, error);
+    }
+});
+
+
+     /**
+     * PATCH /projects/:id
+     * Update project information
+     */
+  app.patch('/projects/:id', authenticate, async (req, res) => {
+    const projectId = req.params.id;
+    const updateData = req.body;
+  
+    try {
+      const updatedProject = await Project.findByIdAndUpdate(
+        projectId, 
+        updateData, 
+        { new: true, runValidators: true }
+      );
+  
+      if (!updatedProject) {
+        return res.status(404).send({ message: 'Project not found' });
+      }
+  
+      res.status(200).send({ message: 'Project updated successfully', updatedProject });
+    } catch (error) {
+      handleError(res, 400, error);
+    }
+  });
+
+  /**
+ * DELETE /projects/:id
+ * Delete Project by ID
+ */
+  app.delete('/projects/:id', authenticate, async (req, res) => {
+    const projectId = req.params.id;
+  
+    try {
+      const deletedProject = await Project.findByIdAndDelete(projectId);
+  
+      if (!deletedProject) {
+        return res.status(404).send({ message: 'Project not found' });
+      }
+  
+      res.status(200).send({ message: 'Project deleted successfully', deletedProject });
+    } catch (error) {
+      handleError(res, 400, error);
+    }
+  });
+  
+  
+  
+  
