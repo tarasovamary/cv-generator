@@ -37,6 +37,10 @@
       font-size: 1.2rem;
     }
   }
+
+  &__deleted-employee {
+    color: $error-color;
+  }
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr {

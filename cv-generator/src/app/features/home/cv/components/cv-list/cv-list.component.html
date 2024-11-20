@@ -31,7 +31,14 @@
         let-cv>
         <tr (click)="onSelect(cv._id)">
           <td>{{ cv.name }}</td>
-          <td>{{ cv.employeeId }}</td>
+
+          <ng-container *ngIf="cv.employeeId | getEmployeeById$ | async as employee; else notFoundEmployee">
+            <td>{{ employee.firstName + ' ' + employee.lastName }}</td>
+          </ng-container>
+          <ng-template #notFoundEmployee>
+            <td class="cvs__deleted-employee">Deleted</td>
+          </ng-template>
+
           <td>{{ cv.department }}</td>
           <td>{{ cv.specialization }}</td>
           <td>{{ cv.skills }}</td>
