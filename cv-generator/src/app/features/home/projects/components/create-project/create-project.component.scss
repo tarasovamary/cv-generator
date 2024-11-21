@@ -1,0 +1,9 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+
+.create-project {
+  &__content {
+    padding: 3.5rem;
+    background: $header-title-color;
+    min-height: $page-container-height;
+  }
+}
