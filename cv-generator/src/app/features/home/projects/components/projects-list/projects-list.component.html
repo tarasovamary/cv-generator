@@ -35,8 +35,8 @@
           <td>{{ project.startDate | date }}</td>
           <td>{{ project.endDate ? (project.endDate | date) : 'Ongoing' }}</td>
           <td>{{ project.teamSize }}</td>
-          <td>{{ project.techStack.join(', ') }}</td>
-          <td>{{ project.roles.join(', ') }}</td>
+          <td>{{ project.techStack?.join(', ') }}</td>
+          <td>{{ project.roles?.join(', ') }}</td>
           <td>
             <button
               (click)="onDelete(project._id, $event)"
