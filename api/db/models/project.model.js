@@ -17,7 +17,7 @@ const ProjectSchema = new mongoose.Schema({
         required: false,
       },
       teamSize: {
-        type: Number,
+        type: String,
         min: 1,
         required: true,
       },

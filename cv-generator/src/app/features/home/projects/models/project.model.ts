@@ -3,7 +3,7 @@ export interface Project {
   name: string;
   startDate: Date;
   endDate?: Date;
-  teamSize: number;
+  teamSize: string;
   techStack: string[];
   roles: string[];
   description?: string;
