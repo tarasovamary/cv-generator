@@ -12,6 +12,13 @@ export const createProject = createAction('[PROJECTS] Create Project', props<{ p
 export const createProjectSuccess = createAction('[PROJECTS] Create Project (Success)', props<{ project: Project }>());
 export const createProjectFailure = createAction('[PROJECTS] Create Project (Failure)', props<{ error: any }>());
 
+export const updateProject = createAction(
+  '[PROJECTS] Update Project',
+  props<{ id: string; payload: Partial<Project> }>(),
+);
+export const updateProjectSuccess = createAction('[PROJECTS] Update Project (Success)', props<{ project: Project }>());
+export const updateProjectFailure = createAction('[PROJECTS] Update Project (Failure)', props<{ error: any }>());
+
 export const deleteProjectById = createAction('[PROJECTS] Delete Project by ID', props<{ id: string }>());
 export const deleteProjectByIdSuccess = createAction(
   '[PROJECTS] Delete Project by ID (Success)',

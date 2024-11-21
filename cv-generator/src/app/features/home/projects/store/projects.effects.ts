@@ -31,10 +31,24 @@ export class ProjectsEffects {
       ofType(ProjectsActions.createProject),
       mergeMap((action) =>
         this.projectsService.createProject(action.project).pipe(
-          map(() => {
-            return ProjectsActions.createProjectSuccess({ project: action.project });
+          map((response) => {
+            return ProjectsActions.createProjectSuccess({ project: response });
           }),
           catchError((error) => of(ProjectsActions.createProjectFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  updateProject$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.updateProject),
+      mergeMap(({ id, payload }) =>
+        this.projectsService.updateProject(id, payload).pipe(
+          map((response) => {
+            return ProjectsActions.updateProjectSuccess({ project: response });
+          }),
+          catchError((error) => of(ProjectsActions.updateProjectFailure({ error }))),
         ),
       ),
     );
