@@ -26,7 +26,7 @@ export class ProjectsService {
     return this.http.patch<Project>(`${this.apiUrl}/${id}`, payload);
   }
 
-  deleteProject(id: string) {
+  deleteProjectById(id: string) {
     return this.http.delete<Project>(`${this.apiUrl}/${id}`);
   }
 }

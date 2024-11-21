@@ -10,6 +10,7 @@ import { Project } from '../../models/project.model';
 import { Store } from '@ngrx/store';
 import { selectAllProjects } from '../../store/projects.selectors';
 import * as ProjectsActions from '../../store/projects.actions';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-projects-list',
@@ -19,15 +20,37 @@ import * as ProjectsActions from '../../store/projects.actions';
   styleUrl: './projects-list.component.scss',
 })
 export class ProjectsListComponent implements OnInit {
-  projects$: Observable<Project[]> ;
+  projects$: Observable<Project[]> = this.store.select(selectAllProjects);
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(ProjectsActions.getAllProjects());
-    this.projects$ = this.store.select(selectAllProjects);
   }
 
   onSelect(id: string) {}
-  onDelete(id: string, event: MouseEvent) {}
+
+  onDelete(id: string, event: MouseEvent) {
+    event.stopPropagation(); // Stops the click event that triggering the onSelect
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this project?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.store.dispatch(ProjectsActions.deleteProjectById({ id }));
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Cancelled',
+          detail: 'Project deletion cancelled',
+        });
+      },
+    });
+  }
 }

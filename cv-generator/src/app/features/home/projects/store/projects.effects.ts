@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { ProjectsService } from "../services/projects.service";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ProjectsService } from '../services/projects.service';
 import * as ProjectsActions from '../store/projects.actions';
-import { mergeMap, map, catchError, of } from "rxjs";
+import { mergeMap, map, catchError, of } from 'rxjs';
 
 @Injectable()
 export class ProjectsEffects {
@@ -26,5 +26,17 @@ export class ProjectsEffects {
     );
   });
 
-  
-  }
+  deleteProjectById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.deleteProjectById),
+      mergeMap((action) =>
+        this.projectsService.deleteProjectById(action.id).pipe(
+          map(() => {
+            return ProjectsActions.deleteProjectByIdSuccess({ id: action.id });
+          }),
+          catchError((error) => of(ProjectsActions.deleteProjectByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
+}

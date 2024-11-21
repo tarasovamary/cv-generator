@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
       AuthStoreModule,
       EmployeesStoreModule,
       CvStoreModule,
-      ProjectsStoreModule
+      ProjectsStoreModule,
     ),
     provideStoreDevtools(devToolStoreConfig),
     provideEffects(),
