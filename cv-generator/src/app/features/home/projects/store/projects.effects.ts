@@ -3,12 +3,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProjectsService } from '../services/projects.service';
 import * as ProjectsActions from '../store/projects.actions';
 import { mergeMap, map, catchError, of } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProjectsEffects {
   constructor(
     private actions$: Actions,
     private projectsService: ProjectsService,
+    private messageService: MessageService,
+    private router: Router,
   ) {}
 
   getAllProjects$ = createEffect(() => {
@@ -67,4 +71,86 @@ export class ProjectsEffects {
       ),
     );
   });
+
+  redirectToProjectsList$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ProjectsActions.createProjectSuccess, ProjectsActions.updateProjectSuccess),
+        map(() => {
+          this.router.navigate([`/home/projects/list`]);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Notifications
+  // -----------------------------------------------------------------------------------------------------
+
+  createProjectSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.createProjectSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Project created successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  createProjectFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.createProjectFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error creating project' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateProjectSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.updateProjectSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Project updated successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  updateProjectFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.updateProjectFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error updating project' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteProjectSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.deleteProjectByIdSuccess),
+        map(() => {
+          this.messageService.add({ severity: 'success', summary: 'Project deleted successfully' });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  deleteProjectFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProjectsActions.deleteProjectByIdFailure),
+        map(() => {
+          this.messageService.add({ severity: 'error', summary: 'Error deleting project' });
+        }),
+      ),
+    { dispatch: false },
+  );
 }
