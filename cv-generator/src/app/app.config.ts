@@ -11,6 +11,7 @@ import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { AuthStoreModule } from './features/auth/store/auth.module';
 import { CvStoreModule } from './features/home/cv/store/cv.module';
 import { EmployeesStoreModule } from './features/home/employees/store/employees.module';
+import { ProjectsStoreModule } from './features/home/projects/store/projects.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       AuthStoreModule,
       EmployeesStoreModule,
       CvStoreModule,
+      ProjectsStoreModule
     ),
     provideStoreDevtools(devToolStoreConfig),
     provideEffects(),

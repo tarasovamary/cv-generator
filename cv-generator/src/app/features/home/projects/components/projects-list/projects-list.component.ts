@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -7,6 +7,9 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
+import { Store } from '@ngrx/store';
+import { selectAllProjects } from '../../store/projects.selectors';
+import * as ProjectsActions from '../../store/projects.actions';
 
 @Component({
   selector: 'app-projects-list',
@@ -15,10 +18,15 @@ import { Project } from '../../models/project.model';
   templateUrl: './projects-list.component.html',
   styleUrl: './projects-list.component.scss',
 })
-export class ProjectsListComponent {
-  projects$: Observable<Project[]>;
+export class ProjectsListComponent implements OnInit {
+  projects$: Observable<Project[]> ;
 
-  constructor() {}
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(ProjectsActions.getAllProjects());
+    this.projects$ = this.store.select(selectAllProjects);
+  }
 
   onSelect(id: string) {}
   onDelete(id: string, event: MouseEvent) {}
