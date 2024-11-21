@@ -26,6 +26,20 @@ export class ProjectsEffects {
     );
   });
 
+  createProject$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.createProject),
+      mergeMap((action) =>
+        this.projectsService.createProject(action.project).pipe(
+          map(() => {
+            return ProjectsActions.createProjectSuccess({ project: action.project });
+          }),
+          catchError((error) => of(ProjectsActions.createProjectFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   deleteProjectById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.deleteProjectById),

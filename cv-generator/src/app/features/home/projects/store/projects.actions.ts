@@ -8,6 +8,10 @@ export const getAllProjectsSuccess = createAction(
 );
 export const getAllProjectsFailure = createAction('[PROJECTS] Get All Projects (Failure)', props<{ error: any }>());
 
+export const createProject = createAction('[PROJECTS] Create Project', props<{ project: Project }>());
+export const createProjectSuccess = createAction('[PROJECTS] Create Project (Success)', props<{ project: Project }>());
+export const createProjectFailure = createAction('[PROJECTS] Create Project (Failure)', props<{ error: any }>());
+
 export const deleteProjectById = createAction('[PROJECTS] Delete Project by ID', props<{ id: string }>());
 export const deleteProjectByIdSuccess = createAction(
   '[PROJECTS] Delete Project by ID (Success)',
