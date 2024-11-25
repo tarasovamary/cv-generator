@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../../employees/models/employee.model';
 import { CV } from '../models/cv.model';
+import { Project } from '../../projects/models/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { CV } from '../models/cv.model';
 export class CvService {
   private apiUrl = 'http://localhost:3000/employees';
   private apiCvUrl = 'http://localhost:3000/cv';
+  private apiProjectUrl = 'http://localhost:3000/projects';
 
   constructor(private http: HttpClient) {}
   getAllCvs() {
@@ -37,5 +39,9 @@ export class CvService {
 
   getAllEmployees() {
     return this.http.get<Employee[]>(this.apiUrl);
+  }
+
+  getAllProjects() {
+    return this.http.get<Project[]>(this.apiProjectUrl);
   }
 }

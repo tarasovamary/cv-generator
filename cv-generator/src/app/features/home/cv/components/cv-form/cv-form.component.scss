@@ -15,7 +15,8 @@
     @include flex-center(column, normal, normal);
 
     &:nth-child(4),
-    &:nth-child(5) {
+    &:nth-child(5),
+    &:nth-child(6) {
       grid-column: 1 / -1;
     }
 
@@ -71,7 +72,7 @@
   }
 
   &__button {
-    margin-bottom: 2.4rem;
+    margin-top: 4rem;
     @include flex-center(row, end, normal);
 
     button {
@@ -84,6 +85,35 @@
         color: rgba(0, 0, 0, 0.5);
         cursor: not-allowed;
       }
+    }
+  }
+
+  &__multiselect {
+    width: 100%;
+
+    ::ng-deep .p-multiselect,
+    ::ng-deep .p-multiselect-filter,
+    ::ng-deep .p-inputtext,
+    ::ng-deep .p-component {
+      font-size: 1.4rem;
+    }
+
+    ::ng-deep .p-multiselect {
+      height: 3rem;
+      width: 100%;
+    }
+
+    &-label {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: $font-additional-color;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-item {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

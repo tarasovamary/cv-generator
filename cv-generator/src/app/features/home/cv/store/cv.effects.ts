@@ -113,6 +113,21 @@ export class CvEffects {
     );
   });
 
+  getAllProjects$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CvActions.getAllProjects),
+      mergeMap(() =>
+        this.cvService.getAllProjects().pipe(
+          map((response) => {
+            //@ts-ignore
+            return CvActions.getAllProjectsSuccess({ projects: response.projects });
+          }),
+          catchError((error) => of(CvActions.getAllProjectsFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   redirectToCv$ = createEffect(
     () => {
       return this.actions$.pipe(

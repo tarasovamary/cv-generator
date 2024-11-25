@@ -1,6 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { ProjectsState, initialState } from './projects.state';
-import { createProjectSuccess, deleteProjectByIdSuccess, getAllProjectsSuccess, getProjectByIdSuccess, resetCurrentProject, updateProjectSuccess } from './projects.actions';
+import {
+  createProjectSuccess,
+  deleteProjectByIdSuccess,
+  getAllProjectsSuccess,
+  getProjectByIdSuccess,
+  resetCurrentProject,
+  updateProjectSuccess,
+} from './projects.actions';
 
 export const projectsReducer = createReducer<ProjectsState>(
   initialState,
@@ -28,13 +35,15 @@ export const projectsReducer = createReducer<ProjectsState>(
       projects: state.projects.filter((project) => project._id !== id),
     }),
   ),
-  
+
   on(
     updateProjectSuccess,
     (state, { project }): ProjectsState => ({
       ...state,
-      projects: state.projects.map((updatingProject) => updatingProject._id !== project._id ? project : updatingProject),
-    })
+      projects: state.projects.map((updatingProject) =>
+        updatingProject._id !== project._id ? project : updatingProject,
+      ),
+    }),
   ),
 
   on(

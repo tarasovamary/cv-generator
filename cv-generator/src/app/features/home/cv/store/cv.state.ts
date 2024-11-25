@@ -1,4 +1,5 @@
 import { Employee } from '../../employees/models/employee.model';
+import { Project } from '../../projects/models/project.model';
 import { CV } from '../models/cv.model';
 
 export interface CvState {
@@ -6,6 +7,7 @@ export interface CvState {
   currentCv: CV | null;
   employees: Employee[];
   selectedEmployee: Employee | null;
+  projects: Project[];
 }
 
 export const initialState: CvState = {
@@ -13,4 +15,5 @@ export const initialState: CvState = {
   currentCv: null,
   employees: [],
   selectedEmployee: null,
+  projects: [],
 };

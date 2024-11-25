@@ -10,6 +10,7 @@
   }
 
   &__message {
+    margin-top: 0;
     font-size: 1.4rem;
     color: $font-additional-color;
     margin-bottom: 1.5rem;
@@ -17,7 +18,7 @@
 
   &__dropdown {
     width: 100%;
-    max-width: 250px;
+    margin-bottom: 1.5rem;
 
     ::ng-deep .p-dropdown,
     ::ng-deep .p-inputtext,

@@ -5,6 +5,7 @@ import {
   getAllCvEmployeesSuccess,
   getAllCvForEmployeeSuccess,
   getAllCvsSuccess,
+  getAllProjectsSuccess,
   getCvByIdSuccess,
   resetCurrentCv,
   setSelectedEmployee,
@@ -75,6 +76,14 @@ export const cvReducer = createReducer<CvState>(
     (state, { id }): CvState => ({
       ...state,
       selectedEmployee: state.employees.find((employee) => employee._id == id),
+    }),
+  ),
+
+  on(
+    getAllProjectsSuccess,
+    (state, { projects }): CvState => ({
+      ...state,
+      projects,
     }),
   ),
 );

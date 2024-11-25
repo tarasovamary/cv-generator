@@ -8,6 +8,8 @@ import { Employee } from '../../../employees/models/employee.model';
 import { getAllCvEmployees, resetCurrentCv } from '../../store/cv.actions';
 import { selectAllCvEmployees } from '../../store/cv.selectors';
 import { CvFormComponent, InitialCvFormState } from '../cv-form/cv-form.component';
+import { Project } from '../../../projects/models/project.model';
+import { CvState } from '../../store/cv.state';
 
 @Component({
   selector: 'app-create-cv',
@@ -21,7 +23,7 @@ export class CreateCvComponent implements OnInit {
   selectedEmployee!: Employee;
   employees$: Observable<Employee[]> = this.store.select(selectAllCvEmployees);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<CvState>) {}
 
   ngOnInit() {
     this.store.dispatch(getAllCvEmployees());

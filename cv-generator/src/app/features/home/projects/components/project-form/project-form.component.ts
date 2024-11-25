@@ -74,21 +74,21 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
-      // Set current project into form 
-      this.project$
-        .pipe(
-          takeUntil(this.destroy$),
-          filter(Boolean),
-          tap((project) => {
-            const transformedProject = {
-              ...project,
-              startDate: project.startDate ? new Date(project.startDate) : null,
-              endDate: project.endDate ? new Date(project.endDate) : null,
-            };
-            this.projectForm.patchValue(transformedProject);
-          }),
-        )
-        .subscribe();
+    // Set current project into form
+    this.project$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(Boolean),
+        tap((project) => {
+          const transformedProject = {
+            ...project,
+            startDate: project.startDate ? new Date(project.startDate) : null,
+            endDate: project.endDate ? new Date(project.endDate) : null,
+          };
+          this.projectForm.patchValue(transformedProject);
+        }),
+      )
+      .subscribe();
   }
 
   onSubmit() {

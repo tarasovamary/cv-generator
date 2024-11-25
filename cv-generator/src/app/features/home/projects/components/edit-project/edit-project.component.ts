@@ -6,8 +6,6 @@ import { ProjectFormComponent } from '../project-form/project-form.component';
   standalone: true,
   imports: [ProjectFormComponent],
   templateUrl: './edit-project.component.html',
-  styleUrl: './edit-project.component.scss'
+  styleUrl: './edit-project.component.scss',
 })
-export class EditProjectComponent {
-
-}
+export class EditProjectComponent {}

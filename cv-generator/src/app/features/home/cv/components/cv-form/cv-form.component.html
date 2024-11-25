@@ -150,6 +150,28 @@
       Please, specify the field
     </div>
   </div>
+
+  <!--Multiselect for selecting projects-->
+  <div class="cv__field cv__multiselect">
+    <p class="cv__multiselect-label">To complete your CV, add projects:</p>
+    <p-multiSelect
+      [options]="projects$ | async"
+      optionLabel="name"
+      optionValue="_id"
+      formControlName="projects"
+      placeholder="Select projects">
+      <ng-template
+        let-project
+        pTemplate="item">
+        <div class="project-item">
+          <div class="project-name">{{ project.name }}</div>
+          <div class="project-dates">
+            {{ project.startDate | date: 'mediumDate' }} - {{ (project.endDate | date: 'mediumDate') || 'Ongoing' }}
+          </div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+  </div>
 </form>
 
 <!--Create CV button-->

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Employee } from '../../employees/models/employee.model';
 import { CV } from '../models/cv.model';
+import { Project } from '../../projects/models/project.model';
 export const getAllCvs = createAction('[CV] Get All Cvs');
 export const getAllCvsSuccess = createAction('[CV] Get All Cvs (Success)', props<{ cvs: CV[] }>());
 export const getAllCvsFailure = createAction('[CV] Get All Cvs (Failure)', props<{ error: any }>());
@@ -41,3 +42,7 @@ export const getAllCvEmployeesSuccess = createAction(
 export const getAllCvEmployeesFailure = createAction('[CV] Get All Employees (Failure)', props<{ error: any }>());
 
 export const setSelectedEmployee = createAction('[CV] Set Selected Employee', props<{ id: string }>());
+
+export const getAllProjects = createAction('[CV] Get All Projects');
+export const getAllProjectsSuccess = createAction('[CV] Get All Projects (Success)', props<{ projects: Project[] }>());
+export const getAllProjectsFailure = createAction('[CV] Get All Projects (Failure)', props<{ error: any }>());

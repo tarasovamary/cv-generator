@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -27,7 +27,10 @@ import {
 import * as CvActions from '../../../cv/store/cv.actions';
 import { Employee } from '../../../employees/models/employee.model';
 import { CV } from '../../models/cv.model';
-import { selectCurrentCv, selectCvId, selectSelectedEmployee } from '../../store/cv.selectors';
+import { selectAllProjects, selectCurrentCv, selectCvId, selectSelectedEmployee } from '../../store/cv.selectors';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { getAllProjects } from '../../../cv/store/cv.actions';
+import { Project } from '../../../projects/models/project.model';
 
 export interface InitialCvFormState {
   entityId?: string;
@@ -37,7 +40,7 @@ export interface InitialCvFormState {
 @Component({
   selector: 'app-cv-form',
   standalone: true,
-  imports: [NgClass, FormsModule, ReactiveFormsModule, ChipsModule],
+  imports: [NgClass, FormsModule, ReactiveFormsModule, ChipsModule, MultiSelectModule, AsyncPipe, DatePipe],
   templateUrl: './cv-form.component.html',
   styleUrl: './cv-form.component.scss',
 })
@@ -56,6 +59,7 @@ export class CvFormComponent implements OnInit, OnDestroy {
   employee$: Observable<Employee>;
   cv$: Observable<CV>;
   cvId$: Observable<string>;
+  projects$: Observable<Project[]> = this.store.select(selectAllProjects);
 
   // Subjects
   private destroy$ = new Subject<void>();
@@ -67,6 +71,8 @@ export class CvFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(getAllProjects());
+
     this.cvId$ = this.store.select(selectCvId);
 
     this.employeeForm = this.fb.group({
@@ -82,7 +88,7 @@ export class CvFormComponent implements OnInit, OnDestroy {
       specialization: [null, Validators.required],
       department: [null, Validators.required],
       skills: [[], Validators.required],
-      projects: [[], Validators.required],
+      projects: [[]],
       description: [''],
     });
 
