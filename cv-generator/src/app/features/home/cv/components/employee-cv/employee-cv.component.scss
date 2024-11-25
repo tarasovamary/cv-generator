@@ -19,6 +19,8 @@
     @include flex-center();
     padding: 1rem 0;
     font-size: 1.4rem;
+    color: #333;
+    font-weight: 500;
     border-bottom: 1.5px solid #e0e0e0;
     cursor: pointer;
     @extend %transition;
@@ -64,8 +66,10 @@
   }
 
   &__label {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 600;
     margin-bottom: 0.5rem;
-    font-size: $input-label-font-size;
   }
 
   &__input {
@@ -86,7 +90,7 @@
   }
 
   &__input-readonly {
-    background-color: #f0f0f0;
+    background-color: #fdfcfc;
     border-color: #ddd;
     color: #6c757d;
     cursor: not-allowed;
