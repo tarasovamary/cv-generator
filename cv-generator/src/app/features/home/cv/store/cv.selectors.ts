@@ -20,3 +20,6 @@ export const selectEmployeeById = (id: string) =>
   createSelector(getCvState, (state) => state.employees.find((employee) => employee._id === id));
 
 export const selectAllProjects = createSelector(getCvState, (state) => state.projects);
+
+export const selectProjectById = (id: string) =>
+  createSelector(getCvState, (state) => state.projects.find((project) => project._id === id));

@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { filter, take } from 'rxjs';
 import { selectEmployeeById } from '../employees/store/employees.selectors';
-import { selectCvById } from '../cv/store/cv.selectors';
+import { selectCvById, selectProjectById } from '../cv/store/cv.selectors';
 
 @Component({
   selector: 'app-page-header',
@@ -58,7 +58,11 @@ export class PageHeaderComponent implements OnInit {
           });
 
           this.store.pipe(select(selectCvById(routeURL)), take(1)).subscribe((cv) => {
-            if (cv) label = cv.name; // Assuming 'name' is a field in CV
+            if (cv) label = cv.name;
+          });
+
+          this.store.pipe(select(selectProjectById(routeURL)), take(1)).subscribe((project) => {
+            if (project) label = project.name;
           });
         }
 
@@ -74,3 +78,4 @@ export class PageHeaderComponent implements OnInit {
     return /^[0-9a-fA-F]{24}$/.test(routeURL);
   }
 }
+
