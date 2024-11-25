@@ -28,7 +28,14 @@ const cvSchema = new mongoose.Schema({
   skills: {
     type: [String],
     required: true
-  }
+  },
+  projects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Project',
+      required: false,
+    },
+  ],
 }, {
   timestamps: true,
 });

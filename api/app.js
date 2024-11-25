@@ -227,7 +227,7 @@ app.delete('/employees/:id', authenticate, async (req, res) => {
  */
 app.post('/employees/:id/cv', authenticate, async (req, res) => {
     try {
-        const { name, description, department, specialization, skills } = req.body;
+        const { name, description, department, specialization, skills, projects } = req.body;
 
         const employee = await Employee.findById(req.params.id);
         if (!employee) {
@@ -240,7 +240,8 @@ app.post('/employees/:id/cv', authenticate, async (req, res) => {
             employeeId: req.params.id,
             department,
             specialization,
-            skills
+            skills,
+            projects
         });
 
         await cv.save();

@@ -6,6 +6,7 @@ export interface CV {
   department: string;
   specialization: string;
   skills: string[];
+  projects: string[];
   createdAt?: string;
   updatedAt?: string;
 }

@@ -82,6 +82,7 @@ export class CvFormComponent implements OnInit, OnDestroy {
       specialization: [null, Validators.required],
       department: [null, Validators.required],
       skills: [[], Validators.required],
+      projects: [[], Validators.required],
       description: [''],
     });
 
