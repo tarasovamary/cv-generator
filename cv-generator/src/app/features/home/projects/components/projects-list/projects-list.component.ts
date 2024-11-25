@@ -1,21 +1,21 @@
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
-import { Store } from '@ngrx/store';
-import { selectAllProjects } from '../../store/projects.selectors';
 import * as ProjectsActions from '../../store/projects.actions';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { selectAllProjects } from '../../store/projects.selectors';
 
 @Component({
   selector: 'app-projects-list',
   standalone: true,
-  imports: [TableModule, ButtonModule, AsyncPipe, NgIf, RouterLink, ConfirmDialogModule, ToastModule, DatePipe],
+  imports: [TableModule, ButtonModule, AsyncPipe, NgIf, ConfirmDialogModule, ToastModule, DatePipe],
   templateUrl: './projects-list.component.html',
   styleUrl: './projects-list.component.scss',
 })
@@ -26,13 +26,23 @@ export class ProjectsListComponent implements OnInit {
     private store: Store,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.store.dispatch(ProjectsActions.getAllProjects());
   }
 
-  onSelect(id: string) {}
+  onAddProject() {
+    this.store.dispatch(ProjectsActions.resetCurrentProject());
+    this.router.navigate(['../create'], { relativeTo: this.route });
+  }
+
+  onSelect(id: string) {
+    this.store.dispatch(ProjectsActions.getProjectById({ id }));
+    this.router.navigate(['../', id], { relativeTo: this.route });
+  }
 
   onDelete(id: string, event: MouseEvent) {
     event.stopPropagation(); // Stops the click event that triggering the onSelect

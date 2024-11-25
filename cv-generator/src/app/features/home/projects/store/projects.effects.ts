@@ -30,6 +30,21 @@ export class ProjectsEffects {
     );
   });
 
+  getProjectById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProjectsActions.getProjectById),
+      mergeMap((action) =>
+        this.projectsService.getProjectById(action.id).pipe(
+          map((response) => {
+            //@ts-ignore
+            return ProjectsActions.getProjectByIdSuccess({ project: response.project });
+          }),
+          catchError((error) => of(ProjectsActions.getProjectByIdFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
   createProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.createProject),

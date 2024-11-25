@@ -11,9 +11,10 @@ import {
 import { Store } from '@ngrx/store';
 import { CalendarModule } from 'primeng/calendar';
 import { ChipsModule } from 'primeng/chips';
-import { Observable, ReplaySubject, Subject, defer, filter, map, of, switchMap, take, takeUntil } from 'rxjs';
+import { Observable, ReplaySubject, Subject, defer, filter, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
 import * as ProjectActions from '../../store/projects.actions';
-import { selectProjectId } from '../../store/projects.selectors';
+import { selectCurrentProject, selectProjectId } from '../../store/projects.selectors';
+import { Project } from '../../models/project.model';
 
 @Component({
   selector: 'app-project-form',
@@ -27,6 +28,7 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
   projectForm: UntypedFormGroup;
 
   // Observables
+  project$: Observable<Project> = this.store.select(selectCurrentProject);
   projectId$: Observable<string> = this.store.select(selectProjectId);
 
   // Subjects
@@ -71,6 +73,22 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
         ),
       )
       .subscribe();
+
+      // Set current project into form 
+      this.project$
+        .pipe(
+          takeUntil(this.destroy$),
+          filter(Boolean),
+          tap((project) => {
+            const transformedProject = {
+              ...project,
+              startDate: project.startDate ? new Date(project.startDate) : null,
+              endDate: project.endDate ? new Date(project.endDate) : null,
+            };
+            this.projectForm.patchValue(transformedProject);
+          }),
+        )
+        .subscribe();
   }
 
   onSubmit() {
