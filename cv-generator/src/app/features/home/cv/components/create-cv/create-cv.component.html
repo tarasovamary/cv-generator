@@ -1,0 +1,32 @@
+<div class="create-cv__content">
+  <!-- Dropdown for selecting an employee -->
+  <ng-container *ngIf="employees$ | async as employees">
+    <p class="create-cv__message">Please select an employee to create a CV:</p>
+    <div class="create-cv__dropdown">
+      <p-dropdown
+        [options]="employees"
+        [(ngModel)]="selectedEmployee"
+        placeholder="Select an employee">
+        <!-- Template for displaying an item in a list -->
+        <ng-template
+          let-employee
+          pTemplate="item">
+          {{ employee.firstName }} {{ employee.lastName }}
+        </ng-template>
+        <!-- Template for displaying the selected item -->
+        <ng-template
+          let-employee
+          pTemplate="selectedItem">
+          {{ employee.firstName }} {{ employee.lastName }}
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </ng-container>
+
+  <!--CV form-->
+  <app-cv-form
+    [state]="{
+      entityId: selectedEmployee?._id,
+      entityType: 'employee',
+    }"></app-cv-form>
+</div>

@@ -1,0 +1,165 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+
+.employee-cv {
+  &__content {
+    @include flex-center(row, normal, start);
+    gap: 2.4rem;
+  }
+
+  &__page {
+    width: 100%;
+  }
+
+  &__projects {
+    padding: 1rem;
+
+    h3 {
+      font-size: 1.4rem;
+      margin: 0 0 1rem;
+    }
+
+    &_message {
+      font-size: 1.4rem;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  &__list {
+    min-width: 20rem;
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  }
+  &__item {
+    @include flex-center();
+    padding: 1rem 0;
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 500;
+    border-bottom: 1.5px solid #e0e0e0;
+    cursor: pointer;
+    @extend %transition;
+
+    &.active {
+      color: $link-hover-color;
+      border-bottom: 2px solid $link-hover-color;
+    }
+
+    i {
+      padding-left: 1.2rem;
+      font-size: 1.4rem;
+      color: #b6b6b6;
+      @extend %transition;
+      cursor: pointer;
+    }
+
+    i:hover {
+      color: rgb(254, 60, 60);
+    }
+  }
+
+  &__item:hover {
+    color: $link-hover-color;
+    border-bottom: 2px solid $link-hover-color;
+  }
+
+  &__form {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  &__field {
+    @include flex-center(column, normal, normal);
+
+    &:nth-child(1),
+    &:last-child {
+      grid-column: span 2;
+    }
+  }
+
+  &__label {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    @extend %input-styles;
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    @extend %transition;
+  }
+
+  &__error-visible {
+    opacity: 1;
+  }
+
+  &__input-readonly {
+    background-color: #fdfcfc;
+    border-color: #ddd;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  &__buttons {
+    @include flex-center(row, flex-end, normal);
+    gap: 10px;
+    button {
+      font-size: 1.4rem;
+      padding: 1rem 1.5rem;
+    }
+
+    &_edit {
+      @include button-styles();
+    }
+
+    &_submit {
+      @include button-styles();
+
+      &:disabled {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.5);
+        cursor: not-allowed;
+      }
+    }
+
+    &_cancel {
+      background-color: transparent;
+      border: 1px solid rgb(171, 171, 171);
+      color: $font-primary-color;
+      cursor: pointer;
+      @extend %transition;
+
+      &:hover {
+        background-color: rgb(236, 236, 236);
+      }
+    }
+  }
+
+  &__link {
+    color: $link-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
+  ::ng-deep .p-component {
+    font-size: 1.4rem;
+  }
+}

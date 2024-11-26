@@ -1,0 +1,184 @@
+<!-- Employee form -->
+<form
+  [formGroup]="employeeForm"
+  class="employee__form">
+  <!--Employee First Name-->
+  <div class="cv__field">
+    <label
+      for="firstName"
+      class="cv__label"
+      >First Name</label
+    >
+    <input
+      id="firstName"
+      formControlName="firstName"
+      pInputText
+      class="cv__input" />
+  </div>
+
+  <!--Employee Last Name-->
+  <div class="cv__field">
+    <label
+      for="lastName"
+      class="cv__label"
+      >Last Name</label
+    >
+    <input
+      id="lastName"
+      formControlName="lastName"
+      pInputText
+      class="cv__input" />
+  </div>
+
+  <!--Employee Email-->
+  <div class="cv__field">
+    <label
+      for="email"
+      class="cv__label"
+      >Email</label
+    >
+    <input
+      id="email"
+      formControlName="email"
+      pInputText
+      class="cv__input" />
+  </div>
+</form>
+<!-- CV form -->
+<form
+  [formGroup]="cvForm"
+  class="cv__form">
+  <!--CV Name-->
+  <div class="cv__field">
+    <label
+      for="name"
+      class="cv__label"
+      >CV Name</label
+    >
+    <input
+      id="name"
+      formControlName="name"
+      pInputText
+      class="cv__input" />
+    <div
+      class="cv__error"
+      [ngClass]="{
+        'cv__error-visible': cvForm.get('name')?.invalid && cvForm.get('name')?.touched,
+      }">
+      Please, specify the field
+    </div>
+  </div>
+
+  <!--Employee Specialization-->
+  <div class="cv__field">
+    <label
+      for="specialization"
+      class="cv__label"
+      >Specialization</label
+    >
+    <input
+      id="specialization"
+      formControlName="specialization"
+      pInputText
+      class="cv__input" />
+    <div
+      class="cv__error"
+      [ngClass]="{
+        'cv__error-visible': cvForm.get('specialization')?.invalid && cvForm.get('specialization')?.touched,
+      }">
+      Please, specify the field
+    </div>
+  </div>
+
+  <!--Employee Department-->
+  <div class="cv__field">
+    <label
+      for="department"
+      class="cv__label"
+      >Department</label
+    >
+    <input
+      id="department"
+      formControlName="department"
+      pInputText
+      class="cv__input" />
+    <div
+      class="cv__error"
+      [ngClass]="{
+        'cv__error-visible': cvForm.get('department')?.invalid && cvForm.get('department')?.touched,
+      }">
+      Please, specify the field
+    </div>
+  </div>
+
+  <!--Employee Skills-->
+  <div class="cv__field">
+    <label
+      for="skills"
+      class="cv__label"
+      >Skills</label
+    >
+    <p-chips
+      formControlName="skills"
+      class="cv__input_tags">
+    </p-chips>
+    <div
+      class="cv__error"
+      [ngClass]="{ 'cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched }">
+      Please, specify at least one skill
+    </div>
+  </div>
+
+  <!--Employee Description-->
+  <div class="cv__field">
+    <label
+      for="description"
+      class="cv__label"
+      >Description</label
+    >
+    <textarea
+      id="description"
+      formControlName="description"
+      pInputTextarea
+      class="cv__input"
+      rows="4"></textarea>
+    <div
+      class="cv__error"
+      [ngClass]="{
+        'cv__error-visible': cvForm.get('description')?.invalid && cvForm.get('description')?.touched,
+      }">
+      Please, specify the field
+    </div>
+  </div>
+
+  <!--Multiselect for selecting projects-->
+  <div class="cv__field cv__multiselect">
+    <p class="cv__multiselect-label">To complete your CV, add projects:</p>
+    <p-multiSelect
+      [options]="projects$ | async"
+      optionLabel="name"
+      optionValue="_id"
+      formControlName="projects"
+      placeholder="Select projects">
+      <ng-template
+        let-project
+        pTemplate="item">
+        <div class="project-item">
+          <div class="project-name">{{ project.name }}</div>
+          <div class="project-dates">
+            {{ project.startDate | date: 'mediumDate' }} - {{ (project.endDate | date: 'mediumDate') || 'Ongoing' }}
+          </div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+  </div>
+</form>
+
+<!--Create CV button-->
+<div class="cv__button">
+  <button
+    [disabled]="cvForm.disabled || cvForm.invalid"
+    (click)="onSubmit()">
+    Submit
+  </button>
+</div>

@@ -1,0 +1,155 @@
+<!-- Project Form -->
+<form
+  [formGroup]="projectForm"
+  class="project__form">
+  <!-- Project Name -->
+  <div class="project__field">
+    <label
+      for="name"
+      class="project__label"
+      >Project Name</label
+    >
+    <input
+      id="name"
+      formControlName="name"
+      pInputText
+      class="project__input" />
+    <div
+      class="project__error"
+      [ngClass]="{
+        'project__error-visible': projectForm.get('name')?.invalid && projectForm.get('name')?.touched,
+      }">
+      Please, specify the project name
+    </div>
+  </div>
+
+  <!-- Start Date -->
+  <div class="project__field">
+    <label
+      for="startDate"
+      class="project__label"
+      >Start Date</label
+    >
+    <p-calendar
+      id="startDate"
+      formControlName="startDate"
+      class="project__calendar">
+    </p-calendar>
+  </div>
+
+  <!-- End Date -->
+  <div class="project__field">
+    <label
+      for="endDate"
+      class="project__label"
+      >End Date</label
+    >
+    <p-calendar
+      id="endDate"
+      formControlName="endDate"
+      class="project__calendar">
+    </p-calendar>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="project__field">
+    <label
+      for="techStack"
+      class="project__label"
+      >Tech Stack</label
+    >
+    <p-chips
+      id="techStack"
+      formControlName="techStack"
+      class="project__chips">
+    </p-chips>
+    <div
+      class="project__error"
+      [ngClass]="{
+        'project__error-visible': projectForm.get('techStack')?.invalid && projectForm.get('techStack')?.touched,
+      }">
+      Please, specify at least one technology
+    </div>
+  </div>
+
+  <!-- Roles -->
+  <div class="project__field">
+    <label
+      for="roles"
+      class="project__label"
+      >Roles</label
+    >
+    <p-chips
+      id="roles"
+      formControlName="roles"
+      class="project__chips">
+    </p-chips>
+    <div
+      class="project__error"
+      [ngClass]="{
+        'project__error-visible': projectForm.get('roles')?.invalid && projectForm.get('roles')?.touched,
+      }">
+      Please, specify at least one role
+    </div>
+  </div>
+
+  <!-- Team size -->
+  <div class="project__field">
+    <label
+      for="teamSize"
+      class="project__label"
+      >Team Size</label
+    >
+    <input
+      id="teamSize"
+      formControlName="teamSize"
+      pInputText
+      class="project__input" />
+    <div
+      class="project__error"
+      [ngClass]="{
+        'project__error-visible': projectForm.get('teamSize')?.invalid && projectForm.get('teamSize')?.touched,
+      }">
+      Please, specify the team size
+    </div>
+  </div>
+
+  <!-- Project Description -->
+  <div class="project__field">
+    <label
+      for="description"
+      class="project__label"
+      >Description</label
+    >
+    <textarea
+      id="description"
+      formControlName="description"
+      pInputTextarea
+      class="project__input"
+      rows="4"></textarea>
+  </div>
+
+  <!-- Project Responsibilities -->
+  <div class="project__field">
+    <label
+      for="responsibilities"
+      class="project__label"
+      >Responsibilities</label
+    >
+    <textarea
+      id="responsibilities"
+      formControlName="responsibilities"
+      pInputTextarea
+      class="project__input"
+      rows="4"></textarea>
+  </div>
+</form>
+
+<!-- Create Project Button -->
+<div class="project__button">
+  <button
+    [disabled]="projectForm.disabled || projectForm.invalid"
+    (click)="onSubmit()">
+    Submit
+  </button>
+</div>

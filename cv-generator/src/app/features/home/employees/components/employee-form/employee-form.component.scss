@@ -1,0 +1,68 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+
+.employee-form {
+  &__form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  &__field {
+    @include flex-center(column, normal, normal);
+  }
+
+  &__label {
+    margin-bottom: 0.5rem;
+    font-size: $input-label-font-size;
+  }
+
+  &__input {
+    @extend %input-styles;
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    @extend %transition;
+  }
+
+  &__error-visible {
+    opacity: 1;
+  }
+
+  &__buttons {
+    @include flex-center(row, flex-end, normal);
+    gap: 10px;
+    button {
+      font-size: 1.4rem;
+      padding: 1rem 1.5rem;
+    }
+
+    &_submit {
+      @include button-styles();
+
+      &:disabled {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.5);
+        cursor: not-allowed;
+      }
+    }
+
+    &_cancel {
+      background-color: transparent;
+      border: 1px solid rgb(171, 171, 171);
+      color: $font-primary-color;
+      cursor: pointer;
+      @extend %transition;
+
+      &:hover {
+        background-color: rgb(236, 236, 236);
+      }
+    }
+  }
+}

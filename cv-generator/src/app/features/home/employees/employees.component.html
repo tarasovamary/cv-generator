@@ -1,1 +1,53 @@
-<p>employees works!</p>
+<div class="employees__content">
+  <!--Add Employee button-->
+  <div class="employees__button">
+    <button [routerLink]="['./create']">Add employee</button>
+  </div>
+
+  <!--Employee list-->
+  <ng-container *ngIf="employees$ | async as employees">
+    <!--Confirmation dialog-->
+    <p-confirmDialog />
+
+    <!--Table-->
+    <p-table
+      [value]="employees"
+      [paginator]="true"
+      [rows]="10"
+      [responsiveLayout]="'scroll'">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Specialization</th>
+          <th></th>
+        </tr>
+      </ng-template>
+
+      <ng-template
+        pTemplate="body"
+        let-employee>
+        <tr (click)="onEmployeeSelect(employee._id)">
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.specialization }}</td>
+          <td>
+            <button
+              (click)="onDeleteEmployee(employee._id, $event)"
+              class="employees__button_delete">
+              <i
+                class="pi pi-trash"
+                title="Delete employee"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-container>
+</div>
+<p-toast />
+<router-outlet></router-outlet>

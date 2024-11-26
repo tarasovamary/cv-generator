@@ -1,0 +1,36 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+
+.edit-employee {
+  background-color: $bg-additional-color;
+  padding: 3.5rem;
+  min-height: $page-container-height;
+
+  &__tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      a {
+        display: inline-block;
+        padding: 0.8rem 1.2rem;
+        text-decoration: none;
+        color: $font-primary-color;
+        border-bottom: 2px solid transparent;
+        @extend %transition;
+
+        &:hover {
+          color: $link-hover-color;
+        }
+
+        &.active {
+          border-color: $active-tab-color;
+          font-weight: bold;
+          color: $link-color;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+
+.create-employee {
+  background-color: $bg-additional-color;
+  padding: 3.5rem;
+  min-height: $page-container-height;
+
+  &__title {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+  }
+}

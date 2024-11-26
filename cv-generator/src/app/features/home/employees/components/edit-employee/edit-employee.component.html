@@ -1,0 +1,24 @@
+<div class="edit-employee">
+  <!-- Navigation -->
+  <ul class="edit-employee__tabs">
+    <li>
+      <a
+        [routerLink]="'info'"
+        routerLinkActive="active"
+        >Info</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="'cv'"
+        routerLinkActive="active"
+        >CV</a
+      >
+    </li>
+  </ul>
+
+  <!-- Content -->
+  <div class="edit-employee__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -7,6 +7,8 @@
 %input-styles {
   width: 100%;
   padding: $input-padding;
+  font-family: $font-family;
+  color: $font-additional-color;
   font-size: $input-font-size;
   border: 1px solid #ccc;
   border-radius: $input-border-radius;

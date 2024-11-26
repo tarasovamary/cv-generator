@@ -80,6 +80,38 @@
     font-size: 1.6rem;
     padding: 1rem;
     margin-top: 2.2rem;
+    @include flex-center(column, normal, center);
     @include button-styles();
+  }
+
+  &__switch {
+    font-size: 1.4rem;
+    color: $font-additional-color;
+  }
+  &__link {
+    color: $link-color;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.5rem;
+
+    &:hover {
+      color: $link-hover-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+::ng-deep .p-password {
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
   }
 }

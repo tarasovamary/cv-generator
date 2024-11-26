@@ -1,8 +1,7 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { EmployeesComponent } from './employees/employees.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { ResumeComponent } from './resume/resume.component';
+import { CvComponent } from './cv/cv.component';
 
 export const homeRoutes: Route[] = [
   {
@@ -10,16 +9,21 @@ export const homeRoutes: Route[] = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'employees',
+        pathMatch: 'full',
+      },
+      {
         path: 'employees',
-        component: EmployeesComponent,
+        loadChildren: () => import('../home/employees/employees.routes').then((r) => r.employeesRoutes),
       },
       {
         path: 'projects',
-        component: ProjectsComponent,
+        loadChildren: () => import('../home/projects/projects.routes').then((r) => r.projectsRoutes),
       },
       {
-        path: 'resume',
-        component: ResumeComponent,
+        path: 'cv',
+        loadChildren: () => import('../home/cv/cv.routes').then((r) => r.cvRoutes),
       },
     ],
   },

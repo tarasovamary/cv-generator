@@ -1,0 +1,34 @@
+@import '../../../../../../assets/scss/helpers/variables.scss';
+@import '../../../../../../assets/scss/helpers/mixins.scss';
+@import '../../../../../../assets/scss/helpers/placeholders.scss';
+
+.create-cv {
+  &__content {
+    padding: 3.5rem;
+    background: $header-title-color;
+    min-height: $page-container-height;
+  }
+
+  &__message {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: $font-additional-color;
+    margin-bottom: 1.5rem;
+  }
+
+  &__dropdown {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    ::ng-deep .p-dropdown,
+    ::ng-deep .p-inputtext,
+    ::ng-deep .p-component {
+      width: 100%;
+      font-size: 1.4rem;
+    }
+
+    ::ng-deep .p-dropdown {
+      height: 3rem;
+    }
+  }
+}
