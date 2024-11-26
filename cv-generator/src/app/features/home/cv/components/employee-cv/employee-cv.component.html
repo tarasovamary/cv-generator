@@ -228,7 +228,6 @@
                       <p><strong>Start Date:</strong> {{ project.startDate | date: 'mediumDate' }}</p>
                       <p><strong>End Date:</strong> {{ (project.endDate | date: 'mediumDate') || 'Ongoing' }}</p>
                       <p><strong>Team size:</strong> {{ project.teamSize }}</p>
-
                       <p>
                         <strong>Tech Stack:</strong>
                         <span *ngFor="let tech of project.techStack; let isLast = last">

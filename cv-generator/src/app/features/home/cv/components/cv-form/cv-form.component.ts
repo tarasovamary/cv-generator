@@ -71,7 +71,8 @@ export class CvFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getAllProjects());
+    this.store.dispatch(CvActions.getAllCvEmployees());
+    this.store.dispatch(CvActions.getAllProjects());
 
     this.cvId$ = this.store.select(selectCvId);
 
