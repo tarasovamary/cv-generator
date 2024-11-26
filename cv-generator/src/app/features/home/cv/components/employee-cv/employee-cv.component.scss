@@ -8,6 +8,25 @@
     gap: 2.4rem;
   }
 
+  &__page {
+    width: 100%;
+  }
+
+  &__projects {
+    padding: 1rem;
+
+    h3 {
+      font-size: 1.4rem;
+      margin: 0 0 1rem;
+    }
+
+    &_message {
+      font-size: 1.4rem;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
   &__list {
     min-width: 20rem;
     ul {
@@ -138,5 +157,9 @@
     &:hover {
       color: $link-hover-color;
     }
+  }
+
+  ::ng-deep .p-component {
+    font-size: 1.4rem;
   }
 }

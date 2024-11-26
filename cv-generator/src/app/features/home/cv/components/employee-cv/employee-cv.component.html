@@ -24,196 +24,238 @@
           </ul>
         </div>
 
-        <!-- CV form -->
-        <form
-          [formGroup]="cvForm"
-          class="employee-cv__form">
-          <!--CV Name-->
-          <div class="employee-cv__field">
-            <label
-              for="name"
-              class="employee-cv__label"
-              >CV Name</label
-            >
-            <input
-              id="name"
-              formControlName="name"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('name')?.invalid && cvForm.get('name')?.touched,
-              }">
-              Please, specify the field
+        <div class="employee-cv__page">
+          <!-- CV form -->
+          <form
+            [formGroup]="cvForm"
+            class="employee-cv__form">
+            <!--CV Name-->
+            <div class="employee-cv__field">
+              <label
+                for="name"
+                class="employee-cv__label"
+                >CV Name</label
+              >
+              <input
+                id="name"
+                formControlName="name"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('name')?.invalid && cvForm.get('name')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee First Name-->
-          <div class="employee-cv__field">
-            <label
-              for="firstName"
-              class="employee-cv__label"
-              >First Name</label
-            >
-            <input
-              id="firstName"
-              formControlName="firstName"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('firstName')?.invalid && cvForm.get('firstName')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee First Name-->
+            <div class="employee-cv__field">
+              <label
+                for="firstName"
+                class="employee-cv__label"
+                >First Name</label
+              >
+              <input
+                id="firstName"
+                formControlName="firstName"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('firstName')?.invalid && cvForm.get('firstName')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Last Name-->
-          <div class="employee-cv__field">
-            <label
-              for="lastName"
-              class="employee-cv__label"
-              >Last Name</label
-            >
-            <input
-              id="lastName"
-              formControlName="lastName"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('lastName')?.invalid && cvForm.get('lastName')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Last Name-->
+            <div class="employee-cv__field">
+              <label
+                for="lastName"
+                class="employee-cv__label"
+                >Last Name</label
+              >
+              <input
+                id="lastName"
+                formControlName="lastName"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('lastName')?.invalid && cvForm.get('lastName')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Email-->
-          <div class="employee-cv__field">
-            <label
-              for="email"
-              class="employee-cv__label"
-              >Email</label
-            >
-            <input
-              id="email"
-              formControlName="email"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('email')?.invalid && cvForm.get('email')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Email-->
+            <div class="employee-cv__field">
+              <label
+                for="email"
+                class="employee-cv__label"
+                >Email</label
+              >
+              <input
+                id="email"
+                formControlName="email"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('email')?.invalid && cvForm.get('email')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Specialization-->
-          <div class="employee-cv__field">
-            <label
-              for="specialization"
-              class="employee-cv__label"
-              >Specialization</label
-            >
-            <input
-              id="specialization"
-              formControlName="specialization"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible':
-                  cvForm.get('specialization')?.invalid && cvForm.get('specialization')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Specialization-->
+            <div class="employee-cv__field">
+              <label
+                for="specialization"
+                class="employee-cv__label"
+                >Specialization</label
+              >
+              <input
+                id="specialization"
+                formControlName="specialization"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible':
+                    cvForm.get('specialization')?.invalid && cvForm.get('specialization')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Department-->
-          <div class="employee-cv__field">
-            <label
-              for="department"
-              class="employee-cv__label"
-              >Department</label
-            >
-            <input
-              id="department"
-              formControlName="department"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('department')?.invalid && cvForm.get('department')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Department-->
+            <div class="employee-cv__field">
+              <label
+                for="department"
+                class="employee-cv__label"
+                >Department</label
+              >
+              <input
+                id="department"
+                formControlName="department"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('department')?.invalid && cvForm.get('department')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Skills-->
-          <div class="employee-cv__field">
-            <label
-              for="skills"
-              class="employee-cv__label"
-              >Skills</label
-            >
-            <input
-              id="skills"
-              formControlName="skills"
-              pInputText
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input" />
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Skills-->
+            <div class="employee-cv__field">
+              <label
+                for="skills"
+                class="employee-cv__label"
+                >Skills</label
+              >
+              <input
+                id="skills"
+                formControlName="skills"
+                pInputText
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input" />
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible': cvForm.get('skills')?.invalid && cvForm.get('skills')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
-          </div>
 
-          <!--Employee Description-->
-          <div class="employee-cv__field">
-            <label
-              for="description"
-              class="employee-cv__label"
-              >Description</label
-            >
-            <textarea
-              id="description"
-              formControlName="description"
-              pInputTextarea
-              [readOnly]="isReadOnly"
-              [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
-              class="employee-cv__input"
-              rows="4"></textarea>
-            <div
-              class="employee-cv__error"
-              [ngClass]="{
-                'employee-cv__error-visible': cvForm.get('description')?.invalid && cvForm.get('description')?.touched,
-              }">
-              Please, specify the field
+            <!--Employee Description-->
+            <div class="employee-cv__field">
+              <label
+                for="description"
+                class="employee-cv__label"
+                >Description</label
+              >
+              <textarea
+                id="description"
+                formControlName="description"
+                pInputTextarea
+                [readOnly]="isReadOnly"
+                [ngClass]="{ 'employee-cv__input-readonly': isReadOnly }"
+                class="employee-cv__input"
+                rows="4"></textarea>
+              <div
+                class="employee-cv__error"
+                [ngClass]="{
+                  'employee-cv__error-visible':
+                    cvForm.get('description')?.invalid && cvForm.get('description')?.touched,
+                }">
+                Please, specify the field
+              </div>
             </div>
+          </form>
+
+          <!--Projects-->
+          <div class="employee-cv__projects">
+            <h3>Projects</h3>
+            <p-accordion *ngIf="cvForm.get('projects')?.value as projectIds">
+              <ng-container *ngFor="let projectId of projectIds">
+                <ng-container *ngIf="projectId | getProjectById$ | async as project">
+                  <p-accordionTab [header]="project.name">
+                    <div class="project-details">
+                      <p><strong>Start Date:</strong> {{ project.startDate | date: 'mediumDate' }}</p>
+                      <p><strong>End Date:</strong> {{ (project.endDate | date: 'mediumDate') || 'Ongoing' }}</p>
+                      <p><strong>Team size:</strong> {{ project.teamSize }}</p>
+
+                      <p>
+                        <strong>Tech Stack:</strong>
+                        <span *ngFor="let tech of project.techStack; let isLast = last">
+                          {{ tech }}<span *ngIf="!isLast">, </span>
+                        </span>
+                      </p>
+                      <p>
+                        <strong>Roles:</strong>
+                        <span *ngFor="let role of project.roles; let isLast = last">
+                          {{ role }}<span *ngIf="!isLast">, </span>
+                        </span>
+                      </p>
+                      <p *ngIf="project.description"><strong>Description:</strong> {{ project.description }}</p>
+                      <p *ngIf="project.responsibilities">
+                        <strong>Responsibilities:</strong> {{ project.responsibilities }}
+                      </p>
+                    </div>
+                  </p-accordionTab>
+                </ng-container>
+              </ng-container>
+            </p-accordion>
+
+            <ng-container *ngIf="!cvForm.get('projects').value.length">
+              <p class="employee-cv__projects_message">No added projects.</p>
+            </ng-container>
           </div>
-        </form>
+        </div>
       </div>
 
       <!--CV buttons-->

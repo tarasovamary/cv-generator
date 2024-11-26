@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -12,6 +12,8 @@ import * as CvActions from '../../../cv/store/cv.actions';
 import { selectAllCv } from '../../../cv/store/cv.selectors';
 import { Employee } from '../../../employees/models/employee.model';
 import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
+import { AccordionModule } from 'primeng/accordion';
+import { GetProjectByIdPipe } from '../../pipes/get-project-by-id.pipe';
 
 @Component({
   selector: 'app-employee-cv',
@@ -26,6 +28,9 @@ import { selectCurrentEmployee } from '../../../employees/store/employees.select
     RouterLink,
     ConfirmDialogModule,
     ToastModule,
+    AccordionModule,
+    GetProjectByIdPipe,
+    DatePipe,
   ],
   templateUrl: './employee-cv.component.html',
   styleUrl: './employee-cv.component.scss',
@@ -53,6 +58,8 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(CvActions.getAllProjects());
+
     this.employeeId = this.route.parent.snapshot.paramMap.get('id')!;
     this.store.dispatch(CvActions.getAllCvForEmployee({ employeeId: this.employeeId }));
 
@@ -67,6 +74,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       specialization: ['', Validators.required],
       department: ['', Validators.required],
       skills: [[], Validators.required],
+      projects: [[]],
       description: [''],
     });
 
