@@ -3,17 +3,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AccordionModule } from 'primeng/accordion';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { Observable, Subject, filter, takeUntil, tap } from 'rxjs';
-import { CV } from '../../../cv/models/cv.model';
-import * as CvActions from '../../../cv/store/cv.actions';
-import { selectAllCv } from '../../../cv/store/cv.selectors';
 import { Employee } from '../../../employees/models/employee.model';
 import { selectCurrentEmployee } from '../../../employees/store/employees.selectors';
-import { AccordionModule } from 'primeng/accordion';
+import { CV } from '../../models/cv.model';
 import { GetProjectByIdPipe } from '../../pipes/get-project-by-id.pipe';
+import * as CvActions from '../../store/cv.actions';
+import { selectAllCv } from '../../store/cv.selectors';
 
 @Component({
   selector: 'app-employee-cv',

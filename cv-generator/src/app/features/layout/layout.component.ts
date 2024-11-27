@@ -5,10 +5,10 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-layout',
   standalone: true,
   imports: [HeaderComponent, SidebarComponent, RouterOutlet, PageHeaderComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './layout.component.html',
+  styleUrl: './layout.component.scss',
 })
-export class HomeComponent {}
+export class LayoutComponent {}

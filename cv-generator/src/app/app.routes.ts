@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from './features/auth/auth.component';
 import { authGuard } from './core/guards/auth.guard';
+import { AuthComponent } from './features/auth/auth.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'home',
-    loadChildren: () => import('./features/home/home.routes').then((r) => r.homeRoutes),
+    loadChildren: () => import('./features/layout/layout.routes').then((r) => r.layoutRoutes),
     canActivate: [authGuard],
   },
   { path: 'signup', component: AuthComponent, data: { isSignup: true } },

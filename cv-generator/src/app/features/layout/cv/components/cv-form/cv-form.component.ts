@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ChipsModule } from 'primeng/chips';
+import { MultiSelectModule } from 'primeng/multiselect';
 import {
   BehaviorSubject,
   Observable,
@@ -24,13 +25,11 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import * as CvActions from '../../../cv/store/cv.actions';
 import { Employee } from '../../../employees/models/employee.model';
-import { CV } from '../../models/cv.model';
-import { selectAllProjects, selectCurrentCv, selectCvId, selectSelectedEmployee } from '../../store/cv.selectors';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { getAllProjects } from '../../../cv/store/cv.actions';
 import { Project } from '../../../projects/models/project.model';
+import { CV } from '../../models/cv.model';
+import * as CvActions from '../../store/cv.actions';
+import { selectAllProjects, selectCurrentCv, selectCvId, selectSelectedEmployee } from '../../store/cv.selectors';
 
 export interface InitialCvFormState {
   entityId?: string;

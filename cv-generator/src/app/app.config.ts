@@ -9,9 +9,9 @@ import { routes } from './app.routes';
 import { devToolStoreConfig } from './configs/devToolsStore.config';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { AuthStoreModule } from './features/auth/store/auth.module';
-import { CvStoreModule } from './features/home/cv/store/cv.module';
-import { EmployeesStoreModule } from './features/home/employees/store/employees.module';
-import { ProjectsStoreModule } from './features/home/projects/store/projects.module';
+import { CvStoreModule } from './features/layout/cv/store/cv.module';
+import { EmployeesStoreModule } from './features/layout/employees/store/employees.module';
+import { ProjectsStoreModule } from './features/layout/projects/store/projects.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { CvService } from '../services/cv.service';
-import * as CvActions from '../store/cv.actions';
+import * as CvActions from './cv.actions';
 
 @Injectable()
 export class CvEffects {

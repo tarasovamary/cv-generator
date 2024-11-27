@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { ProjectsService } from '../services/projects.service';
-import * as ProjectsActions from '../store/projects.actions';
+import * as ProjectsActions from './projects.actions';
 
 @Injectable()
 export class ProjectsEffects {
