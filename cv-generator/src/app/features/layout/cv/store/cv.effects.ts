@@ -17,7 +17,7 @@ export class CvEffects {
 
   getAllCvs$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CvActions.getAllCvs),
+      ofType(CvActions.getAllCvs, CvActions.deleteCvByIdSuccess),
       switchMap(() =>
         this.cvService.getAllCvs().pipe(
           map((response) => {

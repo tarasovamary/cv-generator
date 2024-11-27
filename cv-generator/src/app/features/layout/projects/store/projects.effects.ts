@@ -17,7 +17,7 @@ export class ProjectsEffects {
 
   getAllProjects$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProjectsActions.getAllProjects),
+      ofType(ProjectsActions.getAllProjects, ProjectsActions.deleteProjectByIdSuccess),
       switchMap(() =>
         this.projectsService.getAllProjects().pipe(
           map((response) => {

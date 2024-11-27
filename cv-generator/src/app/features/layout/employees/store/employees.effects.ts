@@ -17,7 +17,7 @@ export class EmployeesEffects {
 
   getAllEmployees$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(EmployeesActions.getAllEmployees),
+      ofType(EmployeesActions.getAllEmployees, EmployeesActions.deleteEmployeeSuccess),
       switchMap((action) =>
         this.employeesService.getAllEmployees().pipe(
           map((response) => {

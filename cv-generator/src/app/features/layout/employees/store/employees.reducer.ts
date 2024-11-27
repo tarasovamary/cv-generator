@@ -36,14 +36,6 @@ export const employeesReducer = createReducer<EmployeesState>(
   ),
 
   on(
-    deleteEmployeeSuccess,
-    (state, { id }): EmployeesState => ({
-      ...state,
-      employees: state.employees.filter((employee) => employee._id !== id),
-    }),
-  ),
-
-  on(
     resetCurrentEmployee,
     (state): EmployeesState => ({
       ...state,

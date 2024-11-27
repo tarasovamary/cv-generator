@@ -40,14 +40,6 @@ export const cvReducer = createReducer<CvState>(
   ),
 
   on(
-    deleteCvByIdSuccess,
-    (state, { id }): CvState => ({
-      ...state,
-      cvs: state.cvs.filter((cv) => cv._id !== id),
-    }),
-  ),
-
-  on(
     createCvSuccess,
     (state, { cv }): CvState => ({
       ...state,

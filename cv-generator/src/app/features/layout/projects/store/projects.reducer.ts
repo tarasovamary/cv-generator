@@ -29,14 +29,6 @@ export const projectsReducer = createReducer<ProjectsState>(
   ),
 
   on(
-    deleteProjectByIdSuccess,
-    (state, { id }): ProjectsState => ({
-      ...state,
-      projects: state.projects.filter((project) => project._id !== id),
-    }),
-  ),
-
-  on(
     updateProjectSuccess,
     (state, { project }): ProjectsState => ({
       ...state,
