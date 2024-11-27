@@ -210,11 +210,14 @@ app.patch('/employees/:id', authenticate, async (req, res) => {
 app.delete('/employees/:id', authenticate, async (req, res) => {
     try {
         const employee = await Employee.findByIdAndDelete(req.params.id);
+
         if (!employee) {
-            return handleError(res, 404, { error: "Employee not found" });
+            return res.status(404).send({ message: 'Employee not found' });
         }
-        res.status(200).send({ message: 'Employee deleted successfully' });
+
+        res.status(200).send({ message: 'Employee and associated CVs deleted successfully' });
     } catch (error) {
+        console.log(error)
         handleError(res, 400, error);
     }
 })

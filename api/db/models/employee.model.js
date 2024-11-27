@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { CV } = require('./cv.model');
 
 const EmployeeSchema = new mongoose.Schema({
     firstName: {
@@ -27,6 +28,19 @@ const EmployeeSchema = new mongoose.Schema({
     specialization: {
         type: String,
         required: true
+    },
+});
+
+// Pre-hook for 'findOneAndDelete' to delete associated CVs
+EmployeeSchema.pre('findOneAndDelete', async function(next) {
+    try {
+        const employee = await this.model.findOne(this.getFilter());
+        if (employee) {
+            await CV.deleteMany({ employeeId: employee._id });
+        }
+        next();
+    } catch (error) {
+        next(error);
     }
 });
 

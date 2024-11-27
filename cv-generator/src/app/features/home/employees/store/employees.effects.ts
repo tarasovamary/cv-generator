@@ -151,7 +151,7 @@ export class EmployeesEffects {
       this.actions$.pipe(
         ofType(EmployeesActions.deleteEmployeeSuccess),
         map(() => {
-          this.messageService.add({ severity: 'success', summary: 'Employee deleted successfully' });
+          this.messageService.add({ severity: 'success', summary: 'Employee and associated CVs deleted successfully' });
         }),
       ),
     { dispatch: false },

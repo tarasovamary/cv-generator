@@ -2,16 +2,15 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 import { Observable } from 'rxjs';
 import { Employee } from './models/employee.model';
 import { deleteEmployee, getAllEmployees } from './store/employees.actions';
 import { selectAllEmployees } from './store/employees.selectors';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import * as EmployeeActions from './store/employees.actions';
 
 @Component({
   selector: 'app-employees',
@@ -44,7 +43,8 @@ export class EmployeesComponent implements OnInit {
     event.stopPropagation(); // Stops the click event that triggering the onEmployeeSelect
 
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this employee?',
+      message:
+        'Are you sure you want to delete this employee? All CVs associated with the employee will also be deleted.',
       header: 'Delete Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
