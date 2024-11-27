@@ -34,7 +34,7 @@ export class ProjectsListComponent implements OnInit {
     this.store.dispatch(ProjectsActions.getAllProjects());
   }
 
-  onAddProject() {
+  onCreateProject() {
     this.store.dispatch(ProjectsActions.resetCurrentProject());
     this.router.navigate(['../create'], { relativeTo: this.route });
   }

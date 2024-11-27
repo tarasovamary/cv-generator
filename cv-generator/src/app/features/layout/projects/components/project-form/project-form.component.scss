@@ -45,6 +45,8 @@
   }
 
   &__label {
+    color: $input-label-font-color;
+    font-weight: $input-label-font-weight;
     margin-bottom: 0.5rem;
     font-size: $input-label-font-size;
   }

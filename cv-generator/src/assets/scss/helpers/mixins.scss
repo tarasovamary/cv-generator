@@ -10,6 +10,9 @@
   color: white;
   border: none;
   border-radius: $btn-border-radius;
+  font-weight: $btn-font-weight;
+  min-width: 10rem;
+  padding: 1rem 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
