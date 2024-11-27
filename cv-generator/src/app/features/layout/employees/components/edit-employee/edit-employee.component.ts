@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
@@ -16,6 +16,7 @@ import { EmployeeCvComponent } from '../../../cv/components/employee-cv/employee
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditEmployeeComponent implements OnInit {
   employeeId!: string;

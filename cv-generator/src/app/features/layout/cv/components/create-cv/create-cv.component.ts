@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropdownModule } from 'primeng/dropdown';
@@ -17,6 +17,7 @@ import { CvState } from '../../store/cv.state';
   imports: [DropdownModule, NgIf, AsyncPipe, FormsModule, CvFormComponent],
   templateUrl: './create-cv.component.html',
   styleUrl: './create-cv.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateCvComponent implements OnInit {
   initialCvFormState: InitialCvFormState;

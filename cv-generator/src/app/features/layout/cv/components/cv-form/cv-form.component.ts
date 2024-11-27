@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -42,6 +42,7 @@ export interface InitialCvFormState {
   imports: [NgClass, FormsModule, ReactiveFormsModule, ChipsModule, MultiSelectModule, AsyncPipe, DatePipe],
   templateUrl: './cv-form.component.html',
   styleUrl: './cv-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CvFormComponent implements OnInit, OnDestroy {
   @Input() set state(value: InitialCvFormState) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api/menuitem';
 import { MenuModule } from 'primeng/menu';
@@ -10,6 +10,7 @@ import * as AuthActions from '../auth/store/auth.actions';
   imports: [MenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   menuItems: MenuItem[] = [];

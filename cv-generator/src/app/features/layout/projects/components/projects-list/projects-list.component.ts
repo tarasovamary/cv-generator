@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -18,6 +18,7 @@ import { selectAllProjects } from '../../store/projects.selectors';
   imports: [TableModule, ButtonModule, AsyncPipe, NgIf, ConfirmDialogModule, ToastModule, DatePipe],
   templateUrl: './projects-list.component.html',
   styleUrl: './projects-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsListComponent implements OnInit {
   projects$: Observable<Project[]> = this.store.select(selectAllProjects);

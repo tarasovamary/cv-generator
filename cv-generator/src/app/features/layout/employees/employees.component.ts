@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -18,6 +18,7 @@ import { selectAllEmployees } from './store/employees.selectors';
   imports: [TableModule, ButtonModule, AsyncPipe, NgIf, RouterOutlet, RouterLink, ConfirmDialogModule, ToastModule],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService, MessageService],
 })
 export class EmployeesComponent implements OnInit {

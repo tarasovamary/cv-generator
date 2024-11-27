@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CvFormComponent, InitialCvFormState } from '../cv-form/cv-form.component';
 
@@ -9,6 +9,7 @@ import { CvFormComponent, InitialCvFormState } from '../cv-form/cv-form.componen
   imports: [CvFormComponent, NgIf],
   templateUrl: './edit-cv.component.html',
   styleUrl: './edit-cv.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditCvComponent {
   cvId!: string;

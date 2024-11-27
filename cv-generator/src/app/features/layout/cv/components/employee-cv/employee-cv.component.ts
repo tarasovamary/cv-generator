@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -34,6 +34,7 @@ import { selectAllCv } from '../../store/cv.selectors';
   ],
   templateUrl: './employee-cv.component.html',
   styleUrl: './employee-cv.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ConfirmationService, MessageService],
 })
 export class EmployeeCvComponent implements OnInit, OnDestroy {

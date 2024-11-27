@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -21,6 +21,7 @@ import * as EmployeesActions from '../../store/employees.actions';
   imports: [FormsModule, ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   // Form

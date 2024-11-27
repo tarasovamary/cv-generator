@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -22,6 +22,7 @@ import { Project } from '../../models/project.model';
   imports: [FormsModule, ReactiveFormsModule, NgClass, ChipsModule, CalendarModule],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectFormComponent implements OnInit, OnDestroy {
   // Form

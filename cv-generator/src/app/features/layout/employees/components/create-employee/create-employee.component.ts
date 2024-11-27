@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,6 +15,7 @@ import { Employee } from '../../models/employee.model';
   imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, EmployeeFormComponent],
   templateUrl: './create-employee.component.html',
   styleUrl: './create-employee.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateEmployeeComponent implements OnInit {
   constructor(private store: Store) {}

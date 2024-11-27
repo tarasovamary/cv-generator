@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -28,6 +28,7 @@ import { selectAllCv } from '../../store/cv.selectors';
   ],
   templateUrl: './cv-list.component.html',
   styleUrl: './cv-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CvListComponent implements OnInit {
   cvs$: Observable<CV[]> = this.store.select(selectAllCv);
