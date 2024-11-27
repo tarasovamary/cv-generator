@@ -48,10 +48,6 @@
   }
 }
 
-::ng-deep .p-datatable-tbody > tr > td:last-child {
-  @include flex-center(row, center, center);
-}
-
 ::ng-deep .p-component {
   font-size: 1.4rem;
 }
