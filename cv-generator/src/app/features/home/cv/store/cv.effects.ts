@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { CvService } from '../services/cv.service';
 import * as CvActions from '../store/cv.actions';
 
@@ -18,7 +18,7 @@ export class CvEffects {
   getAllCvs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.getAllCvs),
-      mergeMap(() =>
+      switchMap(() =>
         this.cvService.getAllCvs().pipe(
           map((response) => {
             return CvActions.getAllCvsSuccess({ cvs: response });
@@ -32,7 +32,7 @@ export class CvEffects {
   getAllCvForEmployee$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.getAllCvForEmployee),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.cvService.getAllCvForEmployee(action.employeeId).pipe(
           map((response) => {
             return CvActions.getAllCvForEmployeeSuccess({ cvs: response });
@@ -46,7 +46,7 @@ export class CvEffects {
   getCvById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.getCvById),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.cvService.getCvById(action.id).pipe(
           map((response) => {
             return CvActions.getCvByIdSuccess({ cv: response });
@@ -60,7 +60,7 @@ export class CvEffects {
   deleteCvById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.deleteCvById),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.cvService.deleteCvById(action.id).pipe(
           map(() => {
             return CvActions.deleteCvByIdSuccess({ id: action.id });
@@ -74,7 +74,7 @@ export class CvEffects {
   createCv$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.createCv),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.cvService.createCv(action.cv).pipe(
           map((response) => {
             return CvActions.createCvSuccess({ cv: response });
@@ -88,7 +88,7 @@ export class CvEffects {
   updateCv$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.updateCv),
-      mergeMap(({ id, payload }) =>
+      switchMap(({ id, payload }) =>
         this.cvService.updateCv(id, payload).pipe(
           map((response) => {
             return CvActions.updateCvSuccess({ cv: response });
@@ -102,7 +102,7 @@ export class CvEffects {
   getAllCvEmployees$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.getAllCvEmployees),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.cvService.getAllEmployees().pipe(
           map((response) => {
             return CvActions.getAllCvEmployeesSuccess({ employees: response });
@@ -116,7 +116,7 @@ export class CvEffects {
   getAllProjects$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CvActions.getAllProjects),
-      mergeMap(() =>
+      switchMap(() =>
         this.cvService.getAllProjects().pipe(
           map((response) => {
             //@ts-ignore

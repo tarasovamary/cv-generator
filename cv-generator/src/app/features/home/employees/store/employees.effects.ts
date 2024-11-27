@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { EmployeesService } from '../services/employees.service';
 import * as EmployeesActions from './employees.actions';
-import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class EmployeesEffects {
@@ -18,7 +18,7 @@ export class EmployeesEffects {
   getAllEmployees$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EmployeesActions.getAllEmployees),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.employeesService.getAllEmployees().pipe(
           map((response) => {
             return EmployeesActions.getAllEmployeesSuccess({ employees: response });
@@ -32,7 +32,7 @@ export class EmployeesEffects {
   getEmployeeById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EmployeesActions.getEmployeeById),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.employeesService.getEmployeeById(action.id).pipe(
           map((response) => {
             //@ts-ignore
@@ -47,7 +47,7 @@ export class EmployeesEffects {
   createEmployee$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EmployeesActions.createEmployee),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.employeesService.createEmployee(action.employee).pipe(
           map((response) => {
             return EmployeesActions.createEmployeeSuccess({ employee: response });
@@ -61,7 +61,7 @@ export class EmployeesEffects {
   updateEmployee$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EmployeesActions.updateEmployee),
-      mergeMap(({ id, payload }) =>
+      switchMap(({ id, payload }) =>
         this.employeesService.updateEmployee(id, payload).pipe(
           map((response) => {
             return EmployeesActions.updateEmployeeSuccess({ employee: response });
@@ -87,7 +87,7 @@ export class EmployeesEffects {
   deleteEmployee$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(EmployeesActions.deleteEmployee),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.employeesService.deleteEmployee(action.id).pipe(
           map(() => {
             return EmployeesActions.deleteEmployeeSuccess({ id: action.id });

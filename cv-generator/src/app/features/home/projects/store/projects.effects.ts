@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { MessageService } from 'primeng/api';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { ProjectsService } from '../services/projects.service';
 import * as ProjectsActions from '../store/projects.actions';
-import { mergeMap, map, catchError, of } from 'rxjs';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class ProjectsEffects {
@@ -18,7 +18,7 @@ export class ProjectsEffects {
   getAllProjects$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.getAllProjects),
-      mergeMap(() =>
+      switchMap(() =>
         this.projectsService.getAllProjects().pipe(
           map((response) => {
             //@ts-ignore
@@ -33,7 +33,7 @@ export class ProjectsEffects {
   getProjectById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.getProjectById),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.projectsService.getProjectById(action.id).pipe(
           map((response) => {
             //@ts-ignore
@@ -48,7 +48,7 @@ export class ProjectsEffects {
   createProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.createProject),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.projectsService.createProject(action.project).pipe(
           map((response) => {
             return ProjectsActions.createProjectSuccess({ project: response });
@@ -62,7 +62,7 @@ export class ProjectsEffects {
   updateProject$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.updateProject),
-      mergeMap(({ id, payload }) =>
+      switchMap(({ id, payload }) =>
         this.projectsService.updateProject(id, payload).pipe(
           map((response) => {
             return ProjectsActions.updateProjectSuccess({ project: response });
@@ -76,7 +76,7 @@ export class ProjectsEffects {
   deleteProjectById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProjectsActions.deleteProjectById),
-      mergeMap((action) =>
+      switchMap((action) =>
         this.projectsService.deleteProjectById(action.id).pipe(
           map(() => {
             return ProjectsActions.deleteProjectByIdSuccess({ id: action.id });
