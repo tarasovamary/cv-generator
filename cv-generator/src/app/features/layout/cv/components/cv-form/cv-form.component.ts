@@ -170,8 +170,6 @@ export class CvFormComponent implements OnInit, OnDestroy {
 
           this.cvForm.patchValue({
             employeeId: employee._id,
-            specialization: employee.specialization,
-            department: employee.department,
           });
         }),
       )

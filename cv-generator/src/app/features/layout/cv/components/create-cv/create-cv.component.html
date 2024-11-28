@@ -7,6 +7,7 @@
       <p-dropdown
         [options]="employees"
         [(ngModel)]="selectedEmployee"
+        (onChange)="onEmployeeChange($event.value)" 
         placeholder="Select an employee">
         <!-- Template for displaying an item in a list -->
         <ng-template

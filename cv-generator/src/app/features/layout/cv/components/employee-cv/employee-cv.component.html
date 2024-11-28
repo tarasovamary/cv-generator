@@ -279,7 +279,8 @@
       <p>
         There are no CVs available.
         <a
-          routerLink="/home/cv"
+          routerLink="/home/cv/create"
+          [queryParams]="{ employeeId: this.employeeId }"
           class="employee-cv__link"
           >Create a CV</a
         >
