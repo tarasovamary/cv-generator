@@ -91,7 +91,8 @@ export class CvEffects {
       switchMap(({ id, payload }) =>
         this.cvService.updateCv(id, payload).pipe(
           map((response) => {
-            return CvActions.updateCvSuccess({ cv: response });
+            //@ts-ignore
+            return CvActions.updateCvSuccess({ cv: response.cv });
           }),
           catchError((error) => of(CvActions.updateCvFailure({ error }))),
         ),
@@ -133,6 +134,7 @@ export class CvEffects {
       return this.actions$.pipe(
         ofType(CvActions.createCvSuccess, CvActions.updateCvSuccess),
         map((action) => {
+          console.log(action.cv.employeeId)
           if (action.cv.employeeId) {
             this.router.navigate([`/home/employees/${action.cv.employeeId}/cv`]);
           }
