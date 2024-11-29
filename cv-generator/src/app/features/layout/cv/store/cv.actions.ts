@@ -33,6 +33,7 @@ export const updateCvSuccess = createAction('[CV] Update Cv (Success)', props<{ 
 export const updateCvFailure = createAction('[CV] Update Cv (Failure)', props<{ error: any }>());
 
 export const resetCurrentCv = createAction('[CV] Reset Current CV');
+export const setCurrentCv = createAction('[CV] Set Current CV', props<{ cv: CV }>());
 
 export const getAllCvEmployees = createAction('[CV] Get All Employees');
 export const getAllCvEmployeesSuccess = createAction(

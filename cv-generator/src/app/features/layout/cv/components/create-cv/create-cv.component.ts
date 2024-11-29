@@ -25,7 +25,11 @@ export class CreateCvComponent implements OnInit {
   selectedEmployee!: Employee;
   employees$: Observable<Employee[]> = this.store.select(selectAllCvEmployees);
 
-  constructor(private store: Store<CvState>, private route: ActivatedRoute,  private router: Router) {}
+  constructor(
+    private store: Store<CvState>,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(getAllCvEmployees());
@@ -36,7 +40,7 @@ export class CreateCvComponent implements OnInit {
       entityType: 'employee',
     };
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const employeeId = params['employeeId'];
 
       if (employeeId) {
@@ -46,8 +50,8 @@ export class CreateCvComponent implements OnInit {
   }
 
   setSelectedEmployee(employeeId: string): void {
-    this.employees$.subscribe(employees => {
-      this.selectedEmployee = employees.find(employee => employee._id === employeeId);
+    this.employees$.subscribe((employees) => {
+      this.selectedEmployee = employees.find((employee) => employee._id === employeeId);
     });
   }
 
@@ -59,7 +63,7 @@ export class CreateCvComponent implements OnInit {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { employeeId: employee._id },
-        queryParamsHandling: 'merge' // Saves other request parameters
+        queryParamsHandling: 'merge', // Saves other request parameters
       });
     }
   }

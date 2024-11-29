@@ -61,11 +61,9 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(CvActions.getAllProjects());
 
+    // Get employeeId and load CVs
     this.employeeId = this.route.parent.snapshot.paramMap.get('id')!;
     this.store.dispatch(CvActions.getAllCvForEmployee({ employeeId: this.employeeId }));
-
-    this.cvs$ = this.store.select(selectAllCv);
-    this.employee$ = this.store.select(selectCurrentEmployee);
 
     this.cvForm = this.fb.group({
       name: ['', Validators.required],
@@ -79,20 +77,18 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       description: [''],
     });
 
-    // Set the first CV as active
+    // Monitor changes to the CV list and set the active CV
+    this.cvs$ = this.store.select(selectAllCv);
     this.cvs$
       .pipe(
         takeUntil(this.destroy$),
-        filter(Boolean),
-        tap((cvs) => {
-          if (cvs.length > 0) {
-            this.setActiveCv(cvs[0]);
-          }
-        }),
+        filter((cvs) => cvs.length > 0),
+        tap((cvs) => this.setActiveCvFromQueryOrFirst(cvs)),
       )
       .subscribe();
 
-    // Update CV form with employee info
+    // Update employee info
+    this.employee$ = this.store.select(selectCurrentEmployee);
     this.employee$
       .pipe(
         takeUntil(this.destroy$),
@@ -135,9 +131,21 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     this.router.navigate(['../']);
   }
 
+  setActiveCvFromQueryOrFirst(cvs: CV[]): void {
+    const queryCvId = this.route.snapshot.queryParamMap.get('id');
+    const activeCv = cvs.find((cv) => cv._id === queryCvId) || cvs[0];
+    this.setActiveCv(activeCv);
+  }
+
   setActiveCv(cv: CV) {
+    this.store.dispatch(CvActions.setCurrentCv({ cv }));
     this.activeCvId = cv._id;
     this.cvForm.patchValue(cv);
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { id: cv._id },
+    });
   }
 
   ngOnDestroy() {

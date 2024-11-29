@@ -37,4 +37,3 @@ export const deleteEmployeeSuccess = createAction('[Employees] Delete Employee (
 export const deleteEmployeeFailure = createAction('[Employees] Delete Employee (Failure)', props<{ error: string }>());
 
 export const resetCurrentEmployee = createAction('[Employees] Reset Current Employee');
-

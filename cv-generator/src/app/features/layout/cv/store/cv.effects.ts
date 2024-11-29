@@ -134,7 +134,6 @@ export class CvEffects {
       return this.actions$.pipe(
         ofType(CvActions.createCvSuccess, CvActions.updateCvSuccess),
         map((action) => {
-          console.log(action.cv.employeeId)
           if (action.cv.employeeId) {
             this.router.navigate([`/home/employees/${action.cv.employeeId}/cv`]);
           }

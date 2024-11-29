@@ -8,6 +8,7 @@ import {
   getAllProjectsSuccess,
   getCvByIdSuccess,
   resetCurrentCv,
+  setCurrentCv,
   setSelectedEmployee,
 } from './cv.actions';
 import { CvState, initialState } from './cv.state';
@@ -52,6 +53,14 @@ export const cvReducer = createReducer<CvState>(
     (state): CvState => ({
       ...state,
       currentCv: null,
+    }),
+  ),
+
+  on(
+    setCurrentCv,
+    (state, { cv }): CvState => ({
+      ...state,
+      currentCv: cv,
     }),
   ),
 
