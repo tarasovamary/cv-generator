@@ -135,7 +135,9 @@ export class CvEffects {
         ofType(CvActions.createCvSuccess, CvActions.updateCvSuccess),
         map((action) => {
           if (action.cv.employeeId) {
-            this.router.navigate([`/home/employees/${action.cv.employeeId}/cv`]);
+            this.router.navigate([`/home/employees/${action.cv.employeeId}/cv`], {
+              queryParams: { id: action.cv._id },
+            });
           }
         }),
       );
