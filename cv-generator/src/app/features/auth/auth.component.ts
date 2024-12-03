@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -13,17 +13,7 @@ import * as AuthActions from './store/auth.actions';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [
-    ButtonModule,
-    InputTextModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgClass,
-    NgIf,
-    RouterLink,
-    AsyncPipe,
-    PasswordModule,
-  ],
+  imports: [ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, NgClass, RouterLink, PasswordModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })

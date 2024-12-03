@@ -1,22 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let mockStore: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
+      providers: [provideMockStore()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    mockStore = TestBed.inject(MockStore);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 });

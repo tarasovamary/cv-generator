@@ -16,7 +16,7 @@ describe('CvComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create CvComponent', () => {
     expect(component).toBeTruthy();
   });
 });

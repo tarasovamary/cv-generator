@@ -7,7 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import * as EmployeesActions from '../../store/employees.actions';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
-import { Employee } from '../../models/employee.model';
 
 @Component({
   selector: 'app-create-employee',
