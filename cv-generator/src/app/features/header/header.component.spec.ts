@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import * as AuthActions from '../auth/store/auth.actions';
 import { HeaderComponent } from './header.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
@@ -23,4 +23,12 @@ describe('HeaderComponent', () => {
   it('should create HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should dispatch logout action when onLogout is called', () => {
+    spyOn(mockStore, 'dispatch');
+
+    component.onLogout();
+
+    expect(mockStore.dispatch).toHaveBeenCalledWith(AuthActions.logout());
+  })
 });
