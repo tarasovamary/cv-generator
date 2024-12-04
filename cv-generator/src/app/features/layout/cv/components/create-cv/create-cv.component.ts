@@ -1,9 +1,9 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropdownModule } from 'primeng/dropdown';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Employee } from '../../../employees/models/employee.model';
 import { getAllCvEmployees, resetCurrentCv } from '../../store/cv.actions';
 import { selectAllCvEmployees } from '../../store/cv.selectors';
@@ -20,11 +20,13 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrl: './create-cv.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCvComponent implements OnInit {
+export class CreateCvComponent implements OnInit, OnDestroy {
   initialCvFormState: InitialCvFormState;
   selectedEmployee!: Employee;
   employees$: Observable<Employee[]> = this.store.select(selectAllCvEmployees);
 
+  private destroy$ = new Subject<void>();
+  
   constructor(
     private store: Store<CvState>,
     private route: ActivatedRoute,
@@ -50,7 +52,7 @@ export class CreateCvComponent implements OnInit {
   }
 
   setSelectedEmployee(employeeId: string): void {
-    this.employees$.subscribe((employees) => {
+    this.employees$.pipe(takeUntil(this.destroy$)).subscribe((employees) => {
       this.selectedEmployee = employees.find((employee) => employee._id === employeeId);
     });
   }
@@ -66,5 +68,10 @@ export class CreateCvComponent implements OnInit {
         queryParamsHandling: 'merge', // Saves other request parameters
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
