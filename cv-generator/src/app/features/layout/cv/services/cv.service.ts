@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../../employees/models/employee.model';
 import { CV } from '../models/cv.model';
 import { Project } from '../../projects/models/project.model';
+import { environment } from '../../../../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CvService {
-  private apiUrl = 'http://localhost:3000/employees';
-  private apiCvUrl = 'http://localhost:3000/cv';
-  private apiProjectUrl = 'http://localhost:3000/projects';
+  private apiUrl = environment.apiUrl + '/employees';
+  private apiCvUrl = environment.apiUrl + '/cv';
+  private apiProjectUrl = environment.apiUrl + '/projects';
 
   constructor(private http: HttpClient) {}
   getAllCvs() {
