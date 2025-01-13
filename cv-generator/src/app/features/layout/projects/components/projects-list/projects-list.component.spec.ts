@@ -18,6 +18,8 @@ describe('ProjectsListComponent', () => {
   let mockActions: Actions;
   let router: Router;
   let route: ActivatedRoute;
+  let confirmationService: ConfirmationService;
+  let messageService: MessageService;
 
   const mockProjects: Project[] = [
     {
@@ -58,7 +60,9 @@ describe('ProjectsListComponent', () => {
     mockStore = TestBed.inject(MockStore);
 		router = TestBed.inject(Router);
     route = TestBed.inject(ActivatedRoute);
-
+    confirmationService = TestBed.inject(ConfirmationService);
+    messageService = TestBed.inject(MessageService);
+    
     component.projects$ = of(mockProjects);
 
     fixture.detectChanges();
@@ -104,5 +108,47 @@ describe('ProjectsListComponent', () => {
 
     expect(dispatchSpy).toHaveBeenCalledWith(ProjectsActions.getProjectById({id: projectId}));
     expect(navigateSpy).toHaveBeenCalledWith(['../', projectId], { relativeTo: route });
+  });
+
+  it('should delete the project by id', () => {
+    const stopPropagationSpy = jasmine.createSpy('stopPropagation');
+    const event = { stopPropagation: stopPropagationSpy } as unknown as MouseEvent;
+    const id = '123';
+
+    spyOn(confirmationService, 'confirm').and.callFake((config) => {
+      // Simulate clicking the "accept" button
+      config.accept();
+      // Return the service instance
+      return confirmationService;
+    });
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+
+    component.onDelete(id, event);
+
+    expect(stopPropagationSpy).toHaveBeenCalled(); // Check stopPropagation
+    expect(confirmationService.confirm).toHaveBeenCalled(); // Check confirmation dialog
+    expect(dispatchSpy).toHaveBeenCalledWith(ProjectsActions.deleteProjectById({ id })); // Check store dispatch
+  });
+
+  it('should reject deletion the project and show cancellation message', () => {
+    const stopPropagationSpy = jasmine.createSpy('stopPropagation');
+    const event = { stopPropagation: stopPropagationSpy } as unknown as MouseEvent;
+    const id = '123';
+
+    spyOn(confirmationService, 'confirm').and.callFake((config) => {
+      config.reject(); // Simulate "reject" action
+      return confirmationService; // Return the service instance
+    });
+    const messageSpy = spyOn(messageService, 'add');
+
+    component.onDelete(id, event);
+
+    expect(stopPropagationSpy).toHaveBeenCalled(); // Check stopPropagation
+    expect(confirmationService.confirm).toHaveBeenCalled(); // Ensure confirm was called
+    expect(messageSpy).toHaveBeenCalledWith({
+      severity: 'info',
+      summary: 'Cancelled',
+      detail: 'Project deletion cancelled',
+    }); // Ensure cancellation message was shown
   });
 });
