@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProjectsListComponent } from './projects-list.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { of } from 'rxjs';
-import { selectAllProjects } from '../../store/projects.selectors';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Actions } from '@ngrx/effects';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Project } from '../../models/project.model';
+import * as ProjectsActions from '../../store/projects.actions';
 
 describe('ProjectsListComponent', () => {
   let component: ProjectsListComponent;
   let fixture: ComponentFixture<ProjectsListComponent>;
   let mockStore: MockStore;
   let mockActions: Actions;
+  let router: Router;
+  let route: ActivatedRoute;
 
   const mockProjects: Project[] = [
     {
@@ -54,6 +56,8 @@ describe('ProjectsListComponent', () => {
     fixture = TestBed.createComponent(ProjectsListComponent);
     component = fixture.componentInstance;
     mockStore = TestBed.inject(MockStore);
+		router = TestBed.inject(Router);
+    route = TestBed.inject(ActivatedRoute);
 
     component.projects$ = of(mockProjects);
 
@@ -78,5 +82,27 @@ describe('ProjectsListComponent', () => {
       expect(projects[1].name).toBe('Project B');
       done();
     });
+  });
+
+  it('should dispatch resetCurrentProject and navigate to create project page', () => {
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.onCreateProject();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(ProjectsActions.resetCurrentProject());
+    expect(navigateSpy).toHaveBeenCalledWith(['../create'], { relativeTo: route });
+  });
+
+  it('should dispatch getProjectById and navigate to the project page', () => {
+    const projectId = '1';
+
+    const dispatchSpy = spyOn(mockStore, 'dispatch');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.onSelect(projectId);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(ProjectsActions.getProjectById({id: projectId}));
+    expect(navigateSpy).toHaveBeenCalledWith(['../', projectId], { relativeTo: route });
   });
 });
